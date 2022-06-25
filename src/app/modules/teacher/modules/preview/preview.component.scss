@@ -1,0 +1,77 @@
+.preview-container-card {
+  height: 80%;
+  width: 60%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.video-container {
+  height: 60%;
+  margin: 16px;
+  //position: relative;
+}
+
+.meeting-link-container {
+  height: 20%;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+
+.custom-button {
+  margin-top: 16px;
+  background-color: #1C5BA2;
+  color: white;
+  width: fit-content;
+  border-style: none;
+  border-radius: 30px;
+  padding: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.record-meeting-container {
+  height: max-content;
+  margin-left: 24px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+
+.audio-video-button-container {
+  width: 100%;
+}
+
+.mat-raised-button {
+  margin-top: 12px;
+  border-radius: 35px;
+}
+
+#previewBackground {
+  //position: relative;
+  object-fit: cover;
+  /*object-position: bottom;*/
+  width: calc(100vw);
+  height: calc(100vh);
+  min-width: calc(100vw);
+  min-height: calc(100vh);
+}
+
+#content {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#video{
+  /*Mirror code starts*/
+  transform: rotateY(180deg);
+  -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+  -moz-transform:rotateY(180deg); /* Firefox */
+  /*Mirror code ends*/
+}
+
+.spinner ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #3f51b5 !important;
+}

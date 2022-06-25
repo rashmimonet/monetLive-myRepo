@@ -1,0 +1,21 @@
+<div fxLayout="row" full-height>
+  <div  fxLayout="column" fxLayoutAlign="start center" border style="width: 18vw; height: calc(100vh);">
+    <app-call-sidenav [ngClass]="['side-nav']"
+                      [moduleName]="'manager'"
+                      [students]="students"
+                      full-width></app-call-sidenav>
+<!--                      (selectUser)="selectUser = $event"></app-call-sidenav>-->
+  </div>
+  <div fxFlex fxLayout="row" full-height relative>
+    <div fxFlex>
+      <app-top-bar [duration]="duration" [room]="room" [role]="'observer'"></app-top-bar>
+      <app-manager-video-panel *ngIf="loaded"
+                       [room] = "room.room"
+                       [Link]="dynamicLink"
+                       (studentEmit)="getStudents($event)"
+                       [module]="'manager'">
+<!--                       [selectUser]="selectUser"-->
+      </app-manager-video-panel>
+    </div>
+  </div>
+</div>

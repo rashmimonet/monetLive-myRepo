@@ -1,0 +1,27 @@
+[statusPayment] {
+  height: 80%;
+  div {
+    width: 100%;
+  }
+}
+[fontStyle] {
+  font-size: 18px;
+  font-weight: 500;
+}
+[downloadBtn] {
+  width: 170px;
+  height: 40px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 24px;
+  border: none;
+}
+
+[receptBody] {
+  border: 1px solid #949494;
+  box-sizing: border-box;
+  //filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.25));
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 500;
+}

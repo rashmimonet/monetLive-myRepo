@@ -1,0 +1,61 @@
+<div fxFlex="90" fxLayout="column" planDiv style="position: relative">
+  <!-- <div fxFlex="10" fxLayout="row" fxLayoutAlign="space-around center" style="width: 60%">
+    <span pStyle>Choose Your Plan</span>
+    <div fxLayoutGap="30px">
+      <button mat-raised-button [ngClass]="planType === 'payAs' ? 'selectedPlan' : 'buTonPlan'"
+              (click)="planShow('payAs')">Pay As you go
+      </button>
+      <button mat-raised-button [ngClass]="planType === 'Subscription' ? 'selectedPlan' : 'buTonPlan'"
+              (click)="planShow('Subscription')">Subscription
+      </button>
+    </div>
+  </div> -->
+
+  <div fxFlex="100" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+       style="width: 100%; background: rgba(246, 247, 251, 0.44);">
+    <div fxLayout="column" fxFlex="34" fxLayoutAlign="center center" contentBackground>
+      <div fxLayout="column" fxLayoutAlign="center start" fxFlex="100" style="width: 75%;">
+        <ng-container *ngFor="let k of planKeys">
+          <span [fxFlex]="k?.height? 15 : 6" [ngClass]="'contentStyle'" fxLayoutAlign="center center">{{k.name}}</span>
+        </ng-container>
+      </div>
+    </div>
+
+
+    <div fxLayout="row" fxFlex="65" fxLayoutAlign="center center" fxLayoutGap="10px" style="height: 100%">
+      <ng-container *ngFor="let plan of getPlans; let first=first; let last=last">
+        <div fxFlex="25" fxLayout="column" fxLayoutAlign="center center" class="planBackground" [style.background-color]="plan?.backGround">
+          <span fxFlex="8" fxLayoutAlign="center center">{{plan?.name}}</span>
+
+        <div fxFlex="15" fxLayoutAlign="space-evenly center" fxLayout="column" class="contentStyle">
+          <p >{{plan?.validity}} Days {{plan.planUid === 0? 'validity' : ''}}</p>
+          <p >${{plan?.price}} {{plan.planUid === 0? '.00' : ''}}</p>
+        </div>
+          <span fxFlex="6" fxLayoutAlign="center center" full-width>
+            <mat-divider style="width: 75%; height: 0px; background: black;"></mat-divider>
+          </span>
+          <span fxFlex="6" fxLayoutAlign="center center">{{plan?.participantCapacity}}</span>
+          <span fxFlex="6" fxLayoutAlign="center center">{{plan?.licenseCount}}</span>
+          <span fxFlex="6" fxLayoutAlign="center center">{{plan?.meetingDuration}}</span>
+          <span fxFlex="6" fxLayoutAlign="center center">{{plan?.noOfMeetingHours}}</span>
+          <span fxFlex="6" fxLayoutAlign="center center"><mat-icon>{{plan?.waitingRoom ? 'done' : 'close'}}</mat-icon></span>
+          <span fxFlex="6" fxLayoutAlign="center center">{{plan?.realTimeScores}}</span>
+
+          <span fxFlex="6" fxLayoutAlign="center center"><mat-icon>{{plan?.postMeetingAnalytics ? 'done' : 'close'}}</mat-icon></span>
+          <span fxFlex="6" fxLayoutAlign="center center"><mat-icon>{{plan?.recording ? 'done' : 'close'}}</mat-icon></span>
+          <span fxFlex="6" fxLayoutAlign="center center"><mat-icon>{{plan?.observerAccess ? 'done' : 'close'}}</mat-icon></span>
+          <span fxFlex="6" fxLayoutAlign="center center" class="contentStyle">
+            <p *ngIf="plan?.technicalSupport" style="text-align: center;">{{plan?.technicalSupport}}</p>
+            <mat-icon *ngIf="!plan?.technicalSupport">close</mat-icon>
+          </span>
+          <span fxFlex="8" fxLayoutAlign="center center">
+           <button mat-raised-button [ngClass]="plan?.class" (click)="planUpgrade(plan)" *ngIf="!plan?.hide" >{{plan?.button}}</button>
+          </span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+
+</div>
+

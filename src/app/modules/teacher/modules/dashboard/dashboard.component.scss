@@ -1,0 +1,39 @@
+.custom-card {
+  height: 100px;
+  width: 130px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.home {
+  max-width: 450px;
+  height: auto;
+  .card-grid {
+    height: 130px;
+    position: relative;
+    transition: all 0.2s linear;
+    box-sizing: content-box;
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-10px);
+      //box-shadow: 10px 10px 20px #aaaaaa;
+      mat-icon, .name-grid {
+        color: #1C5BA2;
+      }
+    }
+    &:focus {
+      outline: 0;
+    }
+    mat-icon {
+      color: #777777;
+    }
+    .name-grid {
+      color: #777777;
+    }
+  }
+}
+.locked-module {
+  position: absolute;
+  top: 10px;
+  right:  10px;
+}

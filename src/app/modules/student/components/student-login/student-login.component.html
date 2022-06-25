@@ -1,0 +1,60 @@
+<img src="/assets/MonetLiveWhite.png" monetLogo>
+<!--This is the main container which is shown to end user to request permission for camera and audio device-->
+<div class="main-container">
+  <ng-container [ngSwitch]="case">
+    <div *ngSwitchCase="0" class="permission-request-container">
+      <div style="width: 100%; display: flex; justify-content: center;">
+        <img src="https://www.monetlive.com/assets/MonetLiveBlack.png" alt="monet live logo"
+             style="height: 64px; width: 220px; margin-bottom: 48px;">
+      </div>
+      <h2 style="color: black; margin-bottom: 32px;">Allow Monet Live to use your camera and microphone</h2>
+      <p style="text-align: start; font-size: medium">Monet Live needs access to your camera and microphone so that
+        other participants can see and hear you.
+        Monet Live require your camera and microphone access to capture your realtime Engagement during this call.</p>
+    </div>
+    <div *ngSwitchCase="1" class="permission-rejected-container" [ngSwitch]="case">
+      <h2 style="color: #f12020">Your camera and microphone are blocked</h2>
+      <p>Monet Live require access to your camera and microphone. Please make sure your browser setting allow camera and
+        microphone permission to this website.</p>
+      <p style="color: orange; font-weight: bold">Hint: Click the camera blocked icon in your browser address
+        bar to change your settings and then refresh this page</p>
+    </div>
+    <div *ngSwitchCase="2" class="user-preview-screen">
+      <div class="previewContainer">
+        <div class="webcam-stream-container">
+          <video [muted]="'muted'" autoplay #studentStream id="studentStream" height="330px" width="450px"
+                 style="position: absolute; top: 0"
+                 (loadedmetadata)="loadedMetaData($event)"
+                 (loadstart)="onLoadStart($event)">
+                </video>
+        </div>
+        <div class="button-controls">
+          <canvas #myCanvas width="30px" height="100px"></canvas>
+          <ng-container *ngFor="let action of actions">
+          <button mat-fab color="primary"  (click)="action.status = !action.status; mainActions(action)" style="margin-bottom: 8%;">
+            <mat-icon [id]="action.icon" [inline]="true">{{action.status ? action.icon : action.iconop}}</mat-icon>
+          </button>
+        </ng-container>
+        </div>
+
+        <form class="student-form" [formGroup]="studentLoginForm">
+          <div class="name-input-container">
+            <label class="name-label">Enter your name</label>
+            <input class="student-name" type="text" id="name" formControlName="name">
+          </div>
+          <div class="ask-to-join-button-container">
+            <button class="ask-to-join-active" type="submit" (click)="askToJoin()"
+                    [ngClass]="studentLoginForm.status === 'INVALID' ? 'ask-to-join-inactive' : 'ask-to-join-active'">
+              Ask to Join
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div *ngSwitchCase="3" class="permission-request-container">
+        <h2 style="color: black; text-align: center">Meeting has not started</h2>
+        <p style="text-align: center">The moderator has not started the meeting yet. You will be redirected to login page once meeting is started</p>
+<!--        <button mat-button color="primary" (click)="checkRoom()" [disabled] = true>Join Now</button>-->
+    </div>
+  </ng-container>
+</div>

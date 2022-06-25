@@ -1,0 +1,266 @@
+<div fullDiv fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="myMeeting">
+  <div fxFlex="70" fxLayout="column" fxLayoutAlign="center center" leftDiv>
+    <div fxFlex="25" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" style="width: 95%">
+      <div fxFlex="25" fxLayoutAlign="end center" style="width: 100%">
+        <mat-select (selectionChange)="filterSelect($event.value)" [(ngModel)]="filterSelects">
+          <mat-option *ngFor="let f of ['day', 'week', 'month']" [value]="f">
+            {{f | titlecase}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div fxFlex="75" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" style="width: 100%">
+        <div fxFlex="24" fxLayout="row" divGrid fxLayoutAlign="center center" fxLayoutGap="10px">
+          <div fxFlex="30" fxLayoutAlign="center center">
+            <img src="/assets/images/Time.png" alt="not found">
+          </div>
+          <div fxFlex="60" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center start">
+            <span>{{recentMeetingData?.fillData?.time}}</span>
+            <span fxFlex="50" timeStyle>Total Time</span>
+          </div>
+        </div>
+
+        <div fxFlex="24" fxLayout="row" divGrid fxLayoutAlign="center center" fxLayoutGap="10px">
+          <div fxFlex="30" fxLayoutAlign="center center">
+            <img src="/assets/images/Meeting.png" alt="not found">
+          </div>
+          <div fxFlex="56" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center center">
+            <span>{{recentMeetingData?.fillData?.meeting}}</span>
+            <span fxFlex="50" timeStyle>No of Meeting</span>
+          </div>
+        </div>
+
+        <div fxFlex="24" fxLayout="row" divGrid fxLayoutAlign="center center" fxLayoutGap="10px">
+          <div fxFlex="30" fxLayoutAlign="center center">
+            <img src="/assets/images/enaggement.png" alt="not found">
+          </div>
+          <div fxFlex="50" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center center">
+            <span>{{recentMeetingData?.fillData?.engagement}}</span>
+            <span fxFlex="50" timeStyle>Engagement</span>
+          </div>
+        </div>
+
+        <div fxFlex="24" fxLayout="row" divGrid fxLayoutAlign="start center">
+          <div fxFlex="40" fxLayoutAlign="center center">
+            <img src="/assets/images/Mood.png" alt="not found">
+          </div>
+          <div fxFlex="25" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center center">
+            <span>{{recentMeetingData?.fillData?.mood}}</span>
+            <span fxFlex="50" timeStyle>Mood</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="75" fxLayout="column" fxLayoutAlign="center center" dataShowDiv>
+      <div fxFlex="15" fxLayout="column" fxLayoutAlign="center start" style="width: 95%;">
+        <mat-button-toggle-group fxLayoutAlign="center center" toggleGroupBtn (change)="toggleBtn($event.value)"
+          [(ngModel)]="toggleBtnValue">
+          <mat-button-toggle class="leftToggleBtn" value="Upcoming">Upcoming
+          </mat-button-toggle>
+          <mat-button-toggle class="rightToggleBtn" value="Past">Past</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div fxFlex="85" fxLayout="row" fxLayoutAlign="center center" style="width: 100%;">
+        <div fxFlex="50" fxLayout="column" fxLayoutAlign="start end" style="height: 95%; border-right: 1px solid grey">
+          <span fxFlex="5" headingFont>{{selectedDate?.Today?.start | date:'fullDate'}}</span>
+          <!-- <div style="background-color: aqua;">{{dataPreview.toDay | json}}</div> -->
+          <div fxFlex="95" fxLayout="column" fxLayoutAlign="start end" fxLayoutGap="10px"
+            style="width:100%; overflow-y: auto">
+            <ng-container *ngFor="let d of dataPreview?.toDay">
+              <div fxLayout="row" meetShow>
+                <div fxFlex="70" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center start">
+                  <span clientName> {{d?.summary | titlecase}}</span>
+                  <span timeStyle>{{d?.start.dateTime | date : 'shortTime'}} - {{d?.end.dateTime | date : 'shortTime'}}
+                  </span>
+                  <span roomIdStyle>ID: {{d?.roomid}}</span>
+                </div>
+                <div fxFlex="30" fxLayoutAlign="end center">
+                  <button mat-raised-button btnStart (click)="viewReport(d)">{{toggleBtnValue === 'Past' ? 'Report' :
+                    'Start' }}</button>
+                </div>
+              </div>
+            </ng-container>
+            <div fxLayout="row" fxLayoutAlign="center center" style="width: 90%; min-height: 50% !important;" *ngIf="isError">
+              <span msgStyle>{{msg}}</span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" style="width: 90%; min-height: 50% !important;"
+              *ngIf="dataPreview?.tMsg">
+              <span msgStyle> {{dataPreview?.tMsg}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div fxFlex="50" fxLayout="column" fxLayoutAlign="start end" style="height: 95%;">
+          <span fxFlex="5" headingFont>{{selectedDate?.Yesterday?.start | date:'fullDate'}}</span>
+          <!-- <div style="background-color: green;">{{dataPreview.toMorrow | json}}</div> -->
+          <div fxFlex="95" fxLayout="column" fxLayoutAlign="start end" fxLayoutGap="10px"
+            style="width:100%; overflow-y: auto">
+            <ng-container *ngFor="let d of dataPreview?.toMorrow">
+              <div fxLayout="row" meetShow>
+                <div fxFlex="70" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center start">
+                  <span clientName> {{d?.summary | titlecase}}</span>
+                  <span timeStyle>{{d?.start.dateTime | date : 'shortTime'}} - {{d?.end.dateTime | date : 'shortTime'}}
+                  </span>
+                  <span roomIdStyle>ID: {{d?.roomid}}</span>
+                </div>
+                <div fxFlex="30" fxLayoutAlign="end center">
+                  <button mat-raised-button btnStart (click)="viewReport(d)">{{toggleBtnValue === 'Past' ? 'Report' :
+                    'Start' }}</button>
+                </div>
+              </div>
+            </ng-container>
+            <div fxLayout="row" fxLayoutAlign="center center" style="width: 90%; min-height: 50% !important;" *ngIf="isError">
+              <span msgStyle>{{msg}}</span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" style="width: 90%; min-height: 50% !important;"
+              *ngIf="dataPreview?.yMsg">
+              <span msgStyle> {{dataPreview?.yMsg}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="30" rightDiv fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="row" fxFlex="55" fxLayoutAlign="center center" style="width: 100%">
+      <mat-card class="calenderCard" style="width: 80%; background: #F6F7FB;">
+        <mat-calendar #matCalendar [dateClass]="dateClass()" [(selected)]="dateSelect"
+          (selectedChange)="calenderEvent($event)"></mat-calendar>
+      </mat-card>
+    </div>
+    <div fxLayout="column" fxFlex="45" fxLayoutAlign="center center" fxLayoutGap="10px" recentDiv style="width: 100%;">
+      <span fxLayout="row" fxFlex="10" fxLayoutAlign="start center" style="width: 80%; font-size: 20px"> Recent
+        Meeting</span>
+      <div fxLayout="column" fxFlex="90" fxLayoutAlign="start center" fxLayoutGap="20px"
+        style="width: 100%; position: relative;">
+        <ng-container *ngFor="let r of recentMeetingData?.recent">
+          <mat-card fxLayout="row" fxFlex="25" fxLayoutAlign="start center" style=" width: 80%">
+            <div fxLayout="row" fxFlex="30" fxLayoutAlign="start center"><img src="/assets/images/recentMeeting.png"
+                alt="_blank" style="border-radius: 50%" height="50px" width="50px"></div>
+            <div fxLayout="column" fxFlex="60" fxLayoutAlign="center start" fxLayoutGap="10px">
+              <span clientRName> {{r?.summary | titlecase}}</span>
+              <span timeStyle>{{r?.start.dateTime | date : 'longDate'}} </span>
+              <!--            <span roomIdStyle> ID- {{r?.roomid}}</span>-->
+            </div>
+            <div fxLayout="row" fxFlex="10" fxLayoutAlign="start center">
+              <mat-icon aria-label="Example home icon" (click)="viewReportRecent(r)">arrow_forward_ios </mat-icon>
+            </div>
+          </mat-card>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div fxFlex="96" fxLayout="column" style=" height: 92vh; margin: auto" fxLayoutGap="5px">-->
+<!--  <span  fxFlex="5" fxLayoutAlign="start center" headCalender >My Meeting Calender</span>-->
+<!--  <div fxLayout="column" fxFlex="93" fxLayoutGap="5px" style="background: #E5E6EF" fxLayoutAlign="center center">-->
+<!--    <div fxLayout="row" fxFlex="8" style="width: 95%">-->
+<!--      <mat-button-toggle-group fxLayoutAlign="center center" toggleGroupBtn (change)="toggleBtn($event)" >-->
+<!--        <mat-button-toggle class="leftToggleBtn" [class]="toggleBtnValue === 'Upcoming' ? 'classBtn': ''" checked value="Upcoming" >Upcoming-->
+<!--&lt;!&ndash;        <hr style="border: 1px solid black; height: 90%; z-index: 99">&ndash;&gt;-->
+<!--        </mat-button-toggle>-->
+<!--        <mat-button-toggle class="rightToggleBtn" [class]="toggleBtnValue === 'Past' ? 'classBtn': ''" value="Past">Past</mat-button-toggle>-->
+<!--      </mat-button-toggle-group>-->
+<!--    </div>-->
+<!--  <div fxLayout="row" fxFlex="92" fxLayoutAlign="center center" fxLayoutGap="5px" style="width: 95%">-->
+<!--    <div fxFlex="33" fxLayout="column" divFilter fxLayoutAlign="center center">-->
+<!--      <span fxFlex="5" headingFont>Today</span>-->
+<!--      <div fxFlex="90" fxLayout="column" style="width: 100%; overflow-y: auto" fxLayoutAlign="start center">-->
+
+<!--          <ng-container *ngFor="let d of upComingData?.Today">-->
+<!--       <div fxLayout="row" style="width: 90%; min-height: 15% !important;">-->
+<!--         <div fxFlex="70" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">-->
+<!--              <span fontStyles>{{d?.time}}</span>-->
+<!--              <span fontStyle>ID: {{d?.roomid}}</span>-->
+<!--         </div>-->
+<!--         <div fxFlex="30" fxLayoutAlign="center center" >-->
+<!--           <button mat-raised-button btnStart (click)="viewReport(d)">Start</button>-->
+<!--         </div>-->
+<!--       </div>-->
+<!--        </ng-container>-->
+
+<!--        <div fxLayout="row" fxLayoutAlign="center center" style="width: 90%; min-height: 30% !important;" *ngIf="upComingData?.tMsg">-->
+<!--          <span msgStyle> {{upComingData?.tMsg}}</span>-->
+<!--        </div>-->
+<!--        <div fxLayout="row" fxLayoutAlign="center center" style="width: 90%; min-height: 50% !important;" *ngIf="upComingData?.spinar">-->
+<!--          <mat-spinner></mat-spinner>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div fxFlex="33" fxLayout="column" divFilter fxLayoutAlign="center center">-->
+<!--      <span fxFlex="5" headingFont> {{toggleBtnValue === 'Upcoming'? 'Tomorrow' : 'Yesterday'}}</span>-->
+<!--      <div fxFlex="90" fxLayout="column" style="width: 100%; overflow-y: auto" fxLayoutAlign="start center">-->
+<!--        <ng-container *ngFor="let d of upComingData?.Tomorrow">-->
+<!--          <div fxLayout="row" style="width: 90%; min-height: 15% !important;">-->
+<!--            <div fxFlex="70" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">-->
+<!--              <span fontStyles>{{d?.time}}</span>-->
+<!--              <span fontStyle>ID: {{d?.roomid}}</span>-->
+<!--            </div>-->
+<!--            <div fxFlex="30" fxLayoutAlign="center center" >-->
+<!--              <button mat-raised-button btnStart (click)="viewReport(d)">{{toggleBtnValue === 'Upcoming'? 'start' : 'Report'}}</button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </ng-container>-->
+
+<!--        <div fxLayout="row" fxLayoutAlign="center center" style="width: 90%; min-height: 30% !important;" *ngIf="upComingData?.yMsg">-->
+<!--          <span msgStyle> {{upComingData?.yMsg}}</span>-->
+<!--        </div>-->
+<!--        <div fxLayout="row" fxLayoutAlign="center center" style="width: 90%; min-height: 50% !important;" *ngIf="upComingData?.spinar">-->
+<!--          <mat-spinner></mat-spinner>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div fxFlex="33" fxLayout="column" style="height: 95%" fxLayoutAlign="center center">-->
+<!--      <span fxFlex="5" headingFont>Select Date To Check Your Meeting</span>-->
+<!--      <div fxFlex="90" fxLayout="column" style="width: 100%" fxLayoutAlign="center center">-->
+<!--        <mat-card class="calenderCard" style="width: 80%">-->
+<!--          <mat-calendar #matCalendar [dateClass]="dateClass()" [selected]= 'selectedDate' (selectedChange)="calenderEvent($event)"></mat-calendar>-->
+<!--        </mat-card>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--</div>-->

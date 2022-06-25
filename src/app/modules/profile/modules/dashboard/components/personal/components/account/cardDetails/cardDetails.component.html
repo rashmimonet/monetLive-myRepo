@@ -1,0 +1,31 @@
+<div id="card" style="position: relative;">
+  <button  mat-icon-button *ngIf="!cardLength" (click)="deleteCard()" style="top: 5%; right: 5%; position: absolute; transform: translate(50%, -50%); z-index: 1;">
+    <mat-icon>close</mat-icon>
+  </button>
+<mat-card  fxFlex="100" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px" cardMat>
+  <div fxFlex="33" fxLayoutAlign="space-between center" full-width>
+    <!-- <button  mat-icon-button (click)="deleteCard()" style="top: 5%; right: 5%; position: absolute; transform: translate(50%, -50%); z-index: 1;">
+      <mat-icon>close</mat-icon>
+    </button> -->
+   <div fxLayout="row" fxLayoutAlign="space-between center" full-width>
+    <span>Card number</span>
+    <span stripeBadge  fxLayoutAlign="center center">stripe</span>
+   </div>
+  </div>
+  <div fxFlex="33" fxLayoutAlign="start center" full-width>
+    <span fxLayout="row" xsmall>XXXX XXXX XXXX <p style="font-size: 17px; margin-left: 5px;">{{cardDetails?.number.slice(cardDetails?.number.length -4, cardDetails?.number.length)}}</p></span>
+  </div>
+  <div fxFlex="33" fxLayout="row" fxLayoutAlign="space-between center"  full-width>
+   <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+     <span>Expires on</span>
+     <span>{{cardDetails?.exp_month}} / {{cardDetails?.exp_year}}</span>
+   </div>
+   <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="6px">
+     <span fxLayout="row" fxLayoutAlign="center center">Brand <span creditBadge>{{cardDetails?.type}}</span></span>
+     <span><img [src]="'/assets/images/' + cardDetails?.brand + '.png'" alt="" width="45px" height="20px"></span>
+   </div>
+  </div>
+</mat-card>
+</div>
+
+<!-- *ngIf="!cardLength" -->

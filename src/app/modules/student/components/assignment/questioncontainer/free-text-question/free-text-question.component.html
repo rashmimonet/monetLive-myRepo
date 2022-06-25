@@ -1,0 +1,38 @@
+<div class="freetext_question_container">
+  <div class="assignment_question_timer">
+    <div class="question_type">
+      <p style="font-weight: bold; color: black; margin: 0;">Question type: <span style="background-color: dodgerblue; color: white; padding: 4px 8px 6px 8px; border-radius: 4px; font-weight: bold">{{question?.question_type}}</span>
+      </p>
+    </div>
+    <div class="timer">
+      <p style="font-weight: bold; margin: 0">Timer:</p>
+      <div [ngClass]="timer <= 5 ? 'red-zone' : 'green-zone'"
+           style="padding: 6px 12px 8px 12px; border-radius: 4px; margin-left: 8px; margin-right: 8px;">
+        <p style="font-weight: bold; padding: 0; margin: 0; font-size: medium;">{{timer}}</p>
+      </div>
+      <p style="margin: 0;">Seconds</p>
+    </div>
+  </div>
+  <div class="assignment_question_text">
+    <div class="question_code">
+      <p>{{question?.question_label}}</p>
+    </div>
+    <div class="question_text">
+      <p style="line-height: 1.5;">{{question?.question}}</p>
+      <div class="question_options">
+        <form class="example-form" style="width: 100%;" #freeTextForm="ngForm">
+          <mat-form-field appearance="outline" class="example-full-width" style="width: 100%">
+            <textarea rows="5" style="padding: 12px; width: calc(100% - 24px); line-height: 1.2;" matInput
+                      placeholder="Write your answer here..." [(ngModel)]="answer_text" name="answer" required type="text"></textarea>
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="assignment_navigation_button">
+    <button mat-raised-button color="primary" (click)="submitAnswer()">Submit</button>
+  </div>
+</div>
+
+
+

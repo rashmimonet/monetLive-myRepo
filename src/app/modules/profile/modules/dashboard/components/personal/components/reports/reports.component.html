@@ -1,0 +1,111 @@
+<div fxFlex="97" id="reportsContainer" fxLayout="column" fxLayoutAlign="center center">
+  <div fxFlex="10" fxLayout="row" fxLayoutAlign="space-between center" commonStyle style="background: #F6F7FB;">
+    <div fxFlex="55" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px" style="height: 100%"
+      class="recording">
+      <div id="dateRange">
+        <mat-form-field appearance="outline" style="margin-top: 20px;">
+          <mat-label>Select a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="Start date" [(ngModel)]="startDate">
+            <input matEndDate placeholder="End date" [(ngModel)]="endDate">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" [disabled]="!startDate || !endDate"
+        (click)="dateDataFilter()">Search</button>
+      <button mat-raised-button [disabled]="!startDate || !endDate" (click)="resetData()" style="margin-top: -3% !important;">Reset</button>
+    </div>
+    <div fxFlex="14" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" style="height: 100%">
+      <button mat-raised-button style="border: 1px solid black;" disabled>Deleted All</button>
+    </div>
+  </div>
+  <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between start" commonStyle
+    style="overflow-y: auto; position: relative">
+    <div fxFlex="100" fxLayoutAlign="center center" commonStyle *ngIf="!loder">
+      <mat-spinner [ngClass]="'reportsLoader'" [diameter]="50"></mat-spinner>
+    </div>
+    <ng-template #noRecord>
+      <span fxFlex="100" fxLayoutAlign="center center" commonStyle msgStyle>{{msg}}</span>
+    </ng-template>
+    <div id="tableData" style="width: 100%;" *ngIf="loder && dataSource?.data.length && this.isValidDate === false; else noRecord">
+      <!-- <div style="width: 100%;"  [hidden]="isloading" && dataSource?.data.length; else noRecord"> -->
+      <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef> Sr No </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{i + 1 + paginationIndex}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="summary">
+          <th mat-header-cell *matHeaderCellDef> Topic </th>
+          <td mat-cell *matCellDef="let element"> {{element.summary | titlecase}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="roomid">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.roomid}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="startTime">
+          <th mat-header-cell *matHeaderCellDef> Start Time </th>
+          <td mat-cell *matCellDef="let element"> {{element?.start.dateTime | date: 'MMM d, y, h:mm a'}} To
+            {{element?.end.dateTime | date: 'shortTime' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="duration">
+          <th mat-header-cell *matHeaderCellDef> Duration </th>
+          <td mat-cell *matCellDef="let element"> {{getDuration(element.start.dateTime , element.end.dateTime )}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="record">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element">
+            <span>
+              <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="playVdo(element?.playBtn)"
+                [ngStyle]="{'cursor': element.playBtn ? 'pointer' : ''}"> {{ element?.playBtn ? 'play_circle_outline' :
+                ''}} </mat-icon>
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="report">
+          <th mat-header-cell *matHeaderCellDef> Report </th>
+          <td mat-cell *matCellDef="let element">
+            <span>
+              <button mat-raised-button reportBtn (click)="viewReport(element)">Report</button>
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element">
+            <span>
+              <mat-icon style="cursor: not-allowed;"> delete_outline </mat-icon>
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"
+          style="background: linear-gradient(to right, #77246C, #1E5AA1); color: white"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <!-- <app-paginator id="paginator" paginator [length]="totalPages" [records]="totalRecords" [pageSize]="limit" [pageSizeOptions]="[20, 50, 100]"
+                          (page)="paginationChange($event)"></app-paginator> -->
+    <!-- <div style="width: 100%; display: flex; justify-content: flex-end;"> -->
+    <mat-paginator id="paginator" paginator [length]="totalRecords" [pageSize]="pageSize"
+      [pageSizeOptions]="[20, 40, 60, 80]" (page)="paginationEventTrigger($event)" aria-label="Select page">
+    </mat-paginator>
+    <div vdoDiv *ngIf="vdoShow" fxLayoutAlign="center center" cdkDrag>
+      <mat-icon closeVdo (click)="closeVdo()">close</mat-icon>
+      <video #vdo autoplay controls commonStyle [src]="vdoLink"> </video>
+    </div>
+  </div>
+</div>
+
+
+<!-- aria-label="Select page of users" -->

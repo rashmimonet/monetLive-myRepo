@@ -1,0 +1,55 @@
+<div fxLayout="column" fxFlex="95" fullDiv [formGroup]="settingsData">
+
+    <div fxLayout="column" fxFlex="20">
+        <div fxLayout="row" fxFlex="25" fxLayoutGap="20px">
+            <span>Waiting Room</span>
+            <mat-slide-toggle formControlName="waitingRoom"></mat-slide-toggle>
+        </div>
+        <div fxLayout="row" fxFlex="25">
+            <span>
+                When participants join a meeting, place them in a waiting room and require the host to admit them
+                individually.
+                Enabling the waiting room automatically disables the setting for allowing participants to join before
+                host.
+            </span>
+        </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="20">
+        <div fxLayout="row" fxFlex="25" fxLayoutGap="20px">
+            <span> Screen Share</span>
+            <mat-slide-toggle formControlName="screenShare"></mat-slide-toggle>
+        </div>
+        <div fxLayout="row" fxFlex="25">
+            <span> Allow Participants to share their screen  </span>
+        </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="20">
+        <div fxLayout="row" fxFlex="25" fxLayoutGap="20px">
+            <span> Chat</span>
+            <mat-slide-toggle formControlName="chat"></mat-slide-toggle>
+        </div>
+        <div fxLayout="row" fxFlex="25">
+            <span>
+                Allow Participants to Interact with Chat
+            </span>
+        </div>
+    </div>
+
+    <div fxLayout="column" fxFlex="15">
+        <span fxFlex="25">Participant Limit</span>
+        <div fxLayout="row" fxFlex="25">
+            <mat-radio-group aria-label="Select an option" fxLayoutGap="20px" formControlName="limit">
+                <mat-radio-button value='10'>10</mat-radio-button>
+                <mat-radio-button value='20'>20</mat-radio-button>
+                <mat-radio-button value='30'>30</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+
+  <div fxFlex="10" fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button color="primary" (click)="updateSettings()">Update</button>
+  </div>
+
+</div>

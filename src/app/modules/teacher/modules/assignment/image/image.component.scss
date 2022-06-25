@@ -1,0 +1,15 @@
+.image {
+  img {
+    max-height: 90px;
+    max-width: 135px;
+    min-height: 90px;
+    min-width: 135px;
+  }
+}
+mat-card {
+  margin: 10px;
+  padding: 5px !important;
+  &.image {
+
+  }
+}

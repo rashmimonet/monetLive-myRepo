@@ -1,0 +1,25 @@
+<div fxLayout="row" fxLayoutGap="10px">
+  <div fxFlex class="screenshare-box"
+       *ngIf="screenshare"
+       fxLayout="column"
+       fxLayoutGap="20px">
+
+    <video id="screenShareStreem" class="videocol" height="100%" width="auto" autoplay muted></video>
+    <app-line-graph [stdId]="'screen-share'" [data]="graphData" [average]="true" style="max-height: 200px; height: 100%;"></app-line-graph>
+  </div>
+  <div [fxFlex]="screenshare? '350px' :''"  fxLayout="row wrap" fxLayoutGap="20px" class="student-list" #studentContainer>
+    <mat-grid-list [cols]="screenshare? 1 : 4" rowHeight="4:5" full-width gutterSize="5px">
+      <ng-container *ngFor="let std of studentsList; trackBy: trackByUsers; let i=index;">
+        <mat-grid-tile >
+          <div fxFill fxLayout="column" [ngClass]="['student-preview']" fxLayoutGap="10">
+            <app-video-stream [std]="json.stringify(std)" [mediaStreamObj]="std?.msobj" [selectUser]="selectUser" [module]="'manager'" style="height: 100%;border-bottom: 1px solid #222"></app-video-stream>
+            <app-line-graph [stdId]="std.std_id" [data]="graphData" [average]="false"></app-line-graph>
+          </div>
+        </mat-grid-tile>
+      </ng-container>
+      <div fxFill fxLayout="row" fxLayoutAlign="center center" *ngIf="!studentsList?.length">
+        <span style="color: #ffffff; font-size: 18px">No participants</span>
+      </div>
+    </mat-grid-list>
+  </div>
+</div>

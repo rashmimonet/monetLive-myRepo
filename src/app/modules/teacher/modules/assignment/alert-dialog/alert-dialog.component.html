@@ -1,0 +1,26 @@
+
+<div fxLayout="column" fxFlexAlign="center" *ngIf="!data.component" [ngStyle]="{'padding':'20px'}" fxLayoutGap="16px">
+  <span titleBlue24 >{{data.head}}</span>
+  <div fxLayout="column" fxLayoutAlign="start start" *ngIf="!data.camp">
+    <div fxFlex="100%" fxLayout="row">
+      <span [ngStyle]="{'line-height' : '25px'}">{{data.msg}}</span>
+    </div>
+  </div>
+  <div *ngIf="data.camp" [formGroup]="form" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px" [ngStyle]="{'padding-top': '20px'}">
+    <mat-form-field>
+      <mat-label>Campaign Name</mat-label>
+      <input matInput placeholder="Campaign Name" formControlName="cmp_name">
+    </mat-form-field>
+    <mat-form-field >
+      <mat-label>Campaign Description</mat-label>
+      <textarea matInput placeholder="Campaign description" formControlName="cmp_description"></textarea>
+    </mat-form-field>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="end end">
+    <div fxLayout="row" fxLayoutAlign="end end" [ngStyle]="{'position':'relative', 'top':'30px'}" fxLayoutGap="20px">
+      <button mat-button [ngClass]="['transparent-button']" (click)="dialogRef.close('no')" [tabIndex]="'-1'">{{data.no}}</button>
+      <button mat-raised-button [ngClass]="['monet-button']" (click)="dialogRef.close(this.form ? this.form.value: 'yes')">{{data.yes}}</button>
+    </div>
+  </div>
+</div>
+<ng-template #container></ng-template>

@@ -1,0 +1,53 @@
+<div fxLayout="column" fxFill fxLayoutGap="14px" padding *ngIf="allSeriesData">
+  <div fxLayout="row"  fxFlex fxLayoutAlign="space-around center" m-t0 m-b0 >
+    <div fxLayout="column" fxLayoutAlign="center center" class='parentScreen' [ngStyle.lt-xl]="{height:'60%'}"  [ngStyle]="{height:'90%'}"   [hidden]="dataRaw['screen_path']">
+      <ng-container *ngIf="dataRaw.screen_path.link !== '-' || liveStreamVideo">
+<!--        <div  fxFill fxLayout="row" fxLayoutAlign="center center" [ngClass]="[screen?.paused? 'display': 'child']" *ngIf="dispChartType && dataRaw.screen_path.link !== '-'">
+&lt;!&ndash;          <mat-icon (click)="screen.paused ? screen.play() : screen.pause(); updateVideoAndCursor()">{{screen.paused ? 'play_circle_outline' : 'pause_circle_outline'}}</mat-icon>&ndash;&gt;
+&lt;!&ndash;          <mat-icon (click)="screen.paused ? screen.play() : screen.pause();">{{screen.paused ? 'play_circle_outline' : 'pause_circle_outline'}}</mat-icon>&ndash;&gt;
+        </div>-->
+        <video  id="screenShare"  muted style="height: auto; width: auto; max-height: 100%; max-width: 100%;"   #screen border>
+          <source [src]="'https://' + dataRaw['screen_path'].link" type="video/webm" >
+        </video>
+      </ng-container>
+      <span *ngIf="dataRaw?.screen_path.link === '-' && !liveStreamVideo" style="color: #fff;" >Screen Share {{dataRaw?.screen_path.status}}</span>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" class='parentVideo' [ngStyle.lt-xl]="{height:'60%'}"    [ngStyle]="{height:'90%'}" [hidden]="dataRaw.video_path.link === '-' || !liveStreamVideo">
+       <ng-container *ngIf="(dataRaw.video_path.link !== '-' || liveStreamVideo)">
+        <div id="vidPlayPause" fxFill fxLayout="row" fxLayoutAlign="center center" [ngClass]="[video.paused? 'display': 'child']" *ngIf="dispChartType && dataRaw.video_path.link !== '-'">
+          <mat-icon
+            (click)="detectChartDataChange = false; video.paused ? video.play() : video.pause(); video.paused ? toggleScreenShare() : noop">
+            {{video.paused ? 'play_circle_outline' : 'pause_circle_outline'}}
+          </mat-icon>
+        </div>
+        <video id="video" muted  (timeupdate)="videoTimeUpdate($event, video.paused)" #video border>
+          <source id='lineChartVideo' [src]="'https://' + dataRaw.video_path?.link" type="video/webm"  *ngIf="dispChartType && dataRaw.video_path.link !== '-'">
+          <source id='liveLineChartVideo' [src]="'https://' + dataRaw.audio_path?.link" type="audio/opus"  *ngIf="!dispChartType">
+        </video>
+       </ng-container>
+      <span *ngIf="dataRaw.video_path.link === '-' && !liveStreamVideo" style="color: #fff;" >Video {{dataRaw.video_path.status}}</span>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between" >
+    <span title-white14-400 fxLayoutAlign="center center">Time Elapsed</span>
+    <div fxLayout="row" fxLayoutAlign="end center" p-r24 p-l24 border>
+      <span title-white12-400 >Seconds</span>
+      <mat-slide-toggle
+        [checked]="config.minuteToggle"
+        (change)="config.minuteToggle = detectChartDataChange = $event.checked"
+        [disabled]="disableToggle"
+        m-r12 m-l12></mat-slide-toggle>
+      <span title-white12-400 >Minutes</span>
+    </div>
+  </div>
+
+  <app-line-chart [stdId]="'lineChart'"
+                  [detectChartDataChange]="detectChartDataChange"
+                  [secMin]="config.minuteToggle ? 'Minutes' : 'Seconds'"
+                  [config]="config"
+                  [allSeriesData]="allSeriesData"
+                  (seekVideoFrom)="seekVideoFrom($event)"
+                  [hidden]="!dispChartType" fxFlex></app-line-chart>
+</div>
+<mat-spinner  [ngClass]="['customLoader']" [diameter]="50" *ngIf="!allSeriesData"></mat-spinner>

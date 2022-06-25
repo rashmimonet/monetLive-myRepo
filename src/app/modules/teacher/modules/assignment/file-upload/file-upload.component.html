@@ -1,0 +1,21 @@
+<div fxLayout="column" fxLayoutGap="30px" [ngStyle]="{position: 'relative', border: dragZoneActive?'2px dashed #777' :'none', height: '100%', width: '100%'}"  (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+  <form fxLayout="column" fxFlex="100" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+    <div class="survey-form" fxLayout="column" fxFlex="100" fxLayoutGap="20px" fxLayoutAlign="start stretch">
+      <div [ngClass]="['fileupload']" fxLayout="column" fxFlex="100" fxLayoutGap="20px" fxLayoutAlign="center center">
+        <span [ngStyle]="{'height': '50px', 'width': '50px'}">
+          <mat-icon style="font-size: 50px">post_add</mat-icon>
+        </span>
+        <!-- <span class="material-icons-outlined" [ngStyle]="{'height': '50px', 'width': '50px'}">
+          post_add
+        </span>-->
+        <div>Drop File to Upload</div>
+        <span>or</span>
+        <button mat-raised-button  matTooltip="Please upload the questions" [ngClass]="['white-button']" (click)="UserFile.click()" style="border-radius: 20px;">Click Here</button>
+        <input #UserFile type="file" value="" [ngStyle]="{'visibility': 'hidden', 'position': 'absolute'}" (change)="submit($event)" accept=".xls,.xlsx" />
+      </div>
+   <!--   <ng-container *ngIf="upload">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </ng-container>-->
+    </div>
+  </form>
+</div>

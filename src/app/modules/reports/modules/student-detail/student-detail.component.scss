@@ -1,0 +1,86 @@
+.parentVideo {
+  position: relative;
+  width: 350px;
+  background: rgba(255, 255, 255, 0.1);
+  video {
+    height: 100%;
+    width: 100%;
+    /*Mirror code starts*/
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
+    /*Mirror code ends*/
+  }
+  @mixin position {
+    position: absolute;
+    background-color: rgba(0, 0,0,0.5);
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+  }
+  .display {
+    @include position;
+    visibility: visible;
+  }
+  .child {
+    @include position;
+    visibility: hidden;
+  }
+  &:hover {
+    .child {
+      visibility: visible;
+    }
+  }
+}
+
+.parentScreen {
+  position: relative;
+  //width: 350px;
+  width: 500px;
+  background: rgba(255, 255, 255, 0.1);
+  video {
+    height: 100%;
+    width: 100%;
+  /*  !*Mirror code starts*!
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); !* Safari and Chrome *!
+    -moz-transform:rotateY(180deg); !* Firefox *!
+    !*Mirror code ends*!*/
+  }
+  @mixin position {
+    position: absolute;
+    background-color: rgba(0, 0,0,0.5);
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+  }
+  .display {
+    @include position;
+    visibility: visible;
+  }
+  .child {
+    @include position;
+    visibility: hidden;
+  }
+  &:hover {
+    .child {
+      visibility: visible;
+    }
+  }
+}
+
+.mat-icon{
+  font-size: 48px !important;
+  color: white;
+  cursor: pointer;
+}
+#screenShare {
+  // height: 45vh;
+}
+
+.customLoader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,20 @@
+<div
+  style="width: 100%; height: 80%; display: flex; justify-content: center; align-items: center;">
+  <div class="assignment_question_container">
+    <div class="assignment_question_heading">
+      <p style="font-weight: bold; font-size: large;">{{assignment1.assignment.title}}</p>
+    </div>
+    <ng-container *ngFor="let question of assignment;">
+      <div *ngIf="question?.question_type === 'freetext'">
+        <app-free-text-question [input_question]="question" (newEvent1)="logNavigation($event)"></app-free-text-question>
+      </div>
+      <div *ngIf="question?.question_type === 'single'">
+        <app-single-select-question [input_question]="question" (newEvent2)="logNavigation($event)"></app-single-select-question>
+      </div>
+      <div *ngIf="question?.question_type === 'multiple'">
+        <app-multi-select-question [input_question]="question" (newEvent3)="logNavigation($event)"></app-multi-select-question>
+      </div>
+    </ng-container>
+  </div>
+</div>
+

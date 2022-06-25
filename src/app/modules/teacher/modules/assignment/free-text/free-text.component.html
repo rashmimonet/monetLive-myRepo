@@ -1,0 +1,46 @@
+<div fxLayout="column" [ngClass]="['question']" marginBottom [ngStyle]="{'padding-top': '20px'}">
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="start stretch" fxLayoutGap="20px" [ngClass]="['dialog-mat-card']">
+    <form class="survey-form" [formGroup]="questionForm" fxLayout="column" [fxFlex]="'100'" fxLayoutGap="20px" fxLayoutAlign="start stretch" matPadding>
+      <span titleBlue22>{{'Add'}} free-text choice question</span>
+      <div fxLayout="row" #questionBlock>
+        <app-write-question  style="width: 100%"></app-write-question>
+        <!--<mat-form-field class="full-width" [floatLabel]="'never'">
+          <input matInput placeholder="Type your question" formControlName="question">
+          <mat-error *ngIf="questionForm['controls'].question.errors?.required">
+            Question is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>-->
+      </div>
+      <div fxLayout="row" fxFlex="100" fxLayoutGap="50px">
+        <div [ngClass]="['answer-block']" fxFlex="100" #answerBlock>
+          <mat-form-field class="full-width" [floatLabel]="'never'">
+            <textarea matInput [placeholder]="'Your Answer'" rows="4" disabled="true"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="column" fxFlex="100" fxLayoutAlign="end end" fxLayoutGap="10px">
+        <div #saveButton fxLayout="row" fxLayoutGap="20px">
+          <button mat-raised-button  [ngClass]="['white-button']" >Cancel</button>
+          <button mat-raised-button [disabled]="questionForm.invalid" [ngClass]="['monet-button']" >Save</button>
+        </div>
+      </div>
+    </form>
+    <mat-divider vertical="true" *ngIf="true"></mat-divider>
+    <div *ngIf="true" fxFlex="100" fxLayout="column" fxLayoutGap="10px" matPadding marginTopSm [ngStyle]="{height:'29vh'}" [ngStyle.md]="{height:'30vh'}" [ngClass]="['grey-container']">
+      <span titleBlue18>Example question</span>
+      <div fxLayout="row" [ngStyle] ="{'background-color' :'#eee','padding': '10px'}">
+        <span title fxFlex="100">Q. What thoughts did you have about the video?</span>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10px" [ngStyle] ="{'padding': '10px'}">
+        <mat-form-field class="full-width" [floatLabel]="'never'">
+          <textarea matInput [placeholder]="'Your Answer'" rows="4" disabled="true"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+ <!-- <div fxLayout="column" fxFlex="100" fxLayoutAlign="start stretch" *ngIf="previewQuestions">
+    &lt;!&ndash;<mat-toolbar [ngClass]="['question-title']">Questions</mat-toolbar>&ndash;&gt;
+    <app-preview-freetext [edit]="true" [previewQuestions] = "previewQuestions"  (delete)="deleteQue($event)" (update)="updateQue($event)" [header]="false" fxLayout="column" fxFlex="100"></app-preview-freetext>
+  </div>-->
+</div>

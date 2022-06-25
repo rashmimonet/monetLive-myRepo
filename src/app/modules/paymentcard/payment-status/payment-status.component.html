@@ -1,0 +1,46 @@
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="80" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center" statusPayment>
+    <div fxFlex="8" fxLayoutAlign="center center" style="background: #1A1A1A; color: white; font-size: 20px">
+      <span>{{paymentError? 'Payment Failed!'  : 'Thanks for the Purchase'}}</span>
+    </div>
+    <div fxFlex="85" fxLayout="column" fxLayoutAlign="center center" >
+      <div fxFlex="25" fxLayoutAlign="center center" receptBody *ngIf="paymentError">
+        <p style="padding-left: 10px;">
+        Don’t worry your money is safe! <span style="font-weight: normal;"> If money was debited
+from your account, </span>
+</p>
+      </div>
+      <span fxFlex="15" fxLayoutAlign="start center" style="font-size: 28px; font-weight: 500; width: 90%">Order summary</span>
+      <div fxFlex="60" fxLayout="column" fxLayoutAlign="start center" style="padding-top: 20px">
+        <div fxFlex="50" fxLayout="column"  fxLayoutAlign="center center" fontStyle receptBody>
+          <span fxFlex="50" fxLayoutAlign="start center" style="width: 90%">{{selectPlan?.name}}</span>
+          <div fxFlex="50" fxLayout="row" fxLayoutAlign="space-between center" style="width: 90%">
+            <span style="font-size: 18px; font-weight: normal">{{user?.name}}</span>
+            <span>${{selectPlan?.price}}</span>
+          </div>
+        </div>
+        <div fxFlex="25" fxLayout="row" fxLayoutAlign="space-between center" fontStyle style="width: 90%" >
+          <span>Total Amount</span>
+          <span>${{selectPlan?.price}}</span>
+        </div>
+      </div>
+      <div fxFlex="25" fxLayout="row" fxLayoutAlign="center start"  style="width: 100%;" *ngIf="!paymentError">
+      <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 20px;">
+        <span>Need help?</span>
+      <button downloadBtn pointer fxLayoutAlign="center center" (click)="viewReceipt()">View Receipt
+        <mat-icon class="material-icons-outlined" pointer style="padding-left: 10px;color: #727477">visibility</mat-icon>
+        </button>
+      </div>
+      </div>
+    </div>
+    <div fxFlex="8" fxLayoutAlign="center center" style="background: #1A1A1A; color: white; font-size: 20px">
+
+
+      <span pointer routerLink="/profile/dashboard/" *ngIf="!paymentError">Go To Dashboard</span>
+      <span pointer routerLink="/profile/dashboard/payCard" *ngIf="paymentError">RETRY</span>
+    </div>
+  </div>
+
+
+</div>
+

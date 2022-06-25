@@ -1,0 +1,105 @@
+<form fxLayout="column" [formGroup]="eventForm" >
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" style="margin-bottom: 10px">
+    <div fxFlex="24px"></div>
+    <mat-form-field floatLabel="never" fxFlex class="mat-headline">
+      <mat-label>Add topic</mat-label>
+      <input matInput formControlName="summary" placeholder="Monet discussion" value="">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+      <mat-icon>watch_later</mat-icon>
+<!--      <div formGroupName="start" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex="100">-->
+        <mat-form-field formGroupName="start" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" style="width: 100%">
+          <input matInput [ngxMatDatetimePicker]="picker1"
+                 placeholder="Choose a date"
+                 formControlName="dateTime"
+                 [min]="date"
+                 (dateChange)="valueChanged('startDate')"
+          >
+          <mat-datepicker-toggle matSuffix [for]="$any(picker1)">
+          </mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #picker1
+                                   [enableMeridian]="true"
+                                   [showSpinners]="true"
+                                   [showSeconds]="false"
+                                   [stepHour]="1" [stepMinute]="1"
+                                   [stepSecond]="1"
+                                   [touchUi]="false"
+                                   [startAt]="date">
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+
+    </div>
+
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" style="width: 102%;">
+    <mat-icon>group</mat-icon>
+    <mat-form-field floatLabel="never" fxFlex style="margin-right: 0px; ">
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip *ngFor="let email of emailids" [selectable]="selectable"
+                  [removable]="removable" (removed)="remove(email)">
+          {{email}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input matInput type="text" placeholder="Type Email (Optional)" [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-error *ngIf="chipError">
+        {{chipError}}
+      </mat-error>
+    </mat-form-field>
+    <button mat-icon-button (click)="fileInput.click()" matTooltip="Upload Email Id's">
+      <input type="file" hidden="true" multiple="true" id="fileInput" name="files" #fileInput (change)="onFileChanged($event)" accept=".csv,.xlsx,.xml"/>
+      <mat-icon>attach_file</mat-icon>
+    </button>
+
+  </div>
+  <div fxLayoutAlign="start center" fxLayoutGap="20px">
+    <mat-icon>videocam</mat-icon>
+    <mat-form-field floatLabel="never" fxFlex>
+      <mat-label>Link</mat-label>
+      <input matInput placeholder="Choose Conference" value=""
+             [matAutocomplete]="auto"
+             formControlName="link">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option value="Monet Education">
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+            <img class="conf-icon" aria-hidden src="../../../../../../../assets/m-logo.svg">
+            <span small>Monet Education (Recommended)</span>
+          </div>
+        </mat-option>
+        <mat-option value="Google Meet">
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+            <img class="conf-icon" aria-hidden src="../../../../../../../assets/hangouts-meet.svg">
+            <span small>Google Meet</span>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <div fxLayoutAlign="start center" fxLayoutGap="20px">
+    <mat-icon>description</mat-icon>
+    <mat-form-field floatLabel="never" fxFlex>
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" placeholder="Monet discussion" value="">
+    </mat-form-field>
+  </div>
+  <div fxLayoutAlign="start center" fxLayoutGap="20px">
+    <mat-icon>person</mat-icon>
+    <mat-form-field floatLabel="never" fxFlex>
+      <input matInput
+             type="email"
+             formControlName="observerEmail"
+             [placeholder]="observerAccess ? 'Upgrade your plan to avail this feature' : 'Type Observer Email here (Optional)'"
+             [ngStyle]="{'cursor' : observerAccess ? 'not-allowed' : 'auto'}" />
+    </mat-form-field>
+
+  </div>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close()">No Thanks</button>
+<!--    <button mat-raised-button (click)="dialogRef.close({form: eventForm.value, emails: emailids, url: videoUri, end: {dateTime: endDate, timeZone: 'Asia/Calcutta'}})" class="custom-button" [disabled]="(!eventForm.valid && !emailids.length) || dateError">Create</button>-->
+<!--    <button mat-raised-button (click)="dialogRef.close({form: eventForm.value, emails: emailids, url: videoUri, end: {dateTime: endDate, timeZone: 'Asia/Calcutta'}})" class="custom-button" [disabled]="(eventForm.status === 'INVALID' && !emailids.length) || dateError">Create</button>-->
+    <button mat-raised-button (click)="dialogRef.close({form: eventForm.value, emails: emailids, url: videoUri, end: {dateTime: endDate, timeZone: 'Asia/Calcutta'}})" class="custom-button" [disabled]="(eventForm.status === 'INVALID')">Create</button>
+  </mat-dialog-actions>
+</form>

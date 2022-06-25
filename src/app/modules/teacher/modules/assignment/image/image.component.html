@@ -1,0 +1,69 @@
+<div fxLayout="column" [ngClass]="['question']" style="margin-bottom: 40px;">
+
+  <div fxLayout="row" fxLayoutAlign="start stretch" [ngClass]="['dialog-mat-card']"  [ngStyle]="{'padding-top': '50px'}">
+    <form class="survey-form" [formGroup]="questionForm" fxLayout="column" [fxFlex]="'100'" fxLayoutGap="20px" fxLayoutAlign="start stretch" style="padding: 16px">
+      <span titleBlue22>{{'Add'}} image choice question</span>
+      <div fxLayout="row" #questionBlock>
+        <app-write-question  style="width: 100%"></app-write-question>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" formGroupName="qs_flags">
+        <span title>Options</span>
+        <mat-slide-toggle formControlName="opt_shuffle" aria-label  *ngIf="true"><span title>Randomize</span></mat-slide-toggle>
+      </div>
+      <div *ngIf="true" [ngStyle]="{'width':'100%'}" fxLayout="column" fxFlex="100">
+        <div fxLayout="row wrap" *ngIf="true" fxFlex="100" >
+          <mat-card fxLayout="column" *ngFor="let op of questionForm.controls.options['controls']; let i = index" fxLayoutGap="10px" [ngClass]="['image']">
+            <img [src]="op.get('option').value" alt="">
+            <mat-divider></mat-divider>
+            <div fxLayoutAlign="space-around center">
+              <span>Answer {{i + 1}}</span>
+              <button mat-icon-button  fxLayoutAlign="end end"><mat-icon>delete</mat-icon></button>
+            </div>
+          </mat-card>
+          <mat-card fxLayout="column" fxLayoutAlign="center center" [ngClass]="['image']"  pointer>
+            <span fxLayoutAlign="center center" fxLayoutGap="10px" [ngStyle]="{'text-align':'center'}"><a>Add more images</a></span>
+            <mat-icon>add</mat-icon>
+            <input #UserFile type="file" [ngStyle]="{'visibility': 'hidden', 'position': 'absolute'}" multiple/>
+          </mat-card>
+        </div>
+        <div fxLayout="row" fxLayoutGap="30px" fxFlex="100" *ngIf="true">
+
+          <div  *ngIf="true" fxLayout="row" fxLayoutAlign="center center" fxFlex="100" [ngStyle]="{'height': '200px', 'background': '#ccc'}">Drop Your Files Here</div>
+          <div fxLayout="column" fxFlex="100" fxLayoutGap="10px" fxLayoutAlign="center center"  *ngIf="true" #dropZone [ngStyle]="{'border': '3px dashed #eee', 'height': '200px'}">
+            <img [src]="'https://monet-assets.s3-us-west-2.amazonaws.com/icons/corporate/'+'icons/survey/upload-to-cloud.svg'" [ngStyle]="{'height': '77px', 'width': '55px'}">
+            <div>Drop files here to upload</div>
+            <button mat-raised-button [ngClass]="['white-button']" (click)="UserFile.click()">or click here</button>
+            <input #UserFile type="file"  [ngStyle]="{'visibility': 'hidden', 'position': 'absolute'}" multiple/>
+          </div>
+        </div>
+
+        <div fxLayout="column" fxFlex="100" fxLayoutAlign="end end" fxLayoutGap="10px">
+          <div #saveButton fxLayout="row" fxLayoutGap="20px">
+            <button mat-raised-button  [ngClass]="['white-button']">Cancel</button>
+            <button mat-raised-button  [ngClass]="['monet-button']" >Save</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <mat-divider vertical="true" *ngIf="true"></mat-divider>
+    <div *ngIf="true" fxFlex="40" fxLayout="column" fxLayoutGap="10px" matPadding [ngClass]="['grey-container']">
+      <span titleBlue18>Example question</span>
+      <div fxLayout="row" [ngStyle] ="{'background-color' :'#eee','padding': '10px'}">
+        <span title fxFlex="100">Q. Which image fits the video the best?</span>
+      </div>
+      <div fxLayout="row wrap" [ngStyle] ="{'padding': '10px'}">
+        <img [src]="'https://monet-assets.s3-us-west-2.amazonaws.com/icons/corporate/'+'images/Banner.jpg'" [ngStyle] ="{'margin': '10px'}" height="90px" width="110px">
+        <img [src]="'https://monet-assets.s3-us-west-2.amazonaws.com/icons/corporate/'+'images/Banner.jpg'" [ngStyle] ="{'margin': '10px'}" height="90px" width="110px">
+        <img [src]="'https://monet-assets.s3-us-west-2.amazonaws.com/icons/corporate/'+'images/Banner.jpg'" [ngStyle] ="{'margin': '10px'}" height="90px" width="110px">
+        <img [src]="'https://monet-assets.s3-us-west-2.amazonaws.com/icons/corporate/'+'images/Banner.jpg'" [ngStyle] ="{'margin': '10px'}" height="90px" width="110px">
+      </div>
+    </div>
+  </div>
+
+ <!-- <div fxLayout="row">
+    <div fxLayout="column" fxFlex="100" fxLayoutAlign="start stretch" *ngIf="previewQuestions && previewQuestions.length > 0">
+      <app-preview-image  [edit]="true" (delete)="deleteQue($event)" (update)="updateQue($event)" [previewQuestions] = "previewQuestions" [child]="false" fxLayout="column" fxFlex="100"></app-preview-image>
+    </div>
+  </div>-->
+</div>

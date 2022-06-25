@@ -1,0 +1,93 @@
+hr{
+  border:1px solid #ffffff;
+  width: 100%;
+
+}
+.z{
+  width: 100%;
+  z-index: 10;
+  position: absolute;
+  top: 8%;
+}
+[zero]{
+  margin:0 !important;
+}
+.details_button{
+  border-radius:30px;
+}
+[mat-raised-button ]{
+  background:#210041;
+  color:#fff
+}
+.bullet{
+  .mat-icon{
+    font-size: 11px;
+    height: 11px;
+  }
+}
+.High {
+  border-top: 5px solid #00A23E;
+}
+.Medium {
+  border-top: 5px solid #D69718;
+}
+.Low {
+  border-top: 5px solid #dc3545;
+}
+.cam_off {
+  border-top: 5px solid #ccc;
+}
+.student-card {
+  max-height: 370px !important;
+  overflow: auto;
+}
+.upIcon {
+  height: 50px !important;
+  width: 50px !important;
+  font-size: 86px !important;
+  color: white !important;
+}
+.customLoader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*#student-detail, #segment-detail :hover {
+  cursor: pointer;
+}*/
+.isLink :hover {
+  cursor: pointer;
+}
+
+.column {
+  color: white;
+}
+
+#studentList {
+  height: 50%;
+  //margin-bottom: 5%;
+}
+
+#stdName {
+  //white-space: nowrap;
+  width: 5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#stdDuration {
+  line-height: 1;
+}
+
+#StdList {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+h3 {
+  font-family: "Segoe UI";
+  cursor: pointer;
+}

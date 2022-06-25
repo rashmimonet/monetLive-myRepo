@@ -1,0 +1,79 @@
+<div fxLayout="column" [ngClass]="['question']" [ngStyle]="{'height':'100%'}">
+  <div fxLayout="row"  fxFlex="100" fxLayoutAlign="start stretch">
+    <div fxLayout="column"  fxLayoutAlign="start stretch" fxLayoutGap="20px" [ngClass]="['dialog-mat-card']" [ngStyle]="{'height':'100%', 'padding':'16px'}">
+      <form class="survey-form" [formGroup]="questionForm"  fxLayout="column" fxFlex="100" fxLayoutAlign="start stretch" >
+        <span  [ngStyle]="{'margin-bottom':'20px'}" style="color: rgb(30, 115, 197); font-size: 22px;">Add {{type}} choice option</span>
+        <div #question>
+          <app-write-question [question]="questionForm.get('question')" style="width: 100%"></app-write-question>
+        </div>
+        <div fxLayout="row" [ngStyle]="{'overflow-y': 'auto', 'margin-bottom': '0px', width: '100%'}" >
+          <div fxLayout="column" fxFlex="100" fxLayoutGap="10px" #optionBlock >
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center" formGroupName="qs_flags">
+              <span title>Answers</span>
+              <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="center center" class="option_input">
+                <ng-container *ngIf="type === 'multiple'">
+                  <mat-form-field [floatLabel]="'never'" appearance="outline" style="width: 100px">
+                    <input matInput formControlName="opt_min" placeholder="Min">
+                    <mat-icon matSuffix matTooltip="Minimum number of options must opt">info</mat-icon>
+                  </mat-form-field>
+                  <mat-form-field [floatLabel]="'never'" appearance="outline" style="width: 100px">
+                    <input matInput formControlName="opt_max"  placeholder="Max">
+                    <mat-icon matSuffix matTooltip="Maximum number of options can opt">info</mat-icon>
+                  </mat-form-field>
+                </ng-container>
+<!--                <span title [ngStyle]="{'margin-top':'4px'}">Randomize</span>-->
+
+              </div>
+            </div>
+            <!--              <mat-divider></mat-divider>-->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+              <div [formArrayName]="'options'" *ngFor="let question of questionForm['controls']['options']['controls']; let i = index;" fxFlex="48">
+                <div [formGroupName]="i" [ngClass]="['answer-block']" style="display: flex; justify-content: center; align-items: center;">
+                  <div [ngClass]="['badge']" [ngStyle]="{'height':'18px','width':'24px', 'min-width':'20px', 'margin-top':'-18px', 'font-size':'12px'}">{{i + 1}}</div>
+                  <mat-form-field class="full-width" [floatLabel]="'never'">
+                    <textarea rows="1" matInput #inpud [placeholder]="question.value.type ===  'none' ? 'None of these' : question.value.type ===  'others' ? 'Other than these options' : 'Answer ' + ( i + 1 )" formControlName="option"> </textarea>
+                    <button type="button"  matSuffix mat-icon-button>
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div #saveButton fxLayout="row" fxLayoutGap="20px"  fxLayoutAlign="end center" >
+          <button mat-raised-button [ngClass]="['white-button']" (click)="cancel()">Cancel</button>
+          <button mat-raised-button [disabled]="questionForm.invalid " [ngClass]="['monet-button']" (click)="submit()">Save</button>
+        </div>
+      </form>
+    </div>
+    <mat-divider vertical="true" *ngIf=true></mat-divider>
+    <div *ngIf="true && type === 'single'" fxFlex="40" fxLayout="column" fxLayoutGap="10px"  [ngStyle]="{'height':'38vh', 'padding': '16px'}" [ngStyle.md]="{height:'49vh'}" [ngClass]="['grey-container']">
+      <span style="color: rgb(30, 115, 197); font-size: 18px;">Example question</span>
+      <div fxLayout="row" [ngStyle] ="{'background-color' :'#eee','padding': '10px'}">
+        <span title fxFlex="100">Q. What is your favorite season?</span>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" [ngStyle] ="{'padding': '10px'}">
+        <mat-radio-button _value="summer" _checked="true">Summer</mat-radio-button>
+        <mat-radio-button _value="winter">Winter</mat-radio-button>
+        <mat-radio-button _value="autumn">Autumn</mat-radio-button>
+        <mat-radio-button _value="spring">Spring</mat-radio-button>
+      </div>
+    </div>
+    <div *ngIf="true && type === 'multiple'" fxFlex="40" fxLayout="column" fxLayoutGap="10px"  [ngStyle]="{'height':'40vh', 'padding': '16px'}" [ngStyle.md]="{height:'46vh'}" [ngClass]="['grey-container']">
+      <span style="color: rgb(30, 115, 197); font-size: 18px;">Example question</span>
+      <div fxLayout="row" [ngStyle] ="{'background-color' :'#eee','padding': '10px'}">
+        <span title fxFlex="100">Q. Which words would you use to describe the video? Select all that apply</span>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" [ngStyle] ="{'padding': '10px'}" class="survey-inputs">
+        <mat-checkbox>Sad</mat-checkbox>
+        <mat-checkbox _checked="true">Entertaining</mat-checkbox>
+        <mat-checkbox _checked="true">Funny</mat-checkbox>
+        <mat-checkbox>Scary</mat-checkbox>
+        <mat-checkbox>Boring</mat-checkbox>
+      </div>
+    </div>
+  </div>
+</div>

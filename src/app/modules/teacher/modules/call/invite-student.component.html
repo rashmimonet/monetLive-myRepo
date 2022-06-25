@@ -1,0 +1,54 @@
+<div fxLayout="column" fxLayoutGap="10px" [formGroup]="form">
+  <div fxLayout="row" fxLayoutGap="5px">
+    <mat-icon f-grey>person_add</mat-icon>
+    <span large f-grey>Invite Participants</span>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-form-field appearance="fill" full-width>
+    <mat-label>Subject</mat-label>
+    <input matInput placeholder="Subject" formControlName="subject">
+  </mat-form-field>
+  <mat-form-field appearance="fill" full-width>
+    <mat-label>Enter Emails</mat-label>
+    <input matInput placeholder="Emails, separated by comma" formControlName="email">
+  </mat-form-field>
+  <mat-form-field  appearance="fill" full-width>
+    <textarea matInput formControlName="content" [placeholder]="'Message'" rows="3" full-width></textarea>
+  </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <mat-form-field fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+      <input matInput [ngxMatDatetimePicker]="picker"
+             placeholder="Choose start date"
+      formControlName="startdate">
+      <mat-datepicker-toggle matSuffix [for]="$any(picker)">
+      </mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #picker
+                               [enableMeridian]="true"
+                               [showSpinners]="true"
+                               [showSeconds]="false"
+                               [stepHour]="1" [stepMinute]="1"
+                               [stepSecond]="1"
+                               [touchUi]="false">
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <mat-form-field fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+      <input matInput [ngxMatDatetimePicker]="picker1"
+             placeholder="Choose end date"
+             formControlName="stopdate">
+      <mat-datepicker-toggle matSuffix [for]="$any(picker1)">
+      </mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #picker1
+                               [enableMeridian]="true"
+                               [showSpinners]="true"
+                               [showSeconds]="false"
+                               [stepHour]="1" [stepMinute]="1"
+                               [stepSecond]="1"
+                               [touchUi]="false">
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="16px" full-width>
+    <button mat-button (click)="dialogref.close()">Cancel</button>
+    <button mat-button color="primary" (click)="dialogref.close(form.value)" [disabled]="form.invalid">Send</button>
+  </div>
+</div>

@@ -1,0 +1,303 @@
+[text-center]{text-align:center}
+
+[overflowAuto] {
+  overflow: auto;
+}
+[pointer] {
+  cursor: pointer !important;
+}
+[dottedLine] {
+  padding: 10px;
+  //cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+[absolute] {
+  position: absolute;
+}
+[relative] {
+  position: relative;
+}
+[padding-16] {
+  padding: 16px;
+}
+
+
+
+[fixed] {
+  position: fixed;
+}
+$roboto:  Roboto, "Helvetica Neue", sans-serif;
+$SofiaProLight:  SofiaProLight, "Sofia Pro Light", sans-serif;
+$buttonBoxShadow: 0 8px 10px rgba(0, 0, 0, 0.16);
+$monetThemeBackground: linear-gradient(135deg, #79236B, #1C5BA2);
+//$monetGradient2: linear-gradient(135deg, #79236b 0%, #1C5BA2 50%, #8f2a81 90%);
+$circularBook: CircularStd-Book, Roboto, "Helvetica Neue", sans-serif;
+$greyColor: #423f3f;
+$blueColor: rgb(30, 115, 197);
+$underlineColor: rgba(136, 136, 136, 0.55);
+$lightGradientBackground: linear-gradient(to right, #F3F9FF, #FCFCFC);
+$primary-color: #5d50a3;
+$secondary-color: rgb(88, 86, 86);
+$warning: rgb(214, 151, 24);
+$success: rgb(20, 158, 75) ;
+$successMonet: linear-gradient(135deg, #00A23E, #64FE7F);
+$info: rgb(30, 115, 197);
+$primary-color-back: rgba(121, 35, 107, 0.1);
+$secondary-color-back: rgba(88, 86, 86, 0.1);
+$warning-back: rgba(214, 151, 24, 0.1);
+$success-back: rgba(20, 158, 75, 0.1);
+$info-back: rgba(29, 98, 171, 0.1);
+
+$mobile: '768px';
+// MARGIN & PADDING
+$margins: (
+  't': 'top',
+  'b': 'bottom',
+  'l':'left',
+  'r':'right'
+);
+$font-weight: 100, 200, 300, 400, 500, 600, 700, 800, 900;
+$colors: (
+  'primary':  #775FEE,
+  'secondary': #727477,
+  'tertiary' : #AFB4B8,
+  'light': #aee9ff,
+  'gray': #777,
+  'white': #ffffff,
+  'black': #000000,
+  'success': #00A23E,
+  'warning': #D69718,
+  'danger': #dc3545,
+  'navy': #33387A
+);
+
+$font-sizes: 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 48;
+$icon-sizes: 14,16, 20, 24, 32, 48;
+
+@each $position, $m in $margins {
+  [b-#{$position}] {
+    border-#{$m}: 1px solid white;
+  }
+}
+@for $i from 1 through 32 {
+  @each $code, $m in $margins {
+    .m-#{$code}#{$i * 4} {
+      margin-#{$m}: #{$i * 4}px;
+    }
+    .p-#{$code}#{$i * 4} {
+      padding-#{$m}: #{$i * 4}px;
+    }
+    [m-#{$code}#{$i * 4}] {
+      margin-#{$m}: #{$i * 4}px;
+    }
+    [p-#{$code}#{$i * 4}] {
+      padding-#{$m}: #{$i * 4}px;
+    }
+    [p-#{$i * 4}] {
+      padding: #{$i * 4}px;
+    }
+  }
+}
+//  ICON SIZE --------===============================================----------
+@each $size in $icon-sizes {
+  [icon#{$size}] {
+    font-size: #{$size}px !important;
+    height:  #{$size}px !important;
+    width: #{$size}px !important;
+  }
+}
+//  FONT SIZE --------===============================================----------
+@each $col, $code in $colors {
+  @each $size in $font-sizes {
+    @each $weight in $font-weight {
+      .title-#{$col}#{$size}-#{$weight} {
+        font-size: #{$size}px !important;
+        color: #{$code} !important;
+        font-weight: #{$weight} !important;
+      }
+      [title-#{$col}#{$size}-#{$weight}] {
+        font-size: #{$size}px !important;
+        color: #{$code} !important;
+        font-weight: #{$weight} !important;
+      }
+    }
+  }
+  .back-#{$col} {
+    background: #{$code};
+  }
+}
+// only for color ------------=============================-----------
+
+@each $col, $code in $colors {
+  .color-#{$col} {
+    color: #{$code};
+  }
+}
+/********************Media query ********************/
+
+[monetBg] {
+  background: $monetThemeBackground;
+}
+[monetBgNew] {
+  background: #210041;
+}
+[brownBg] {
+  background-color: #181421;
+}
+[darkBg] {
+  background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+[bgLight] {
+  background-color: #F8F9FF;
+}
+[border] {
+  box-sizing: border-box;
+  //border: 1px solid #59545c;
+}
+[blueTitle] {
+  color: #C8BEFF;
+}
+[xsmall] {
+  font-size: 12px;
+}
+[small] {
+  font-size: 14px;
+}
+[medium] {
+  font-size: 16px;
+}
+[large] {
+  font-size: 18px;
+}
+[xlarge] {
+  font-size: 24px;
+}
+[f-grey] {
+  color: #777777;
+}
+[f-white] {
+  color: #ffffff;
+}
+[b-grey] {
+  background-color: #777777;
+}
+
+[b-lightgrey] {
+  background-color: #707070;
+}
+
+
+[no-padding] {
+  padding: 0 !important;
+}
+[padding] {
+  padding: 16px;
+}
+
+
+[shadow] {
+  box-shadow: 0 0 30px #cccccc;
+}
+[np-shadow] {
+  box-shadow: none;
+}
+
+
+[full-width] {
+  width: 100%;
+}
+[full-height] {
+  height: 100%;
+}
+[light-back] {
+  background: #eeeeee;
+}
+
+
+[relative] {
+  position: relative;
+}
+[absolute] {
+  position: absolute;
+}
+
+[badge] {
+  border-radius: 50%;
+  background: #6b4c9f;
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+[tab-md-white] {
+  .mat-tab-label-container {
+    height: 30px !important;
+  }
+  .mat-tab-label {
+    min-width: 80px !important;
+    height: 28px !important;
+    padding: 0 10px !important;
+    color: white !important;
+  }
+  .mat-ink-bar {
+    height: 1px !important;
+    background-color: white !important;
+  }
+  .mat-tab-body-content {
+    overflow: hidden;
+  }
+}
+[marginNone] {
+  margin: unset !important;
+}
+[tab-sm] {
+  /*.mat-tab-label-container {
+    height: 40px !important;
+  }
+  .mat-tab-label {
+    min-width: 80px !important;
+    height: 28px !important;
+    padding: 0 10px !important;
+  }*/
+  .mat-ink-bar {
+    height: 2px !important;
+  }
+}
+.custom-radio, .mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #f0f0f0 !important;
+}
+.custom-radio, .mat-radio-outer-circle {
+  border-color: rgb(255 247 247 / 54%) !important;
+}
+.white-input {
+  &.mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: rgb(255 244 244 / 58%) !important;
+  }
+}
+
+[titleBlue22] {
+  color: $blueColor !important;
+  font-size: 1.1rem;
+  span {
+    color: $blueColor;
+  }
+}
+[titleBlue18] {
+  color: $blueColor;
+  font-size: 18px;
+}
+[matPadding] {
+  padding: 16px;
+}
+[marginBottom] {
+  margin-bottom: 40px;
+}
+[marginTopSm] {
+  margin-top: 20px;
+}

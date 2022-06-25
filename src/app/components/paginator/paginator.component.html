@@ -1,0 +1,12 @@
+<div fxLayout="row" fxLayoutAlign="end center" style="background: white; box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0; border-top: rgba(0,0,0,.54)">
+  <mat-paginator [length]="totalRecords" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="paginationChange($event)">
+  </mat-paginator>
+  <div class="go-to-container">
+    <div class="go-to-label">Go To: </div>
+    <mat-form-field>
+      <mat-select [(ngModel)]="goTo" (selectionChange)="goToChange($event.value)">
+        <mat-option *ngFor="let pageNumber of pageNumbers" [value]="pageNumber">{{pageNumber}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

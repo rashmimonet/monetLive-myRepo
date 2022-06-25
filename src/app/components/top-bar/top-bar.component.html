@@ -1,0 +1,37 @@
+<div fxLayout="row" id="topbar" fxLayoutAlign="space-between start" fxLayoutGap="28px" style="padding: 8px 12px 0px 8px; border-bottom: 0.5px solid #333; height: 7vh; width: 99%">
+  <audio #waitingRoomAudio [hidden]="true"></audio>
+  <div fxLayout="column">
+    <span title-white18-300>{{room?.summary}}</span>
+    <span title-white12-300>{{room?.start?.dateTime | date: 'medium'}}</span>
+<!--    <span title-white18-300>{{role === 'moderator' ? false : true}}</span>-->
+  </div>
+  <div class="row" fxLayoutAlign="end center" fxLayoutGap="10px" style="place-self: center;">
+      <div fxLayout="row"   fxLayoutAlign="space-between center" fxLayoutGap="10px">
+       <button mat-icon-button *ngIf="action?.includes('link')" [cdkCopyToClipboard]="link" [matTooltip]="'Copy meeting link'" style="background-image: linear-gradient(to right, #77246C , #1E5AA1); color: white">
+         <mat-icon f-white>person_add</mat-icon>
+       </button>
+       <div class="user-avatar" fxLayout="row" fxLayoutAlign="center center" style="background-image: linear-gradient(to right, #77246C , #1E5AA1); color: white">
+         <span title-white16-300>{{name}}</span>
+       </div>
+        <button mat-icon-button  [matTooltip]="'Click here to refresh the session'" style="background-image: linear-gradient(to right, #77246C , #1E5AA1); color: white" (click)="refresh()">
+          <mat-icon f-white>cached</mat-icon>
+        </button>
+     </div>
+
+    <ng-container *ngIf="role === 'moderator' && waitingUsersList.length">
+      <button
+              id="waitingUsers"
+              mat-icon-button
+              matBadgeColor="warn"
+              matBadge="{{waitingUsersList.length}}"
+              [matTooltip]="'Click to view users in Waiting Room'"
+              style="background-image: linear-gradient(to right, #77246C , #1E5AA1); color: white"
+              (click)="viewWaitingUsers()">
+        <mat-icon f-white>people</mat-icon>
+      </button>
+    </ng-container>
+
+  </div>
+</div>
+
+

@@ -1,0 +1,131 @@
+
+
+<div fxLayout="column" fxLayoutAlign="center center" fxFill fxLayoutGap="22px" style=" border-radius: 10px 0 0 10px;">
+  <form fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start" ngClass="formClass"
+        padding class="card" (ngSubmit)="signUp(form.value)" [formGroup]="form" *ngIf="!forgotPass">
+
+    <div fxLayout="column" fxFlex="28" fxLayoutGap="10px" style="width: 100%">
+      <span fxFlex="25">Email Id</span>
+      <span fxFlex="75">
+        <input type="email" autofocus formControlName="email" placeholder="Ex. abc@xyz.com" inputStyle>
+      </span>
+    </div>
+    <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center" style="width: 100%; color: #c8663c !important;">
+      <mat-error *ngIf=" form['controls']?.email.errors?.required && !form['controls'].password.errors?.required ">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="form.controls['email']?.touched && form.controls['email'].errors?.pattern">
+        Email is <strong>Invalid</strong>
+      </mat-error>
+      </div>
+    <div fxLayout="column" fxFlex="28" fxLayoutGap="10px" style="width: 100%; ">
+      <span fxFlex="25">Password</span>
+      <span fxFlex="75" style="position: relative">
+        <input type="password" [type]="passView ? 'password' : 'text'"  formControlName="password" inputStyle>
+           <mat-icon matSuffix passwordIcon (click)="passView = !passView" pointer>{{passView ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </span>
+    </div>
+
+      <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center" style="width: 100%; color: #c8663c !important;">
+        <!-- <mat-error *ngIf=" form['controls']?.email.errors?.required && !form['controls'].password.errors?.required ">
+          Email is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="form.controls['email']?.touched && form.controls['email'].errors?.pattern">
+          Email is <strong>Invalid</strong>
+        </mat-error> -->
+        <mat-error *ngIf=" form['controls'].password.errors?.required && !form['controls']?.email.errors?.required ">
+                  Password is <strong>required</strong>
+                </mat-error>
+        <mat-error *ngIf="isSourceMonet && form['controls']?.email.errors?.required && form['controls'].password.errors?.required && form.controls['email']?.touched">
+                Email and  Password is <strong>required</strong>
+                </mat-error>          
+<!-- isSourceMonet added by me to avoid default condition  -->
+        <mat-error *ngIf="!termCondition">Terms Condition required</mat-error>
+      </div>
+
+    <div fxLayout="row" fxFlex="15"  fxLayoutAlign="space-between center"  style="width: 90%">
+      <a style="cursor: pointer; text-decoration: underline;" (click)="forgotPass = true">Forgot Password?</a>
+      <button mat-raised-button [ngClass]="!(form.valid && isInstanceAlotted && termCondition) ? 'logInBtn' : 'logedInBtn'" type="submit" [disabled]="!(form.valid && isInstanceAlotted && termCondition) " >Log In
+        <img src="/assets/images/loader.svg" height="20px" width="20px" style="margin-left: 5px; border-radius: 50%" *ngIf="loader">
+      </button>
+    </div>
+  </form>
+
+  <!--  &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+  <form fxLayout="column" fxFill fxLayoutGap="20px" fxLayoutAlign="center center"  padding class="card" (ngSubmit)="resetPass(resetForm.value)" [formGroup]="resetForm" *ngIf="forgotPass" style="padding: 60px 0;">
+
+  <div fxLayout="column" fxFlex="25" fxLayoutGap="20px" style=" width: 70%; color: white;">
+    <span fxFlex="25">Email Id</span>
+    <span fxFlex="75">
+        <input type="email" formControlName="email" inputStyle>
+      </span>
+  </div>
+
+    <div fxLayout="column" fxFlex="25" fxLayoutGap="10px" style=" width: 70%; color: white;" *ngIf="passReset">
+      <span fxFlex="25"> New Password</span>
+      <span fxFlex="75" style="position: relative">
+        <input type="password" [type]="hide ? 'password' : 'text'"  formControlName="password" inputStyle>
+           <mat-icon matSuffix passwordIcon (click)="hide = !hide" pointer>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </span>
+    </div>
+
+    <div fxLayout="column" fxFlex="25" fxLayoutGap="10px" style=" width: 70%; color: white;" *ngIf="passReset">
+      <span fxFlex="25">Confirm Password</span>
+      <span fxFlex="75" style="position: relative">
+        <input type="password" [type]="cPassView ? 'password' : 'text'"  formControlName="matchPassword" inputStyle>
+           <mat-icon matSuffix passwordIcon (click)="cPassView = !cPassView" pointer>{{cPassView ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </span>
+    </div>
+
+
+    <div fxLayout="column" fxFlex="8" fxLayoutGap="5px" fxLayoutAlign="center center" style="width: 70%; color: #c8663c !important;"  >
+        <mat-error *ngIf="resetForm.controls['email']?.touched &&  resetForm['controls']?.email?.errors?.required">
+          Email is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="resetForm.controls['password']?.touched &&  resetForm['controls']?.password?.errors?.required">
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="resetForm.controls['matchPassword']?.touched &&  resetForm['controls']?.matchPassword?.errors?.required">
+          Confirm Password is <strong>required</strong>
+        </mat-error>
+
+        <mat-error *ngIf="resetForm.get('password').errors?.pattern">
+          Password should be of <b>8</b> characters <b>(at least one digit, one lower case, one upper case, one special character)</b>
+        </mat-error>
+
+        <mat-error *ngIf="resetForm.errors?.noMatch">
+          Password and Confirm Password should be <strong>Same</strong>
+        </mat-error>
+    </div>
+
+
+    <div fxLayout="row" fxFlex="17" fxLayoutAlign="space-around center" fxLayoutGap="16px" full-width>
+      <button mat-mini-fab color="primary" type="button" (click)="forgotPass = false">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button mat-raised-button [ngClass]="resetForm['controls'].email.errors?.required ? 'logInBtn' : 'logedInBtn'" type="submit" [disabled]="resetForm['controls'].email.errors?.required">{{!passReset ? 'SEND LINK' : 'RESET'}}</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+
+<div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px"  style="position: relative; height: 100%; max-height: 45vh">
+  <button mat-mini-fab style="background: black" class="close-button" (click)="dialogRef.close({result: responseArr})">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="20"  style="background: #A9A9A9; width: 100%; padding: 2% 0; width: 100%">
+      <span style="color: white; font-size: 24px; font-weight: 400;">Waiting Room</span>
+    </div>
+
+    <form [formGroup]="usersListForm" style="width: 80%; position: relative;">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" style="width: 100%">
+        <div fxLayout="column" [fxFlex]="getFlexVal()"  fxLayoutGap="10px" [ngStyle]="{overflowY: users.controls.length > 4 ? 'scroll' : ''}" formArrayName="users" style="width: 100%; max-height: 30vh !important;">
+          <div  *ngFor="let user of users.controls; let i=index" style="width: 100%">
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroupName]="i" arrayInput>
+              <mat-checkbox formControlName="action" [checked]="user.value.action"  (click)="user.value.action = !user.value.action;  action(i)" *ngIf="users.controls.length > 1"></mat-checkbox>
+              <input type="text" formControlName="name" readonly style="border:0; outline: none">
+              <button mat-raised-button pointer style="background: #52A136 ; color: white; border-radius: 20px;" (click)="approveUser(i, user.value)">Approve</button>
+              <button mat-raised-button pointer style="background: #D61A3C ; color: white; border-radius: 20px;" (click)="removeUser(i, user.value)">Reject</button>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <button mat-raised-button type="submit" approveBtn [disabled]="myjson.stringify(usersListForm.value.users) | selectionStatus : 'approve'" (click)="onSubmit()" *ngIf="users.controls.length > 1">Approve</button>
+          <button mat-mini-fab
+                  approveBtn
+                  style="background-color: transparent; box-shadow: none;"
+                  [ngStyle]="{'color': (myjson.stringify(usersListForm.value.users) | selectionStatus : 'selectAllButton') ? '#00000042' : '#3f51b5', 'border' : (myjson.stringify(usersListForm.value.users) | selectionStatus : 'selectAllButton') ? '1px solid #00000042' : '1px solid #3f51b5'}"
+                  [matTooltip]="(myjson.stringify(usersListForm.value.users) | selectionStatus : 'selectAllButton') ? 'Select All' : 'Unselect All'"
+                  (click)="selectAll()"
+                  *ngIf="users.controls.length > 1">
+            <mat-icon>grading</mat-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+

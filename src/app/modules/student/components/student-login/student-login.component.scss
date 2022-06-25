@@ -1,0 +1,245 @@
+//.card {
+//  min-height: 300px;
+//  min-width: 550px;
+//  //background-color: white;
+//}
+//.logo {
+//  height: 40px;
+//  margin-bottom: 20px !important;
+//}
+//.monet-logo {
+//  position: fixed;
+//  top: 0;
+//  left: 0;
+//}
+//
+[monetLogo] {
+  height: 50px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+.main-container {
+  font-family: 'CircularStd-book' !important;
+  background-color: black;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.permission-request-container {
+  font-family: 'CircularStd-book' !important;
+  border-radius: 8px;
+  width: 35%;
+  min-width: 35%;
+  max-width: 35%;
+  height: auto;
+  padding: 48px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.permission-rejected-container {
+  font-family: 'CircularStd-book' !important;
+  border-radius: 8px;
+  width: 45%;
+  min-width: 45%;
+  max-width: 45%;
+  height: auto;
+  padding: 24px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-preview-screen {
+  border-radius: 8px;
+  background-color: white;
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-family: 'CircularStd-book' !important;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
+
+p {
+  font-family: 'CircularStd-book' !important;
+  text-align: center;
+  color: #4e4c4c;
+}
+
+.previewContainer {
+  position: relative;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: auto;
+  height: auto;
+}
+
+.webcam-stream-container {
+  top: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  width: 450px;
+  height: 330px;
+  clip-path: polygon(10% 10%, 90% 10%,90% 90%,10% 90%);
+}
+
+section {
+  display: table;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 15px;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* .example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+} */
+.mat-icon-button {
+  /* top:5px; */
+  padding: 5%;
+  background: #5829A6;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 60px;
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 40px;
+}
+
+.mat-icon.mat-icon-inline {
+  font-size: 25px;
+}
+
+#btn {
+  color: #ffffff;
+  background: linear-gradient(to right, #77246C, #1E5AA1);
+  border-radius: 18px;
+  margin-left: 30%;
+  padding: 10px;
+  width: 45%;
+  border: none;
+}
+
+
+#studentStream {
+  transform: rotateY(180deg) !important;
+  -webkit-transform: rotateY(180deg) !important;
+  -moz-transform: rotateY(180deg) !important;
+}
+
+.student-form {
+  position: absolute;
+  padding-top: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 30%;
+}
+
+.name-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.name-label {
+  padding-right: 32px;
+  width: 150px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ask-to-join-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 32px 0 46px 0;
+}
+
+.ask-to-join-active {
+  cursor: pointer;
+  border-radius: 40px;
+  min-width: 180px;
+  font-weight: normal;
+  font-size: medium;
+  background: linear-gradient(135deg, #77246C, #1E5AA1);
+  color: white;
+  padding: 12px 16px 12px 16px;
+  border-style: none;
+  outline: none;
+}
+
+.ask-to-join-inactive {
+  cursor: pointer;
+  border-radius: 40px;
+  min-width: 180px;
+  font-weight: normal;
+  font-size: medium;
+  opacity: .7;
+  background: linear-gradient(135deg, #77246C, #1E5AA1);
+  color: gainsboro;
+  padding: 12px 16px 12px 16px;
+  border-style: none;
+  outline: none;
+}
+
+.student-name {
+ padding: 8px 12px 8px 12px;
+  outline: none;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  width: 150px;
+}
+
+.button-controls {
+  z-index: 100;
+  position: absolute;
+  padding-top: 265px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+  padding-right: 75px;
+}

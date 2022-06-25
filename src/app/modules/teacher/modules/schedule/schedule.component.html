@@ -1,0 +1,61 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxFill>
+  <div fxLayout="row" id="check" fxFlex="100" full-width>
+    <div fxFlex="330px" fxLayout="column" fxLayoutGap="20px" padding class="sidebar">
+      <img src="assets/NewMonetLive.svg" class="logo" [routerLink]="['/profile/dashboard/personal']" pointer>
+      <!--{{eventData |json}}-->
+      <mat-divider></mat-divider>
+      <mat-tab-group tab-md-white>
+        <mat-tab label="Ongoing / Upcoming">
+          <div fxLayout="column" fxLayoutGap="20px" class="events">
+            <ng-container *ngFor="let link of eventData?.slice().reverse(); let i = index;">
+              <!--*ngIf="(link.now  - link.start?.dateTime) > 0 && (link.now  - link.end?.dateTime) > 0"-->
+              <!--<span title-white12-200>{{link.now  - link.end?.dateTime}}</span>-->
+              <div fxLayout="column" fxLayoutGap="5px" *ngIf="(link.now  - link.end?.dateTime) < 0" class="event">
+                <span title-white18-400>{{link.summary }}</span>
+                <span title-secondary12-200>{{ link.start?.dateTime |date: 'medium'}}</span>
+                <span title-white14-300>{{link.end?.dateTime  - link.start?.dateTime | duration}}</span>
+                <mat-divider style="background: #ffffff"></mat-divider>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+                  <div fxLayout="row" fxLayoutGap="5px">
+                    <mat-icon>person</mat-icon>
+                    <span>{{link?.attendee?.length}}</span>
+                  </div>
+                  <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="end center">
+                    <button mat-raised-button (click)="joinMeet(link)">Join Now</button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </mat-tab>
+        <mat-tab label="Past">
+          <div fxLayout="column" fxLayoutGap="20px" class="events">
+            <ng-container *ngFor="let link of eventData; let i = index;">
+              <div fxLayout="column" fxLayoutGap="5px"  *ngIf="(link.now  - link.end?.dateTime) > 0" class="event">
+                <span title-white18-400>{{link.summary }}</span>
+                <span title-secondary12-200>{{ link.start?.dateTime |date: 'medium'}}</span>
+                <span title-white14-300>{{link.end?.dateTime  - link.start?.dateTime | duration}}</span>
+                <mat-divider style="background: #ffffff"></mat-divider>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+                  <div fxLayout="row" fxLayoutGap="5px">
+                    <mat-icon>person</mat-icon>
+                    <span>{{link?.attendee?.length}}</span>
+                  </div>
+                  <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="end center">
+                    <button mat-raised-button (click)="joinMeet(link)">Join Now</button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+    <div fxFlex padding>
+      <span xlarge f-white>Class scheduler</span>
+      <app-calendar (eventList)="getEvents($event)" (outlookEventList)="getOutlookEvents($event)"></app-calendar>
+    </div>
+  </div>
+
+</div>

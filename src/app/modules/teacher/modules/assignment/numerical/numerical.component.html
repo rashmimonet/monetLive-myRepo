@@ -1,0 +1,83 @@
+<div fxLayout="column" [ngClass]="['question']"  marginBottom >
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="start stretch" fxLayoutGap="20px" fxLayoutGap.md="10px" [ngClass]="['dialog-mat-card']">
+    <form class="survey-form" [formGroup]="questionForm" fxLayout="column" [fxFlex]="'60'" fxFlex.md="52" fxLayoutGap="20px" fxLayoutAlign="start stretch" matPadding>
+      <span titleBlue22>Add likert scale question</span>
+      <div fxLayout="row" #question style="min-height: 70px">
+        <app-write-question  style="width: 100%"></app-write-question>
+      </div>
+      <div fxLayout="row">
+        <div fxLayout="column" fxFlex="100" fxFlex.lg="100" fxLayoutGap="20px">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div title>Answer</div>
+            <div fxLayout="row" fxLayoutGap="10px" [ngClass]="{'active': questionForm.get('qs_flags').get('reverse').value}">
+              <button mat-icon-button (click)="questionForm.get('qs_flags').get('reverse').setValue(!questionForm.get('qs_flags').get('reverse').value)"><mat-icon>swap_horiz</mat-icon></button>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center" style="width: auto;min-height: 80px; padding: 10px auto">
+            <button mat-icon-button>
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+            <div fxLayout="row" fxLayoutAlign="center center" [ngClass]="['box-container']" [fxFlex]="37 * items.length+'px'" fxLayoutGap="5px" [dir]="questionForm.get('qs_flags').get('reverse').value? 'rtl' : 'ltr'">
+              <div @fade *ngFor="let item of items; let i = index" [ngClass]="['box']" fxLayout="row" [ngStyle]="{'padding': (100 / items.length / 4)+ '% 0%'}" fxLayoutAlign="center center">
+                <span>{{item}}</span>
+              </div>
+            </div>
+            <button mat-icon-button>
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+            <div fxLayout="column" fxFlex="30" #not_like>
+              <mat-form-field class="full-width" [floatLabel]="'never'">
+                <input matInput [placeholder]="'Not likely'" formControlName="not_like">
+                <mat-icon matSuffix>edit</mat-icon>
+              </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex="30" #extreme_like>
+              <mat-form-field class="full-width" [floatLabel]="'never'">
+                <input matInput [placeholder]="'Extremely likely'" formControlName="extreme_like">
+                <mat-icon matSuffix>edit</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxFlex="100" fxLayoutAlign="end end" fxLayoutGap="10px">
+        <div #saveButton fxLayout="row" fxLayoutGap="20px">
+          <button mat-raised-button  [ngClass]="['white-button']" >Cancel</button>
+          <button mat-raised-button [disabled]="true" [ngClass]="['monet-button']" >Save</button>
+        </div>
+      </div>
+    </form>
+    <mat-divider vertical="true" *ngIf="true"></mat-divider>
+    <div *ngIf="true" fxFlex="40" fxFlex.md="48" fxLayout="column" fxLayoutGap="10px" matPadding [ngStyle]="{height:'40vh'}" [ngClass]="['grey-container']">
+      <span titleBlue18>Example question</span>
+      <div fxLayout="row" [ngStyle] ="{'background-color' :'#eee','padding': '10px'}">
+        <span title fxFlex="100">Q. How many cups of coffee do you drink per day?</span>
+      </div>
+      <div>
+        <div  [ngClass]="['box-container']" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+          <div *ngFor="let item of exitems" [ngClass]="['box']" fxLayout="row" fxLayoutAlign="center center"><span>{{item}}</span></div> <!--[fxFlex]="100 / exitems.length" [ngStyle]="{'padding': (100 / exitems.length / 4)+ '% 0%'}"-->
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+        <div fxLayout="column" fxFlex="30" #not_like>
+          <mat-form-field class="full-width" [floatLabel]="'never'">
+            <input matInput [placeholder]="'Not likely'"readonly>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="30" #extreme_like>
+          <mat-form-field class="full-width" [floatLabel]="'never'">
+            <input matInput [placeholder]="'Extremely likely'"  readonly>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ <!-- <div fxLayout="column" fxFlex="100" fxLayoutAlign="start stretch" *ngIf="previewQuestions">
+    <app-preview-numeric  [edit]="true" [previewQuestions] = "previewQuestions" (update)="updateQue($event)" (delete)="deleteQue($event)" [header]="false" fxLayout="column" fxFlex="100"></app-preview-numeric>
+  </div>-->
+</div>

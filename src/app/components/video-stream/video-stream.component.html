@@ -1,0 +1,50 @@
+<div relative class="preview-video">
+  <div fxLayout="row" *ngIf="video?.loadstart || video?.buffering && student?.video" fxLayoutAlign="center center"
+    style="min-height: 100%; height: 100%; position: absolute; width: 100%">
+    <mat-spinner [diameter]="30"></mat-spinner>
+  </div>
+  <div fxFill class="no-camera" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px"
+    *ngIf="!student?.video">
+    <div class="avatar" [ngStyle]="{backgroundColor: 'rgba(' + randomColor.join(', ') +')'}">
+      <mat-icon f-white>person</mat-icon>
+    </div>
+    <span title-white14-400>{{student?.name}}</span>
+  </div>
+  <!--  <div fxLayout="column" class="videodiv" fxFlex="100" [hidden]="!student?.webcam" >-->
+  <div fxLayout="column" [ngClass]="'screenShare'" fxFlex="100" [hidden]="!student?.webcam">
+    <video (progress)="videoProgress($event)" (loadstart)="onLoadStart($event)" (canplay)="canPlay($event)"
+      (play)="playVideo($event)" (playing)="playingVideo($event)" (pause)="paused($event)" (waiting)="waiting($event)"
+      (canplaythrough)="canplaythrough($event)" (timeupdate)="timeupdate($event)"
+      (loadedmetadata)="loadedMetaData($event)" (abort)="abort($event)" (cancel)="abort($event)" [id]="student?.std_id"
+      class="videocol" height="100%" width="100%" autoplay muted #videoview>
+    </video>
+    
+    <div fxLayout="row" *ngIf="student?.video">
+      <!-- <div style="background-color: aqua; color:#fff;">{{student | json}}</div> -->
+      <div [ngClass]="['video-title']">{{student?.name}} &nbsp; &nbsp;<mat-icon [id]="student?.std_id+'mic'" f-white
+          large style="vertical-align: middle">{{student?.audio ? 'mic' : 'mic_off'}}</mat-icon>
+        <mat-icon *ngIf="module === 'proctor' && student?.raiseHand === true" style="font-size: 17px">pan_tool
+        </mat-icon>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- <span [ngClass]="['engagement', student?.category_engagement ? student?.category_engagement : 'Low']"></span> -->
+  <span class="engagement" [ngClass]=getCssClass()></span>
+  <div class="overlay" *ngIf="module === 'proctor'">
+    <div class="overlay-actions" fxLayout="row" fxLayoutGap="10px">
+      <div *ngFor="let action of actions">
+        <!--        <button mat-icon-button [matTooltip]="action.name" (click)="action.action(); actionEmitter.emit(action); toggleMute(action);">-->
+        <button mat-icon-button [matTooltip]="action.name"
+          (click)="action.action(student?.std_id ); actionEmitter.emit(action); ">
+
+          <mat-icon f-grey large *ngIf="action.icon !== 'throwChalk'">{{action.value === 'mic' ? student?.audio ? 'mic'
+            : 'mic_off' : action.icon}}</mat-icon>
+          <img *ngIf="action.icon === 'throwChalk'" src="../../../../../assets/throwChalk.svg" height="30px"
+            width="30px" pointer>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

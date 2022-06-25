@@ -1,0 +1,65 @@
+<!--<div fxLayout="row" style="background-color: #333333; height: 100vh;">-->
+<div fxLayoutAlign=" center" fxFill>
+   <img src="assets/images/previewBackground.jpg"  id="previewBackground"  height="100%" width="100%">
+</div>
+
+<div id = "content" fxLayout="row">
+<div fxFlex="20">
+    <div style="margin-left: 24px; margin-top: 16px;">
+      <img src="assets/MonetLiveWhite.png" [routerLink]="['/profile/dashboard/personal']" (click)="stopStream()" class="logo" height="50px" pointer>
+    </div>
+  </div>
+  <div fxFlex="60" fxLayoutAlign="center center">
+    <div class="preview-container-card">
+      <div class="video-container" style="text-align: center">
+
+        <div style="height: 300px; width: 400px; margin: auto; position: relative;">
+          <div class="spinner" fxLayout="row" *ngIf="video?.loadstart || video?.buffering" fxLayoutAlign="center center" style="min-height: 100%; height: 100%; position: absolute; width: 100%">
+            <mat-spinner  [diameter]="30"></mat-spinner>
+          </div>
+          <video id="video" autoplay muted  height="300px" width='400px' style="border-radius: 10px;"
+                 (loadedmetadata)="loadedMetaData($event)"
+                 (loadstart)="onLoadStart($event)">
+          </video>
+          <div style="width:auto; height:100%; border-radius: 10px; position: absolute; margin: 16px; top: 0; left: 0; z-index: 10;" fxLayout="column" fxLayoutAlign="space-between" fxFill>
+            <div class="settings-container" fxLayout="row" fxLayoutAlign="end center" fxFlex="20" [ngStyle]="OS === 'Mac' ? {position: 'absolute', top: '30px', right: '2px'} : {marginRight: '3%'}">
+              <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>feedback</mat-icon>
+                  <span>Feedback</span>
+                </button>
+                <button mat-menu-item [disabled]="!availableMediaDevices" (click)="configMediaoptions()">
+                  <mat-icon>settings</mat-icon>
+                  <span>Settings</span>
+                </button>
+                <!-- <button mat-menu-item (click)="assignment()">
+                  <mat-icon>post_add</mat-icon>
+                  <span>Create Assignment</span>
+                </button> -->
+              </mat-menu>
+            </div>
+            <div class="audio-video-button-container" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="center center" fxFlex="20" [ngStyle]="OS === 'Mac' ? {position: 'absolute', bottom: '30px'} : null" >
+              <ng-container *ngFor="let action of actions">
+                <button  mat-icon-button mat-mini-fab color="primary" [matTooltip]="action.status ? action.name : action.nameop || ''" (click)="action.status = !action.status; mainActions(action)">
+                  <mat-icon [id]="action.icon" [inline]="true" style="font-size: 20px;">{{action.status ? action.icon : action.iconop}}</mat-icon>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="meeting-link-container" fxLayout="column" fxLayoutAlign="center center">
+      <!--        <button mat-raised-button color="primary" (click)="start()" [disabled]="false">Start Meeting</button>-->
+        <button mat-raised-button color="primary" (click)="start()" [disabled]="startMeet">Start Meeting</button>
+      </div>
+      <div class="record-meeting-container">
+        <mat-checkbox [disabled]="!recordingEnabled" (click)="recordMeeting = !recordMeeting">Record this call</mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+</div>

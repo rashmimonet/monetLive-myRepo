@@ -1,0 +1,46 @@
+.example-section {
+  margin: 12px 0;
+}
+
+.close-button{
+  background: black;
+  position: absolute;
+  z-index: 99;
+}
+
+.close-icon {
+  transition: 1s ease-in-out;
+  color: white;
+  display: flex;
+}
+
+::ng-deep .icon-outside .close-button{
+  float: right;
+  top:-24px;
+  right:-19px;
+  border: 1px solid white;
+}
+
+::ng-deep .icon-outside .mat-dialog-container {
+  overflow: unset
+}
+
+
+[approveBtn] {
+  color: white;
+  margin: 15% 0;
+  background: rgba(113, 9, 139, 0.87);
+}
+[arrayInput] {
+  input{
+    font-size: 16px;
+    text-transform: capitalize;
+  }
+}
+
+#checkList {
+  position: absolute;
+  color: dodgerblue;
+  top: 10px;
+  right: 10px;
+}

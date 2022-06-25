@@ -1,0 +1,78 @@
+mat-list-option {
+  .mat-list-text {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: stretch space-between;
+    align-items: stretch;
+  }
+}
+
+.name-list {
+  padding: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.expansionHeader {
+  //border-right : 4px solid  #35254B;
+  padding: 0 5%;
+  overflow-y: auto;
+}
+
+#sideNavDuartion {
+  line-height: 1;
+}
+
+/*#sideNavFontStudent {
+  font-family: "Segoe UI";
+  font-size: 22px;
+}
+
+#sideNavFontDuration {
+  font-family: Roboto;
+  font-size: 20px;
+}*/
+
+#navSidebar {
+  :host ::ng-deep .mat-radio-container {
+    height: 15px;
+    width: 15px;
+  }
+
+  :host ::ng-deep .mat-radio-outer-circle {
+    height: 15px;
+    width: 15px;
+  }
+
+  :host ::ng-deep .mat-radio-inner-circle {
+    height: 15px;
+    width: 15px;
+  }
+
+  :host ::ng-deep .mat-radio-button .mat-radio-ripple {
+    height: 15px;
+    /*double of your required circle radius*/
+    width: 15px;
+    /*double of your required circle radius*/
+    left: calc(50% - 15px);
+    /*'10px'-same as your required circle radius*/
+    top: calc(50% - 15px);
+    /*'10px'-same as your required circle radius*/
+  }
+
+  ::ng-deep .mat-radio-label-content {
+    color: #FFFFFF;
+  }
+}
+
+.rowWrap {
+
+  white-space: nowrap;
+  //overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.removePadding {
+  padding: 0 !important;
+}

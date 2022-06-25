@@ -1,0 +1,232 @@
+<!--<div fxLayout="column" fxFill padding *ngIf="sessionDataMinutes?.length !== 0 && segmentData?.length !== 0">-->
+<!--  <div fxLayout="row" fxLayoutAlign="center center" fxFlex [ngStyle]="{display: !dispStdList && !dispCatSpecificData ? '' : 'none'}" style="margin-top: -50px !important;">-->
+<!--   <div fxLayout="column" fxFlex="100">-->
+<!--     <div fxLayout="row" fxLayoutAlign="end center" p-r24 p-l24 border>-->
+<!--       <span title-white12-400 >Seconds</span>-->
+<!--&lt;!&ndash;       <mat-slide-toggle [checked]="minuteToggle" (change)="toggle($event)"  m-r12 m-l12></mat-slide-toggle>&ndash;&gt;-->
+<!--       <mat-slide-toggle [checked]="minuteToggle" (change)="minuteToggle = $event.checked"  m-r12 m-l12></mat-slide-toggle>-->
+<!--       <span title-white12-400 >Minutes</span>-->
+<!--     </div>-->
+<!--     <app-overall-line-chart [overallData]="this.minuteToggle ? sessionDataMinutes : sessionDataSeconds"  fxFlex></app-overall-line-chart>-->
+<!--   </div>-->
+<!--  </div>-->
+<!--  <div fxLayout="row" m-b20 title-white12-200 *ngIf="segmentData?.length !== 0">-->
+<!--    {{engOrMood === 0 ? 'Engagement' : 'Mood'}} Percentage per {{headingDuration}} minutes-->
+<!--  </div>-->
+<!--&lt;!&ndash;  <div fxLayout="row" fxLayoutAlign="space-between" fxFlex *ngIf="pieChartData">&ndash;&gt;-->
+<!--  <div fxLayout="row" fxLayoutAlign="space-between" fxFlex>-->
+<!--    <div fxFlex="25" fxLayout="column" fxLayoutGap="10px" *ngFor="let segment of segmentData; let i=index">-->
+<!--      <span title-white18-400 fxLayoutAlign="center center"  style="border-left: 1px solid #707070 ; border-right: 1px solid #707070" padding>{{segment.duration}}</span>-->
+
+<!--      <app-pie-chart [inpIn]="'container' + i"-->
+<!--                     [pieChartData]="pieChartData[i]"-->
+<!--                     (click)="selection = i; cdRef.detectChanges(); studentListPanel(true);-->
+<!--                     segmentWiseScore(selection)"-->
+<!--                     fxFlex="100"-->
+<!--                     pointer>-->
+<!--      </app-pie-chart>-->
+<!--      <span title-white18-400 fxLayoutAlign="center center"  style="border-left: 1px solid #707070 ; border-right: 1px solid #707070" padding *ngIf="!dispStdList && !dispCatSpecificData"></span>-->
+
+<!--      <div fxLayout="row" fxLayoutAlign="center center" >-->
+<!--        <mat-icon [ngStyle]="{visibility: selection === i? 'visible': 'hidden'}" *ngIf="dispStdList" [ngClass]="['upIcon']">arrow_drop_up</mat-icon>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <mat-card fxLayout="row" *ngIf="pieChartData && pieChartData.length > 0 && selection >= 0 && dispStdList" style="position: relative" >-->
+<!--    <div id="StdList" p-r8>-->
+<!--      <button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="dispStdList = false;">-->
+<!--        <mat-icon>close</mat-icon>-->
+<!--      </button>-->
+<!--    </div>-->
+<!--    <div t-center fxFlex="100" fxLayout="column"  *ngFor="let cat of segments; let i=index" style="padding: 0 2%;">-->
+<!--      <h3  [ngStyle] = "{'color': cat.color}" zero (click)="individualSegmentScores(cat)">{{cat.name}} {{engOrMood === 0 ? cat.eng : cat.mood}}</h3>-->
+<!--      <p xsmall >{{!this.engOrMood ? segUsersArr[i] : moodsegUsersArr[i]}} {{segUsersArr[i] === 1 ? 'Participant' : 'Participants'}}  ({{!this.engOrMood ? percentArr[i] : moodpercentArr[i]}}%)</p>-->
+<!--      <div fxLayout="column" fxFlex="100" [ngClass]="['student-card']">-->
+<!--        <div [ngClass]="linkEnabled ? 'isLink' : ''" fxLayout="row" fxLayoutAlign="start center" *ngFor="let student of (pieChartData[selection].UAE | categoryFilter: {category: cat.category, key: getCategoryVal()})"  [routerLink]="[linkEnabled ? '../student-detail' : []]" (click)="cdRef.detectChanges()" [queryParams]="linkEnabled ? {student_id: student.uuid} : {}" [queryParamsHandling]="'merge'" fxLayoutGap="20px" fxFlex="40px"  >-->
+<!--          <mat-icon>account_circle</mat-icon>-->
+
+<!--          <div id="studentList" fxLayout="column" fxLayoutAlign="center" fxFlex="50">-->
+<!--            <span id="stdName" title-black12-400 fxLayoutAlign="start" zero style="text-align: start">{{student.name}}</span>-->
+<!--          </div>-->
+
+<!--          <span fxfelx="10"  fxLayoutAlign="start center" zero>-->
+<!--             <mat-icon xsmall fxLayoutAlign="start center" [ngClass]="cat.className">fiber_manual_record</mat-icon>-->
+<!--          </span>-->
+<!--          <span fxFlex="10" xsmall fxLayoutAlign="start center" title-black14-500>{{!engOrMood ? student.average : student.average_mood}}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </mat-card>-->
+
+<!--  <div fxLayout="row"  fxLayoutGap="16px" fxLayoutAlign="space-around center" *ngIf="dispCatSpecificData" style="position: relative">-->
+
+<!--  <div style="position: absolute; top: 0; right: 0;" >-->
+<!--    <button mat-button  matSuffix mat-icon-button aria-label="Clear" title-white12-200 (click)="dispCatSpecificData = !dispCatSpecificData; dispStdList = !dispStdList;">-->
+<!--      <mat-icon>close</mat-icon>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--  <div fxLayout="column"  fxFill fxFlex="25" *ngFor="let seg of pieChartData; let i=index" >-->
+<!--    <mat-icon  [ngClass]="['upIcon']">arrow_drop_up</mat-icon>-->
+<!--    <mat-card fxLayout="column" t-center style="height: 100%;">-->
+<!--      <h3 t-center [ngStyle] = "{'color': segSpecificData.color}" zero>{{!engOrMood ? segSpecificData.name[0].name : segSpecificData.name[1].name}} </h3>-->
+<!--      <p xsmall >{{!engOrMood ? segSpecificData?.participantsCount[i] : segSpecificData?.moodParticipantsCount[i]}}  {{!engOrMood ? (segSpecificData?.participantsCount[i] === 1 ? 'Participant' : 'Participants') : (segSpecificData?.moodParticipantsCount[i] === 1 ? 'Participant' : 'Participants')}}  ({{!engOrMood ? segSpecificData?.percent[i] : segSpecificData?.moodPercent[i]}}%)</p>-->
+<!--      <div fxLayout="column" fxFlex="100">-->
+<!--        <div [ngClass]="linkEnabled ? 'isLink' : ''" fxLayout="row" fxLayoutAlign="start center" *ngFor="let student of (!engOrMood ? segSpecificData?.users[i] : segSpecificData?.moodUsers[i])"  fxLayoutGap="20px" fxFlex="40px" [routerLink]="[linkEnabled ? '../student-detail' : []]" (click)="cdRef.detectChanges()" [queryParams]="linkEnabled ? {student_id: student.uuid} : {}" [queryParamsHandling]="'merge'" >-->
+<!--            <mat-icon>account_circle</mat-icon>-->
+<!--          <div  fxLayout="column" fxLayoutAlign="center" fxFlex="100">-->
+<!--            <span  title-black12-400 fxLayoutAlign="start" zero style="text-align: start">{{student.name}}</span>-->
+<!--          </div>-->
+<!--          <span fxflex="10"  fxLayoutAlign="start center" zero>-->
+<!--             <mat-icon xsmall fxLayoutAlign="start center" [ngClass]="segSpecificData.iconClassName">fiber_manual_record</mat-icon>-->
+<!--          </span>-->
+<!--          <span fxflex="10" xsmall fxLayoutAlign="start center" title-black14-500>{{student.average}}</span>-->
+
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-card>-->
+<!--  </div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<ng-container *ngIf="!(sessionDataMinutes.length && segmentData[0].data.length)">-->
+<!--  <div fxLayout="column" fxLayoutAlign="center center" fxFill>-->
+<!--    <span style="color: white; padding: 1%; border: 1px solid white">No Data Available</span>-->
+<!--  </div>-->
+<!--</ng-container>-->
+<!--<mat-spinner  [ngClass]="['customLoader']" [diameter]="50" *ngIf="segmentData?.length === 0"></mat-spinner>-->
+<!--&lt;!&ndash;<span style="border: 1px solid red; background: white; color: black">Session Data Minutes : {{!(sessionDataMinutes.length && segmentData[0].length)}}</span>&ndash;&gt;-->
+<!-- <button (click)="getLocalData()" style="background-color: #fff; padding: 15px; cursor: pointer;">click</button> -->
+
+<div fxLayout="column" fxFill padding *ngIf="sessionDataMinutes?.length !== 0 && segmentData?.length !== 0">
+  <div fxLayout="row" fxLayoutAlign="center center" fxFlex
+       [ngStyle]="{display: !dispStdList && !dispCatSpecificData ? '' : 'none'}" style="margin-top: -50px !important;">
+    <div fxLayout="column" fxFlex="100">
+      <div fxLayout="row" fxLayoutAlign="end center" p-r24 p-l24 border>
+        <span title-white12-400>Seconds</span>
+        <!--       <mat-slide-toggle [checked]="minuteToggle" (change)="toggle($event)"  m-r12 m-l12></mat-slide-toggle>-->
+        <mat-slide-toggle [checked]="minuteToggle" (change)=" changeStatus()" m-r12 m-l12></mat-slide-toggle>
+        <span title-white12-400>Minutes</span>
+      </div>
+      <app-overall-line-chart [overallData]="this.minuteToggle ? sessionDataMinutes : sessionDataSeconds" fxFlex>
+      </app-overall-line-chart>
+    </div>
+  </div>
+  <div fxLayout="row" m-b20 title-white12-200 *ngIf="segmentData?.length !== 0">
+    {{engOrMood === 0 ? 'Engagement' : 'Mood'}} Percentage per {{headingDuration}} minutes
+  </div>
+  <!-- <div fxLayout="row" fxLayoutAlign="space-between" fxFlex *ngIf="pieChartData"> -->
+  <div fxLayout="row" fxLayoutAlign="space-between" fxFlex>
+    <div fxFlex="25" fxLayout="column" fxLayoutGap="10px" *ngFor="let segment of segmentData; let i=index">
+      <span title-white18-400 fxLayoutAlign="center center"
+            style="border-left: 1px solid #707070 ; border-right: 1px solid #707070" padding>{{segment.duration}}</span>
+      <app-pie-chart [inpIn]="'container' + i" [pieChartData]="pieChartData[i]" (click)="selection = i;cdRef.detectChanges(); studentListPanel(true);
+                     segmentWiseScore(selection)" fxFlex="100" pointer>
+      </app-pie-chart>
+      <span title-white18-400 fxLayoutAlign="center center"
+            style="border-left: 1px solid #707070 ; border-right: 1px solid #707070" padding
+            *ngIf="!dispStdList && !dispCatSpecificData"></span>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-icon [ngStyle]="{visibility: selection === i? 'visible': 'hidden'}" *ngIf="dispStdList"
+                  [ngClass]="['upIcon']">arrow_drop_up</mat-icon>
+      </div>
+    </div>
+  </div>
+  <mat-card fxLayout="row" *ngIf="pieChartData && pieChartData.length > 0 && selection >= 0 && dispStdList"
+            style="position: relative; ">
+    <div id="StdList" p-r8>
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="dispStdList = false;">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <!-- <div style="color:black">{{segments | json}}</div> -->
+
+    <div t-center fxFlex="100" fxLayout="column" *ngFor="let cat of segments; let i=index" style="padding: 0 2%;">
+      <!-- <div style="color:black">{{i }}</div> -->
+      <h3 [ngStyle]="{'color': cat.color}" zero (click)="individualSegmentScores(cat)">{{cat.name}} {{engOrMood === 0 ?
+        cat.eng : cat.mood}}</h3>
+      <p xsmall>{{!this.engOrMood ? segUsersArr[i] : moodsegUsersArr[i]}} {{segUsersArr[i] === 1 ? 'Participant' :'Participants'}} ({{!this.engOrMood ? percentArr[i] : moodpercentArr[i]}}%)</p>
+
+      <div fxLayout="column" fxFlex="100" [ngClass]="['student-card']">
+        <ng-container *ngFor="let student of (pieChartData[selection].UAE)">
+          <div [ngClass]="linkEnabled ? 'isLink' : ''" fxLayout="row" fxLayoutAlign="start center" [routerLink]="[linkEnabled ? '../student-detail' : []]" (click)="cdRef.detectChanges()"
+               [queryParams]="linkEnabled ? {student_id: student.uuid} : {}" [queryParamsHandling]="'merge'" fxLayoutGap="20px" fxFlex="40px"
+               *ngIf = "(((!this.engOrMood ? student.category==='High' : student.moodCategory ==='High') && i === 0) || ((!this.engOrMood ? student.category==='Medium': student.moodCategory ==='Medium') && i === 1)  || ((!this.engOrMood ? student.category==='Low': student.moodCategory ==='Low') && i === 2))">
+            <mat-icon>account_circle</mat-icon>
+
+            <div id="studentList" fxLayout="column" fxLayoutAlign="center" fxFlex="50">
+            <span id="stdName" title-black12-400 fxLayoutAlign="start" zero
+                  style="text-align: start" >{{student.name}}</span>
+            </div>
+
+            <span fxfelx="10" fxLayoutAlign="start center" zero>
+            <mat-icon xsmall fxLayoutAlign="start center" [ngClass]="cat.className">fiber_manual_record</mat-icon>
+          </span>
+            <span fxFlex="10" xsmall fxLayoutAlign="start center" title-black14-500 >{{!engOrMood ? student.average :
+              student.average_mood}}</span>
+          </div>
+        </ng-container>
+      </div>
+
+    </div>
+  </mat-card>
+
+  <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="space-around center" *ngIf="dispCatSpecificData"
+       style="position: relative">
+
+    <div style="position: absolute; top: 0; right: 0;">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" title-white12-200
+              (click)="dispCatSpecificData = !dispCatSpecificData; dispStdList = !dispStdList;">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div fxLayout="column" fxFill fxFlex="25" *ngFor="let seg of pieChartData; let i=index">
+      <mat-icon [ngClass]="['upIcon']">arrow_drop_up</mat-icon>
+      <mat-card fxLayout="column" t-center style="height: 100%;">
+        <h3 t-center [ngStyle]="{'color': segSpecificData.color}" zero>{{!engOrMood ? segSpecificData.name[0].name :
+          segSpecificData.name[1].name}} </h3>
+        <p xsmall>{{!engOrMood ? segSpecificData?.participantsCount[i] : segSpecificData?.moodParticipantsCount[i]}}
+          {{!engOrMood ? (segSpecificData?.participantsCount[i] === 1 ? 'Participant' : 'Participants') :
+            (segSpecificData?.moodParticipantsCount[i] === 1 ? 'Participant' : 'Participants')}} ({{!engOrMood ?
+            segSpecificData?.percent[i] : segSpecificData?.moodPercent[i]}}%)</p>
+        <div fxLayout="column" fxFlex="100">
+          <div [ngClass]="linkEnabled ? 'isLink' : ''" fxLayout="row" fxLayoutAlign="start center"
+               *ngFor="let student of (!engOrMood ? segSpecificData?.users[i] : segSpecificData?.moodUsers[i])"
+               fxLayoutGap="20px" fxFlex="40px" [routerLink]="[linkEnabled ? '../student-detail' : []]"
+               (click)="cdRef.detectChanges()" [queryParams]="linkEnabled ? {student_id: student.uuid} : {}"
+               [queryParamsHandling]="'merge'">
+            <mat-icon>account_circle</mat-icon>
+            <div fxLayout="column" fxLayoutAlign="center" fxFlex="100">
+              <span title-black12-400 fxLayoutAlign="start" zero style="text-align: start">{{student.name}}</span>
+            </div>
+            <span fxflex="10" fxLayoutAlign="start center" zero>
+              <mat-icon xsmall fxLayoutAlign="start center" [ngClass]="segSpecificData.iconClassName">
+                fiber_manual_record</mat-icon>
+            </span>
+            <span fxflex="10" xsmall fxLayoutAlign="start center" title-black14-500>{{!engOrMood ? student.average :student.average_mood}} </span>
+            <!-- <span fxflex="10" xsmall fxLayoutAlign="start center" title-black14-500>{{student.average}}</span> -->
+
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<!-- <ng-container *ngIf="!(sessionDataMinutes.length && segmentData[0].data.length)">
+  <div fxLayout="column" fxLayoutAlign="center center" fxFill>
+    <span style="color: white; padding: 1%; border: 1px solid white">No Data Available</span>
+  </div>
+</ng-container> -->
+<!-- <ng-container *ngIf="!(sessionDataMinutes.length && segmentData?.length)">
+<div fxLayout="column" fxLayoutAlign="center center" fxFill>
+  <span style="color: white; padding: 1%; border: 1px solid white">No Data Available</span>
+</div>
+</ng-container> -->
+<ng-container *ngIf = "!gettingData">
+  <div fxLayout="column" fxLayoutAlign="center center" fxFill>
+    <span style="color: white; padding: 1%; border: 1px solid white">No Data Available</span>
+  </div>
+</ng-container>
+<mat-spinner [ngClass]="['customLoader']" [diameter]="50" *ngIf="segmentData?.length === 0"></mat-spinner>
+<!--<span style="border: 1px solid red; background: white; color: black">Session Data Minutes : {{!(sessionDataMinutes.length && segmentData[0].length)}}</span>-->

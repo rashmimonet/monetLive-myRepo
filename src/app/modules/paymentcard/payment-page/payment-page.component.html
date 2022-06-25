@@ -1,0 +1,98 @@
+<form id="payment-form" fxFlex="90" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" cardBody
+  [formGroup]="addCardForm">
+  <button mat-mini-fab fxLayoutAlign="center center" class="close-button" (click)="dialogRef.close()">
+    <mat-icon style="color: #FFFFFF;">close</mat-icon>
+  </button>
+  <div fxFlex="8" fxLayout="column" fxLayoutGap="10px" full-width fxLayoutAlign="center center">
+    <span header>Add New Card</span>
+    <!-- <span>Email</span> -->
+    <!-- <div fxLayout="column">
+        <input type="email" placeholder="Enter Email" formControlName="email" style="border-radius: 8px">
+        <mat-error errorMessage *ngIf="validationFunc('email')">email is required</mat-error>
+        <mat-error errorMessage *ngIf="addCardForm.controls['email']?.errors?.pattern">Email is Invalid</mat-error>
+      </div> -->
+  </div>
+
+  <div fxFlex="22" fxLayout="column" fxLayoutGap="8px" full-width>
+    <span>Card Details</span>
+    <div fxLayout="column" full-width countryStyle id="autoFocus">
+      <div fxLayout="row" fxLayoutAlign="center center" style="height: 40px; position: relative">
+        <input type="text" placeholder="4242 4242 4242 4242" formControlName="number" (keypress)="validateNo($event)"
+          (input)="spaceAddFourChar($event)" minlength="19" maxlength="19" style="width: 100%" />
+        <span fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px"
+          style="padding-right: 10px; position: absolute; right: 10px">
+          <ng-container *ngFor="let i of cardIcon">
+            <img [src]="'/assets/images/' + i?.name + '.png'" alt="" height="17px" />
+          </ng-container>
+        </span>
+      </div>
+
+      <div fxLayout="row" full-width>
+        <div fxLayout="row" fxLayoutAlign="start center" monthDiv >
+          <input type="text" formControlName="exp_month" placeholder="00" maxlength="2" (keypress)="validateNo($event)" (input)="monthCheck($event)" style=" border-bottom-left-radius: 8px;" /> /
+          <input type="text" formControlName="exp_year" placeholder="00" maxlength="2" (keypress)="validateNo($event)" />
+          <!-- <input type="text" id="exMonth" formControlName="exp_month" placeholder="00" maxlength="2" (keypress)="validateNo($event)" (keyup)="valid($event)" (input)="monthCheck($event)" style=" border-bottom-left-radius: 8px;" /> /
+          <input type="text" id="exYear" formControlName="exp_year" placeholder="00" minlength="2" (keypress)="validateNo($event)"  (keyup)="valid($event)" /> -->
+           <!-- <div fxLayout="row" fxLayoutAlign="start center" >
+          <input type="text" formControlName="exp_month" maxlength="5" (keyup)="filterExpiryDate($event)" placeholder="MM/YY"> -->
+        </div>
+         
+        <span style="width: 50%; position: relative">
+          <input type="text" placeholder="CVC" minlength="3" maxlength="3" formControlName="cvc"
+            (keypress)="validateNo($event)" style="width: 100%; border-bottom-right-radius: 8px" />
+          <img src="/assets/images/cvc.png" alt="" style="position: absolute; right: 10px; top: 10px" />
+        </span>
+      </div>
+      <div fxLayout="row" fxLayoutGap="10px" errorDiv>
+        <mat-error *ngIf="validationFunc('number')">Card Number is required</mat-error>
+        <mat-error *ngIf="validationFunc('exp_month')">Month is required</mat-error>
+        <!-- <mat-error *ngIf="validationFunc('exp_year')"> Expiry year is required</mat-error> -->
+        <!-- <mat-error *ngIf="validateExpiry('exp_month')">Invalid Expiry month </mat-error> -->
+        <!-- <mat-error *ngIf="invalidExpiry">Invalid Expiry year </mat-error> -->
+        <mat-error *ngIf="validationFunc('cvc')">CVC is required</mat-error>
+        <mat-error *ngIf="minlengthFunc('number')">Invalid Card Number</mat-error>
+        <mat-error *ngIf="minlengthFunc('cvc')">Invalid CVC Number</mat-error>
+      </div>
+    </div>
+  </div>
+
+  <div fxFlex="14" fxLayout="column" fxLayoutGap="10px" full-width>
+    <span>Name on card</span>
+    <div fxLayout="column">
+      <input type="text" placeholder="Enter name" formControlName="name" style="border-radius: 8px" />
+      <mat-error errorMessage *ngIf="validationFunc('name')">Name is required</mat-error>
+      <mat-error *ngIf="addCardForm.get('name').errors?.pattern">
+        Name should be of minimum <b>3</b> characters
+      </mat-error>
+    </div>
+  </div>
+  <div fxFlex="22" fxLayout="column" fxLayoutGap="8px" full-width>
+    <span>Country or region</span>
+    <div fxLayout="column" countryStyle>
+      <mat-form-field>
+        <mat-label style="padding-left: 10px">Select Country</mat-label>
+        <mat-select formControlName="address_country">
+          <ng-container *ngFor="let c of country">
+            <mat-option [value]="c.country_name">{{
+              c.country_name
+              }}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+      <input type="text" placeholder="Zip" minlength="4" maxlength="6" formControlName="address_zip"
+        (keypress)="validateNo($event)" style="border-bottom-left-radius: 8px; border-bottom-right-radius: 8px" />
+      <div fxLayout="row" fxLayoutGap="10px">
+        <mat-error errorMessage *ngIf="validationFunc('address_country')">Country is required</mat-error>
+        <mat-error errorMessage *ngIf="validationFunc('address_zip')">Zip is required</mat-error>
+        <mat-error errorMessage *ngIf="minlengthFunc('address_zip')">Invalid Zip_Code</mat-error>
+      </div>
+    </div>
+    <div></div>
+  </div>
+
+  <button fxFlex="8" fxLayoutAlign="center center" fxLayoutGap="10px" payContent
+    [class]="addCardForm.valid ? 'validBtn' : ''" minHeight [disabled]="addCardForm.invalid" (click)="addCardFunc()">
+    Add Card
+    <!-- <img src="/assets/images/loader.svg" alt="not found"> -->
+  </button>
+</form>

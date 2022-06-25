@@ -1,0 +1,26 @@
+table {
+    width: 100%;
+  }
+  
+ .mat-header-row {
+    background: linear-gradient(to right, #77246C, #1E5AA1);
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+  }
+  .mat-header-cell{
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  ::ng-deep .mat-header-cell{
+    text-align: center !important;
+   }
+  .mat-cell{
+    color: white;
+    background-color: black;
+  }
+  ::ng-deep .mat-cell{
+   text-align: center !important;
+  }

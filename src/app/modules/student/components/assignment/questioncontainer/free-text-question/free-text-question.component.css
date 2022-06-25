@@ -1,0 +1,102 @@
+.freetext_question_container {
+  width: 100%;
+  height: auto;
+}
+
+.assignment_question_container {
+  font-family: Tahoma ;
+  background-color: white;
+  height: auto;
+  width: 700px;
+  padding: 24px;
+}
+
+.assignment_question_heading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.assignment_question_timer {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.assignment_question_text {
+  display: flex;
+  width: 100%;
+}
+
+.question_code {
+  padding: 0 24px 0 24px;
+}
+
+.question_text {
+  width: 100%;
+  padding: 0 24px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.assignment_navigation_button {
+  width: calc(100% - 48px);
+  padding: 40px 24px 24px 24px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+
+.assignment_submit_button {
+  width: calc(100% - 48px);
+  padding: 40px 24px 24px 24px;
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+}
+
+.question_options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /*padding: 24px 0 0 24px;*/
+}
+
+::ng-deep .mat-checkbox-label {
+  line-height: 24px;
+  padding-left: 12px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0 !important;
+  height: auto;
+  /* position: relative; */
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0 !important;
+}
+
+.question_type {
+  padding-right: 16px;
+}
+
+.timer {
+  padding-left: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.green-zone {
+  background-color: #08b82a;
+  color: white;
+}
+
+.red-zone {
+  background-color: #d11010;
+  color: white;
+}

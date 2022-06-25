@@ -1,0 +1,44 @@
+
+  <div fxLayout="column" fxLayoutAlign="center center"  [formGroup]="eventForm" adEvent style="margin-top: 145px; position: relative">
+    <button mat-mini-fab class="close-button" (click)="dialogRef.close({form: eventForm.value, status: false})">
+      <mat-icon class="close-icon" color="warn">close</mat-icon>
+    </button>
+    <div fxLayout="row" fxLayoutAlign="center center" style="width: 446px; height: 73px; margin-bottom: 49px">
+      <mat-form-field id="input" floatLabel="never" fxFlex class="mat-headline">
+        <input  matInput formControlName="meetingName" value="" type="text" placeholder="Type Meeting Name here">
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center start"
+        style="width: 100%; color: #c8663c !important;">
+      <mat-error *ngIf="eventForm.get('meetingName').errors?.pattern" style="margin-top: -8% !important;">
+        Meeting name should be of minimum <b>3</b> characters
+      </mat-error>
+      </div>
+    <div fxLayout="column" fxLayoutAlign="center center" style="width: 446px; height: 73px; margin-bottom: 49px">
+      <mat-form-field id="email" floatLabel="never" fxFlex class="mat-headline">
+<!--        <input matInput type="email"  formControlName="observerEmail" placeholder="Type Observer Email here (Optional)"/>-->
+        <input matInput
+               type="email"
+               formControlName="observerEmail"
+               [placeholder]="observerAccess ? 'Upgrade your plan to avail this feature' : 'Type Observer Email here (Optional)'"
+               [ngStyle]="{'cursor' : observerAccess ? 'not-allowed' : 'auto'}" />
+      </mat-form-field>
+      <mat-error *ngIf="eventForm.controls['observerEmail']?.touched &&  eventForm.controls['observerEmail'].errors?.pattern">
+        Please enter a valid email address
+      </mat-error>
+<!--      <mat-hint *ngIf="observerAccess">{{observerAccess ? 'Upgrade your plan to avail this feature' : ''}}</mat-hint>-->
+    </div>
+
+  </div>
+  <mat-dialog-actions align="end" style="padding: 0 50px;">
+    <button id="startButon" mat-raised-button  (click)="create()" class="custom-button" [disabled]="eventForm.invalid">Start Meeting</button>
+  </mat-dialog-actions>
+
+  <hr style="margin: 0 120px 0 120px; color: rgba(0,0,0,.7)">
+  <div fxLayout="row" id="details" fxLayoutGap="5px" fxLayoutAlign="space-between start" style="color: rgba(0,0,0,.7)">
+    <span id="duration">Meeting duration:  <span style="color: black">{{meetingDuration}} mins*</span></span>
+    <span id="remainingHours">Remaining hours: <span style="color: black">{{remainingHours | number: '1.0-0'}} hours</span></span>
+  </div>
+
+
+

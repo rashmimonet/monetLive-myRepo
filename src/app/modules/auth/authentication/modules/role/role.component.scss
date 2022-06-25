@@ -1,0 +1,39 @@
+.formClass{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 16px;
+  color: #FFFFFF !important;
+  ::ng-deep .mat-radio-checked .mat-radio-inner-circle {
+    background: #32DD16 !important;
+  }
+  ::ng-deep .mat-radio-group {
+    color: white !important;
+  }
+  ::ng-deep .mat-radio-button {
+    color: white !important;
+  }
+
+  ::ng-deep .mat-radio-button .mat-radio-label-content {
+    color: white !important;
+  }
+
+}
+
+.logInBtn {
+  width: 100px;
+  border-radius: 20px;
+  border: 1px solid white;
+  ::ng-deep .mat-button-wrapper {
+    color: white;
+  }
+}
+.logedInBtn {
+  width: 100px;
+  border-radius: 20px;
+  background: #493077;
+  border: 1px solid white;
+  ::ng-deep .mat-button-wrapper {
+    color: white;
+  }
+}

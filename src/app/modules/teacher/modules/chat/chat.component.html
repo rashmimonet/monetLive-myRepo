@@ -1,0 +1,62 @@
+<div fxLayout="column" fxFill class="chat-container">
+  <div fxLayout="row" fxFlex="50px" fxLayoutAlign="space-between center" p-l16 style="border-bottom-style: solid; border-bottom-color: gainsboro; border-bottom-width: 0.5px">
+    <div><b>{{'Messages'}}</b></div>
+    <!--    <div><b>{{!privateChat ? 'Group Chat' : 'Private Chat'}}</b></div>-->
+    <button matSuffix mat-icon-button aria-label="Clear" (click)="closeMessagePanel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div fxLayout="row" fxFlex padding-16 overflowAuto #chatBox>
+    <div fxLayout="column" fxFlex="100" fxLayoutGap="10px">
+      <div fxLayout="row" *ngFor="let msg of messageList">
+        <div fxLayout="column" [fxFlexOffset]="msg.self ? 'auto' : ''" [ngStyle]="{'max-width':'80%'}">
+          <span fxLayout="row" [ngClass]="['message', msg.self ? 'sendBg' : 'receiveBg']" *ngIf="msg.type === 'text'">
+            {{msg.msg}}
+          </span>
+          <span fxLayout="column" class="material-icons-outlined" *ngIf="msg.type === 'attachment'" pointer>
+            <span style="border-radius: 5px; padding: 0 3%" [ngClass]="['message', msg.self ? 'sendBg' : 'receiveBg']">{{msg.msg}}</span>
+            <span fxLayout="row">
+              <mat-icon style="color: #777777">description</mat-icon>
+              <a target="_blank" href="{{'https://www.monetlive.com/many/api/downFile/' + msg.msg}}" >
+                <mat-icon class="material-icons-sharp" style="color: #777777">download_for_offline</mat-icon>
+              </a>
+            </span>
+          </span>
+          <span fxLayoutAlign="end end" style="font-size: x-small; color: #898989" [ngStyle]="{color: msg.private ? 'red' : 'blue'}">
+            From {{msg.self ? 'You' : msg.name}} to {{msg.receiver}}, {{msg.time | date:  'shortTime' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" class="chat-bottom-container">
+    <mat-form-field appearance="fill" style="padding-left: 0">
+      <mat-label style="color: #898989; background-color: #ececec;">To</mat-label>
+      <mat-select (selectionChange)="msgToUser($event)">
+        <mat-option value="Everyone">Everyone</mat-option>
+        <mat-option *ngFor="let std of studentList" [value]="std">{{std.std_id === param.id ? std.name + '(You)' : std.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div fxLayout="row" style="background-color: #ececec; border-top-left-radius: 6px; border-top-right-radius: 0; border-bottom-left-radius: 6px; border-bottom-right-radius: 0px;">
+      <mat-form-field id='textField' fxLayout="column" fxFlex="100" [floatLabel]="'never'">
+              <textarea
+                matInput
+                placeholder="Type your message here"
+                [(ngModel)]="message"
+                (keyup.enter)="!privateChat ? send() : sendPrivateMsg()"
+                [rows]="1"
+                [matTextareaAutosize]="false"
+                type="text">
+              </textarea>
+      </mat-form-field>
+      <button mat-icon-button (click)="fileInput.click()">
+        <input type="file" hidden="true" multiple="true" id="fileInput" name="files" #fileInput (change)="onFileChanged($event)" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+        <mat-icon>attach_file</mat-icon>
+      </button>
+<!--      <button mat-button type="submit" (click)="send()" [disabled]="!message || message?.trim()?.length === 0">-->
+      <button mat-button type="submit" (click)="!privateChat ? send() : sendPrivateMsg()" [disabled]="!message || message?.trim()?.length === 0">
+        <mat-icon style="color: white">send</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

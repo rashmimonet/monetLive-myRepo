@@ -1,0 +1,61 @@
+<div fxLayout="row" fxLayoutAlign="start" title-white18-400 fxLayoutGap="9%" style="position: relative;">
+  <div fxLayout="column" style="margin-right: 10%">
+    <span title-white16-600>{{room?.summary | titlecase}} </span>
+    <span title-tertiary12-300>{{room?.start?.dateTime | date: 'medium'}}</span>
+    <!--    <span title-white14-400>{{students.length}} Attendees</span>-->
+    <span title-white14-400>{{attendees}} Attendees</span>
+  </div>
+  <div fxLayout="row" fxLayoutGap="22px">
+    <span title-white14-400>Session {{engType}}</span>
+    <div fxLayoutAlign="start center" fxLayoutGap="5px" fxLayout="column">
+      <!--      <span id="badge" badge title-white12-400>{{callDetails.engagementAvg}}</span>-->
+      <span id="badge" badge title-white14-600>{{metric === 0 ? callDetails.engagementAvg : callDetails.moodAvg}}</span>
+      <span title-white12-400>Average</span>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="12px">
+    <div fxLayout="column">
+      <span fxLayoutAlign="center center" title-white16-600>Participant {{engType}}</span>
+      <!--      <span title-tertiary12-400 fxLayoutAlign="center center">Every {{(callDetails.duration / 60) | number:'2.0-0'}} minutes</span>-->
+      <span title-tertiary12-400 fxLayoutAlign="center center">Every {{(callDetails.finalDuration) }} minutes</span>
+    </div>
+    <!-- <div fxLaout="column" fxLayoutGap="12px">
+      <mat-chip-list m-t12 (valueChange)="segChange($event)">
+        <mat-chip *ngFor="let seg of segmentDuration" [value]="seg.value" (click)="seg.selected = !seg.selected" [selected]="seg.selected" [ngClass]="['segment-chip']">
+          {{seg.name}}
+        </mat-chip>     fxLayoutGap="20px"
+      </mat-chip-list>
+    </div>-->
+
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-evenly start"  fxLayoutGap="10px" fxFlex="auto">
+    <button mat-button (click)="openDialog($event)"
+      style="background: linear-gradient(to right, #77246C, #1E5AA1);">View PDF</button>
+      &nbsp;  &nbsp;
+    <button  mat-button (click)="openDialogBox()"
+      style="background: linear-gradient(to right, #77246C, #1E5AA1);">Assignment</button>
+  </div>
+  <!-- <div fxLayout="row" fxLayoutGap="10px" style="position: absolute; right: 25px; align-items: center"> -->
+    <div fxLayout="row"  fxLayoutAlign="end start">
+    <span id="name" style="color: white;">{{userDetails?.name}} &nbsp;</span>
+    <div [matMenuTriggerFor]="menu" pointer>
+      <img [src]="userDetails?.avatar" *ngIf="userDetails?.avatar" width="40px" height="40px"
+        style="border-radius: 50%">
+      <mat-icon *ngIf="!userDetails?.avatar"> person </mat-icon>
+    </div>
+    <mat-menu #menu="matMenu">
+      <div fxFlex="row" fxLayout="row" mat-menu-item fxLayoutAlign="center center" pointer fxLayoutGap="10px"
+        (click)="dashBoardFunc()">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </div>
+
+      <div fxFlex="row" fxLayout="row" mat-menu-item fxLayoutAlign="center center" pointer fxLayoutGap="10px"
+        (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </div>
+    </mat-menu>
+  </div>
+</div>

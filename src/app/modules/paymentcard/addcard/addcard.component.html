@@ -1,0 +1,15 @@
+<div fullDiv fxLayoutAlign="center center" style="background: rgba(0, 0, 0, 0.79);">
+  <div cardScreen fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <div fxFlex="40" fxLayout="column" fxLayoutAlign="center center" full-height>
+      <div fxFlex="60" fxLayoutGap="20px" fxLayout="column" fxLayoutAlign="center center">
+        <img src="/assets/NewMonetLive.svg" width="50%" padding alt="monet">
+        <span planName>{{selectPlan?.name}}</span>
+        <span  style="font-size: 24px; font-weight: 500">${{selectPlan?.price}}</span>
+      </div>
+    </div>
+    <div fxFlex="60" fxLayout="column" fxLayoutAlign="center center" cardRight style="overflow: auto">
+      <app-payment-ui *ngIf="!successPage"></app-payment-ui>
+     <!-- <app-payment-page style="height: 90%"></app-payment-page> -->
+     <app-payment-status commonStyle *ngIf="successPage"></app-payment-status>
+    </div>
+  </div>

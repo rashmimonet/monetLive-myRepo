@@ -1,0 +1,62 @@
+<div fxFlex="95" fxLayout="column" fxLayoutGap="5%" fullDiv style="padding-top: 5%">
+  <div fxLayout="column" fxLayoutGap="10px">
+    <span>License Count -
+      {{ user?.plan?.licenseCount - user?.plan?.assigned }}</span>
+    <div fxLayout="column" fxLayoutGap="10px" *ngIf="user?.plan?.assignees?.length">
+      <span> License assigned to </span>
+      <ng-container *ngFor="let item of user?.plan?.assignees">
+       <div fxLayout="row" fxLayoutGap="20px">
+        <span>{{ item.email }}</span>
+        <span [ngStyle]="{ color: item.status === 'expired' ? 'red' : '#06662B' }">{{item.status | titlecase}}</span>
+       </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div fxFlex="25" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px"
+    style="width: 40%; background: #c1c4d2" *ngIf="!emailAdd">
+    <span fxFlex="30" fxLayoutAlign="start center" style="width: 90%">Assign license to Your Colleague</span>
+    <div fxFlex="70" style="width: 70%">
+      <button mat-raised-button emailBtn (click)="emailAdds()" [disabled]="user?.plan?.assigned === user?.plan?.licenseCount">
+<!--      <button mat-raised-button emailBtn (click)="emailAdds()">-->
+        + Add Email
+      </button>
+    </div>
+  </div>
+
+ <div>
+  <div fxFlex="660px" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" *ngIf="emailAdd"
+  style= "background: #c1c4d2; min-width: max-content;">
+  <span  fxLayoutAlign="start center" style="width: 83%; height: 50px;">Assign license to Your Colleague</span>
+  <div  fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" widths [formGroup]="emailForm">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" full-width>
+      <div fxFlex="80" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="10px">
+        <input type="email" formControlName="assigneeEmail" (keyup.enter)="assignEmail()" />
+      </div>
+      <button fxFlex="20" mat-raised-button assignBtn (click)="assignEmail()" [disabled]="emailForm.invalid">
+        Assign
+      </button>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="5px" errorDiv>
+      <mat-error *ngIf="
+              emailForm.get('assigneeEmail')?.touched &&
+              emailForm.get('assigneeEmail')?.errors?.required
+            ">Email is Required</mat-error>
+      <mat-error *ngIf="emailForm.get('assigneeEmail')?.errors?.pattern">Invalid Email</mat-error>
+      <span msg [ngStyle]="{ color: msgShow.error ? 'red' : '#06662B' }" *ngIf="msgShow.msg">{{ msgShow.msg
+        }}
+        <button closeMsg (click)="closeMsg()">&#x2716;</button>
+      </span>
+
+    </div>
+  </div>
+
+  <div fxLayoutAlign="center center" style="height: 60px;">
+    <button mat-raised-button addMoreBtn>
+      + Add More Colleague
+    </button>
+  </div>
+</div>
+ </div>
+</div>

@@ -1,0 +1,26 @@
+::ng-deep .mat-expansion-panel-header {
+  border: none;
+}
+
+::ng-deep .mat-expansion-panel-header > span.mat-content {
+  order: 2;
+}
+
+::ng-deep .mat-expansion-panel-content {
+  margin: 1% 0;
+}
+
+::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+  border: none;
+}
+
+.selectedTab {
+  border-radius: 25px 0 0 25px;
+  background: linear-gradient(to right, #77246C, #1E5AA1);
+  transition: all 0.2s ease;
+}
+
+.option{
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}

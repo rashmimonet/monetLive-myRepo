@@ -1,0 +1,35 @@
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  background: rgba(32, 30, 30, 0.9);
+}
+
+button {
+  color: white;
+  cursor: pointer;
+  background: #33387A;
+  border: #33387A;
+  border-radius: 22.5px;
+  width: 149px;
+  height: 45px;
+  left: 556px;
+  top: 23px;
+  font-family: Roboto;
+  transition: transform .2s; /* Animation */
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+#zoom:active {
+  background: #111982;
+}
+
+#zoom:hover {
+  transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}

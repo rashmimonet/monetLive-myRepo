@@ -1,0 +1,24 @@
+.sidebar {
+  background-color: rgba(0,0,0,0.5);
+  .event-list {
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+}
+.events {
+  padding: 10px;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  .event {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    span, mat-icon {
+      color: #ffffff;
+    }
+  }
+}
+.logo {
+  height: 60px;
+}
+

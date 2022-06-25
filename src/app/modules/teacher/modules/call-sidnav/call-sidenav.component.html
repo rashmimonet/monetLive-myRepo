@@ -1,0 +1,137 @@
+<div id="navSidebar" fxLayout="column" class="expansionHeader" fxFlex="100" fxLayoutGap="10px"
+     *ngIf="studentList !== undefined">
+  <div fxLayout="row" p-l8 p-r8>
+    <div fxLayout="column" fxFlex="100" fxLayoutGap="10px">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <img src="/assets/MonetLiveWhite.png" width="60%" padding alt="monet" (click)="homeRoute()" pointer>
+      </div>
+
+      <mat-divider full-width></mat-divider>
+
+      <!--      This is the radio button to toggle engagement and mood data-->
+      <mat-radio-group fxLayout="row" fxLayoutAlign="space-between center" [(ngModel)]="metric"
+                       (change)="onChange($event)" [color]="'primary'">
+        <mat-radio-button *ngFor="let tab of metricTab; let i = index" [ngClass]="['custom-radio']" [value]="i"
+                          title-white14-400>{{tab.name}}</mat-radio-button>
+      </mat-radio-group>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px" *ngFor="let std of searchStudentArr"
+           style="background-color: aquamarine">
+        <div fxLayoutAlign="center center" fxLayoutGap="10px" pointer
+             (click)="selectStudent(std); selected=std; selectUser.emit(selected)">
+          <mat-icon class="name-list">account_circle</mat-icon>
+          <span title-white12-400>{{std.name | titlecase}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayoutAlign="space-between center" title-white14-400 [ngStyle]="{padding: '8px 8px 0 8px'}"
+       (click)="accordion?.openAll()" pointer [matTooltip]="'Show All'">
+    <span fxLayout="row" fxLayoutAlign="center center">
+      Total Participants
+    </span>
+
+    <span fxLayout="row">
+      <span title-tertiary14-400>#</span>  &nbsp;
+      <span title-white14-400>{{studentList.length}}</span>
+    </span>
+  </div>
+<!--  <div>-->
+<!--    <p style="color: white">{{tenSec | json}}</p>-->
+<!--    <p style="color: white">{{moduleName | json}}</p>-->
+<!--    <p style="color: white">{{studentList | json}}</p>-->
+<!--  </div>-->
+
+  <!--  Users whose camera is off during the call are shown here-->
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true" hideToggle>
+      <mat-expansion-panel-header style="border: 1px solid white">
+        <mat-panel-description fxLayoutAlign='space-between center' title-white14-400>
+          <span fxLayout="row" fxLayoutAlign='center center'>
+            <mat-icon title-secondary12-400 fxLayoutAlign="center center">fiber_manual_record</mat-icon>
+            {{'Camera OFF'}}
+          </span>
+
+          <span fxLayout="row">
+            <span title-tertiary14-400>#</span> &nbsp;
+            <span
+              title-white14-400>{{moduleName === 'report' ? (studentList | categoryFilter: {webcam: 'webcam'}).length : (studentList | categoryFilter: {
+              config: 'video',
+              value: false
+            }).length}}</span>
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <div fxLayout="row" fxLayoutAlign="end end"
+             *ngIf="camOffTab[0].name !== '' && (studentList | categoryFilter: {config: 'video', value: false}).length > 0">
+          <span title-tertiary10-400 p-r8>{{camOffTab[0].name}}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign='space-between center'
+             *ngFor="let std of studentList |  categoryFilter: moduleName === 'report' ? {webcam: 'webcam'} : {config: 'video', value: false}"
+             fxLayoutAlign="space-between center" [ngClass]="['name-list']"
+             (click)="selected=std;selectUser.emit(selected)">
+          <div fxLayoutAlign="center center" fxLayoutGap="10px">
+            <mat-icon>account_circle</mat-icon>
+            <span title-white14-400>{{std.name}} </span>
+          </div>
+          <div fxLayout="row" fxLayoutAlign='space-between center' fxLayoutGap="5px">
+            <mat-icon>videocam_off</mat-icon>
+            <span title-white14-400 [hidden]="std.video">{{std.video === false ? screenOffStat(std) : ''}} </span>
+          </div>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <!--Engagement and mood data is shown here-->
+  <mat-accordion [multi]="true">
+    <mat-expansion-panel *ngFor="let cat of callCat; let i = index" hideToggle [expanded]="true" [disabled]="true">
+      <mat-expansion-panel-header [ngStyle]="{'border': cat.color}" (click)="reportRoute(cat)" pointer>
+        <mat-panel-description fxLayoutAlign='space-between center' title-white14-400>
+          <span fxLayout="row" fxLayoutAlign='center center'>
+            <mat-icon title-white12-400 fxLayoutAlign="center center"
+                      [ngClass]="cat.clas">fiber_manual_record</mat-icon>
+            {{cat.text}} {{this.metricTab[metric].name}}
+          </span>
+          <span fxLayout="row">
+<!--            <span title-tertiary14-400>#</span> &nbsp;-->
+<!--            <span title-white14-400>{{(studentList | categoryFilter: { category: cat.name}).length}}</span>-->
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent style="background-color: #697386 !important;">
+        <div fxLayout="row" fxLayoutAlign="end end">
+          <span title-tertiary10-400 p-r8>{{metricTab[metric].name}}</span>
+        </div>
+        <ng-container *ngFor="let std of (studentList | categoryFilter: {category: cat.name, metric: metric}); trackBy: trackByUsers;">
+          <div fxLayout="row" fxLayoutAlign='space-between center'
+               [ngClass]="['name-list', selected && selected.std_id === std.std_id ? 'select-list': '']"
+               (click)="selectStudent(std)"><!--*ngIf="std.category === cat.name"-->
+            <div fxLayoutAlign='center center'
+                 fxLayoutGap="10px">
+              <mat-icon>account_circle</mat-icon>
+              <div fxLayout="column" fxLayoutGap="0px">
+                <span title-white12-400
+                      id="sideNavFont">{{std.name | titlecase}} {{yourId === std.std_id ? ' (You)' : ''}}</span>
+                <span title-secondary10-300 id="sideNavDuartion">{{std.stdDuration}}</span>
+              </div>
+            </div>
+            <span [ngClass]="cat.clas" fxLayout="row" fxLayoutAlign="center center">
+              <mat-icon xsmall fxLayoutAlign="center center">fiber_manual_record</mat-icon>
+              <span title-tertiary14-300 *ngIf='!tenSec'>
+              {{std[metricTab[metric].name.toLowerCase()]}}
+              </span>
+              <span title-tertiary14-300 *ngIf='tenSec'>
+                {{std['engTenSec']}}
+              </span>
+            </span>
+<!--            <div>-->
+<!--              <p style="color: red">{{std | json}}</p>-->
+<!--            </div>-->
+          </div>
+        </ng-container>
+      </ng-template>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</div>

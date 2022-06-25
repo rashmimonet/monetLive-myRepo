@@ -1,0 +1,50 @@
+<div fxLayout="row" fxFlex="97" fxLayoutAlign="space-between center" Height style="margin: auto" class="profile">
+  <div fxLayout="row" fxFlex="33" fxLayoutAlign="start center" fxLayoutGap="20px" Height>
+    <button mat-raised-button btnStyle (click)="scheduleMeeting()">Schedule in Calendar</button>
+    <button mat-raised-button btnStyle (click)="hostMeeting()">Meet Now</button>
+  </div>
+  <div fxLayout="row" fxFlex="20" fxLayoutAlign="space-around center" fxLayoutGap="10px" Height>
+    <!-- <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge="0" matBadgeColor="warn" matBadgeSize="small"  [matMenuTriggerFor]="notificationMenu"> notifications </span> -->
+    <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{badge}}
+      matBadgeColor="warn" matBadgeSize="small" [matMenuTriggerFor]="notificationMenu"> notifications </span>
+    <!-- <div fxLayout="row" fxLayoutAlign="end start" style="top: 5%;">
+      <mat-icon *ngIf="dispStdList"            matBadge="15" matBadgeColor="warn"
+                [ngClass]="['upIcon']" style="font-size: 35px;">arrow_drop_up</mat-icon>
+    </div> -->
+    <mat-menu #notificationMenu="matMenu">
+
+      <!-- <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button> -->
+      <p style="text-align: center; margin-top: 10%;">{{msg}}</p>
+      <div *ngIf="dispStdList">
+        <h3 class="msg">Notification
+          <span style="float: right !important;"><button mat-flat-button (click)="markAllRead($event)">Mark all as read</button>
+          </span>
+        </h3>
+        <hr>
+        <div *ngFor="let notifications of remainingHours;" class="wrapNotification">
+          <mat-icon style="font-size: 9px; color: red;">fiber_manual_record</mat-icon>
+          {{notifications.message}}
+          <span><button mat-icon-button (click)="markRead($event)"><mat-icon style="font-size: 15px;">visibility</mat-icon></button></span>
+        </div>
+      </div>
+    </mat-menu>
+    <span title-navy14-400 style="font-size: 16px !important; font-weight: 500">{{userDetails?.name | titlecase}}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon style="font-size: 40px !important;" *ngIf="!userDetails?.avatar">account_circle</mat-icon>
+      <img [src]="userDetails?.avatar" profileImg alt="not found" *ngIf="userDetails?.avatar">
+    </button>
+    <mat-menu #menu="matMenu">
+      <div fxLayout="column" full-width fxLayoutGap="10px" full-height>
+        <div fxLayout="row" fxFlex="50" fxLayoutAlign="space-around center" fxLayoutGap="15px">
+          <span style="color: #33387A; font-size: 16px; padding-top: 2%;">{{userDetails?.email}}</span>
+          <span style="color: #00A23E;font-size: 18px; padding-top: 2%;">{{plan}}</span>
+        </div>
+        <div fxFlex="30" fxLayoutAlign="center center" fxLayout="column">
+          <hr style="width: 90%; opacity: 0.25">
+          <span style="color: #33387A; font-size: 16px; font-weight: 500" pointer (click)="logout()">Sign Out</span>
+        </div>
+      </div>
+    </mat-menu>
+  </div>
+</div>

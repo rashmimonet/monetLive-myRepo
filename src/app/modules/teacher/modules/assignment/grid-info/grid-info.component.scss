@@ -1,0 +1,52 @@
+@import "src/vars";
+.choice-list {
+  padding: 8px 16px 8px 12px;
+  margin: 10px;
+  min-width: 160px;
+  background: #FFFFFF;
+  border-radius: 3px;
+  box-shadow: 0px 10px 10px transparent;
+  transition: all .3s ease-in;
+  mat-icon {
+    color: $info;
+  }
+}
+
+.add-question {
+  min-height: 350px;
+  /*margin: 10px;*/
+  /*margin-bottom: 20px;*/
+  //margin-top: 30px;
+  // background-color: $info-back;
+  background-color: #E8EFF6;
+  z-index: 99;
+  position: relative;
+}
+
+.background-info {
+  border-left: 1px solid $info;
+}
+
+.choice-list:hover {
+  background: $info;
+  color: #FFFFFF;
+  box-shadow: 0px 10px 10px #aaaaaa;
+  border: none;
+  span,
+  mat-icon {
+    color: #FFFFFF;
+  }
+}
+
+.choice-list {
+  padding: 8px 16px 8px 12px;
+  margin: 10px;
+  min-width: 160px;
+  background: #FFFFFF;
+  border-radius: 3px;
+  box-shadow: 0px 10px 10px transparent;
+  transition: all .3s ease-in;
+  mat-icon {
+    color: $info;
+  }
+}

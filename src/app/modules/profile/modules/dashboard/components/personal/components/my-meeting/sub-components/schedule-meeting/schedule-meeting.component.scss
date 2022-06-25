@@ -1,0 +1,78 @@
+.sidebar {
+  background-color: rgba(0,0,0,0.5);
+  .event-list {
+    //height: calc(100vh - 200px);
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+.events {
+  padding: 10px;
+  //height: calc(100vh - 200px);
+  height: 100%;
+  overflow-y: auto;
+  .event {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    span, mat-icon {
+      color: #ffffff;
+    }
+  }
+}
+
+.button {
+  height: 30px;
+  width: 60px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.btn-view{
+ position: absolute;
+ margin-right: 48%;
+}
+.btn-del{
+ position: absolute;
+ margin-left: 31%;
+}
+[fullDiv] {
+  margin: auto;
+  height: calc(100vh - 80px);
+  max-height: calc(100vh - 80px);
+}
+
+.sidebar {
+  ::ng-deep .mat-tab-header{
+    height: 7%;
+    align-items: center;
+    margin: auto;
+  }
+  ::ng-deep .mat-tab-body-wrapper {
+    height: 93%;
+  }
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  background: rgba(32, 30, 30, 0.9);
+  // ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  //   stroke: #3f51b5 !important;
+  // }
+}
+
+[divBox] {
+  padding: 10px;
+   background: rgba(255, 255, 255, 0.1);
+   border-radius: 5px;
+}
+
+[meetDiv] {
+  overflow-y: auto;
+   padding: 10px;
+   height: 99%;
+}
+

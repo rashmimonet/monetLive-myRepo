@@ -1,0 +1,59 @@
+[inputStyle] {
+  background: transparent;
+  border-radius: 10px;
+  width: 85%;
+  height: 40%;
+  padding: 10px;
+  //border: none;
+  border: 1px solid gainsboro;
+  outline: none;
+  color: white;
+}
+
+.formClass{
+  width:85%;
+  height: 80%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  color: #FFFFFF !important;
+  input:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+  }
+}
+
+.logInBtn {
+  width: 100px;
+  border-radius: 20px;
+  border: 1px solid white;
+  ::ng-deep .mat-button-wrapper {
+    color: white;
+  }
+}
+.logedInBtn {
+  width: 100px;
+  border-radius: 20px;
+  //background: #493077;
+  border: 1px solid white;
+  ::ng-deep .mat-button-wrapper {
+    color: black;
+  }
+}
+
+[passwordIcon] {
+  position: absolute;
+  right: 13%;
+  top: 20%;
+  color: #777777;
+}
+
+.mat-error {
+  color: rgba(210, 70, 11, 0.99) !important;
+}
+
+
+
+
+

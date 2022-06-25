@@ -1,0 +1,13 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px" fxFill>
+    <img src="assets/NewMonetLive.svg" class="logo" height="70px">
+    <div class="home" fxLayout="row wrap" fxLayoutAlign="start start">
+      <div *ngFor="let card of cards" fxFlex="50" padding (click)="card.disabled || callActions(card)">
+        <mat-card fxLayout="column" fxLayoutGap="16px" fxLayoutAlign="center center" class="card-grid">
+          <mat-icon *ngIf="card.disabled" class="locked-module">locked</mat-icon>
+          <mat-icon xxlarge>{{card.icon}}</mat-icon>
+
+          <span class="name-grid">{{card.name}}</span>
+        </mat-card>
+      </div>
+    </div>
+</div>

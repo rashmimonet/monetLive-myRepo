@@ -1,0 +1,73 @@
+.message {
+  border-radius: 4px;
+  padding: 5px 12px 8px 12px;
+  max-width: 100%;
+  word-break: break-word;
+  font-size: small;
+  white-space: pre-wrap;
+  min-height: 30px;
+  max-height: max-content;
+}
+
+.sendBg {
+  background: #f3f3f3;
+  border-radius: 4px;
+  color: #898989;
+}
+.receiveBg {
+  background: linear-gradient(135deg, #79236B, #1C5BA2);
+  color: white !important;
+  border-radius: 4px;
+}
+
+mat-form-field {
+  background-color: #ececec;
+}
+
+.mat-button {
+  background: linear-gradient(135deg, #79236B, #1C5BA2);
+  color: white;
+  min-height: 46px;
+  max-height: 46px;
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  min-width: 46px;
+  max-width: 46px;
+  padding: 0;
+}
+
+.chat-container {
+  border-style: solid;
+  border-radius: 6px;
+  border-color: gainsboro;
+  border-width: 0.5px;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.chat-bottom-container {
+  border-top-style: solid;
+  border-top-color: gainsboro;
+  border-top-width: 0.5px;
+  padding: 12px;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: gainsboro !important;
+}
+
+ .mat-form-field{
+  background: transparent;
+  min-height: 46px;
+  max-height: 46px;
+  padding-left: 16px;
+}
+
+::ng-deep .mat-form-field-wrapper{
+  padding-bottom: 0;
+}

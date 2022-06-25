@@ -1,0 +1,104 @@
+<div class="container" fxLayout="column" >
+<!--    <div id="main-content" fxLayout="c" style="height: 350px;">-->
+      <mat-tab-group  mat-align-tabs="center">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>{{settings[0].icon}}</mat-icon>
+            <span>{{settings[0].name}}</span>
+            <mat-select (selectionChange)="selectDevice($event, 'audioinput')">
+              <mat-option *ngFor="let audio of deviceList.audioinput" value="{{audio.deviceId}}">{{audio.label}}</mat-option>
+            </mat-select>
+          </ng-template>
+          <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+            <div fxLayout="column" fxLayoutAlign="space-between  center" fxFill style="border-radius: 10px">
+              <div fxLayout="row" fxLayoutAlign="space-between center" fxFill style="border-radius: 10px; padding: 1% 1%; background-color: #d9d9d9; background-image: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%); border-radius: none;">
+              <span>
+                <strong>Selected Device :</strong> {{selectedOption.Label}}
+              </span>
+                <ng-container *ngIf="selectedOption">
+                  <button mat-raised-button color="primary" (click)="testAudioDevice()">Test</button>
+                </ng-container>
+              </div>
+              <div style="margin: 100px 0; justify-content: center">
+                <div class="signal-bars mt1 sizing-box good four-bars" fxLayout="row"  fxLayoutAlign="center center" style="width: 100%; height: 100px;">
+                  <ng-container *ngFor="let a of  barArray">
+                    <div class="first-bar bar"></div>
+                    <div class="second-bar bar"></div>
+                    <div class="third-bar bar"></div>
+
+                    <div class="fourth-bar bar"></div>
+
+                    <div class="third-bar bar"></div>
+                    <div class="second-bar bar"></div>
+                    <div class="first-bar bar"></div>
+                  </ng-container>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>{{settings[1].icon}}</mat-icon>
+            <span>{{settings[1].name}}</span>
+            <mat-select (selectionChange)="selectDevice($event, 'audiooutput')">
+              <mat-option *ngFor="let audio of deviceList.audiooutput" value="{{audio.deviceId}}">{{audio.label}}</mat-option>
+            </mat-select>
+          </ng-template>
+          <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+            <div fxLayout="column"  fxFill style="border-radius: 10px" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutAlign="space-between center" fxFill style="border-radius: 10px; padding: 1% 1%; background-color: #d9d9d9; background-image: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%); border-radius: none;">
+              <span>
+                <strong>Selected Device :</strong> {{selectedOption.Label}}
+              </span>
+                  <ng-container *ngIf="selectedOption">
+                    <button mat-raised-button color="primary" (click)="testAudioOutputDevice()">Test</button>
+                  </ng-container>
+              </div>
+              <div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" style="margin: 85px 0;">
+                <audio #audio id="testAudio" height="200" width="300" class="image" controls autoplay></audio>
+                <span>Can you listen to the audio ?</span>
+                <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" style="width: 20%;">
+                  <button mat-raised-button color="primary" (click)="audio.pause(); notify(true)">Yes</button>
+                  <button mat-raised-button color="accent" (click)="notify(false)">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <mat-icon>{{settings[2].icon}}</mat-icon>
+              <span>{{settings[2].name}}</span>
+              <mat-select (selectionChange)="selectDevice($event, 'videoinput')">
+                <mat-option *ngFor="let video of deviceList.videoinput"  value="{{video.deviceId}}">{{video.label}}</mat-option>
+              </mat-select>
+          </ng-template>
+          <div fxLayout="column" fxFlex="50" fxLayoutAlign="space-around center">
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxFill style="border-radius: 10px; padding: 1% 1%; background-color: #d9d9d9; background-image: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);">
+              <span>
+                <strong>Selected Device :</strong> {{selectedOption.Label}}
+              </span>
+              <ng-container *ngIf="selectedOption">
+                <button mat-raised-button  (click)="testVideoDevice()">Test</button>
+              </ng-container>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" style="margin: 50px 0; border: 1px solid black">
+              <video id="testVideo"  autoplay muted></video>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+<!--    </div>-->
+  <mat-divider></mat-divider>
+
+  <mat-dialog-actions align="center" style="margin-top: 10px;">
+    <button mat-raised-button color="primary" color="primary" aria-label="Example icon button with a delete icon" (click)="dialogRef.close({result: selectedOption}); close();">
+      Close
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,170 @@
+<div monetHomeDiv fxLayout="column" fxLayoutAlign="center center">
+  <div fxFlex="100px" fxLayout="row" fxLayoutAlign="space-between center" style="width: 90%">
+    <img src="/assets/MonetLiveWhite.png" width="250px" alt="not found">
+    <button loginBtn routerLink="/auth">Log In</button>
+  </div>
+
+  <div fxFlex="90" fxLayout="column" fxLayoutGap="5%" full-width contextBody>
+
+    <div full-width fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center" width80 style="margin-top: 2%;">
+
+        <div fxFlex="50" fxLayout="column" fxLayoutGap="5%" fxLayoutAlign="center start" full-height
+             style="padding: 20px">
+          <p style="font-size: 30px">MONET LIVE™</p>
+          <p>Real-time Engagement Detection & Analytics for Corporate Training and Business
+            Transformation.</p>
+          <strong style="font-style: italic; font-size: 20px" fWeight500>We help businesses to improve corporate
+            training effectiveness and outcomes
+            by learning from trainees emotions and reactions.</strong>
+        </div>
+        <div fxFlex="50" fxLayoutAlign="center center" full-height>
+          <img src="/assets/monetHome/monet1.jpeg" width="90%" alt="">
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div fxFlex="400px" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" full-width backImg  >
+      <div fxFlex="85" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center" width80>
+        <span fxFlex="20" fxLayoutAlign="center center" style="font-size: 30px">{{contextObj?.first1?.type}}</span>
+        <div fxFlex="80" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" full-width didFont  >
+          <ng-container *ngFor="let first of contextObj?.first1?.context">
+            <div fxFlex="33" fxLayout="column" fxLayoutGap="6%" fxLayoutAlign="start center" full-height>
+              <ng-container *ngFor="let n of first?.name">
+                <p>{{n}}</p>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div fxFlex="500px" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center" full-width relative>
+      <div fxFlex="45" fxLayout="column" fxLayoutAlign="center center" full-height relative>
+        <img src="/assets/monetHome/second2.jpg" height="80%" alt="">
+      </div>
+
+      <div fxFlex="40" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center start" full-height>
+        <h1>Drive learning outcomes with effective training</h1>
+        <h3>Training effectiveness depends on the quality of the training material, the presentation skills of the
+          trainer and the level of active engagement of the trainees (participants).</h3>
+        <h1>Key Points to evaluate Online Training:</h1>
+        <ul>
+          <li>Do you know how effective your training initiatives are?</li>
+          <li>How do you ensure compliance with your business requirements?</li>
+          <li>Do you know how engaged your training participants are?</li>
+          <li>​How do you measure the quality of training material?</li>
+          <li>How do you guide the trainers to improve their training skills?</li>
+        </ul>
+        <h3>Monet Live™ gives you unparalleled visibility and actionable insights for trainers, training providers, and
+          trainees.</h3>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center" full-width>
+      <div fxFlex="80" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center">
+        <span fxFlex="20" fxLayoutAlign="center center" secondType>{{contextObj?.second?.type}}</span>
+        <div fxFlex="80" fxLayout="row" fxLayoutGap="2%" full-width>
+          <ng-container *ngFor="let c of contextObj.second.context; let last= last">
+            <div fxFlex="25" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center" full-height
+                 [style.border-right]="!last? '1px solid white' : ''" style="padding-right: 10px">
+              <img [src]="'/assets/monetHome/' + c?.imgName + '.png'" width="261" height="202" alt="">
+              <h2>{{c?.text}}</h2>
+              <ol>
+                <ng-container *ngFor="let l of c?.list">
+                  <li>{{l}}</li>
+                </ng-container>
+              </ol>
+            </div>
+          </ng-container>
+        </div>
+        <div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center" full-width>
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center start" pDiv>
+        <span pType>{{contextObj.third.type}}</span>
+        <ng-container *ngFor="let p of contextObj.third.context">
+          <div fxLayout="row" fxFlex="46" fxLayoutGap="20px" fxLayoutAlign="center center" platFormDiv
+               [ngClass]="p?.margin ? 'marginLeft' : ''">
+            <div fxFlex="15">
+              <mat-icon *ngIf="!p?.img">{{p?.iconName}}</mat-icon>
+              <img *ngIf="p?.img" [src]="'assets/monetHome/' + p?.iconName + '.png'" alt="">
+            </div>
+            <div fxFlex="75" fxLayout="column">
+              <h1>{{p?.header}}</h1>
+              <h3>{{p?.text}}</h3>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div fxLayoutAlign="center center" full-width backImg style="padding: 10px">
+      <div fxLayout="row" fxLayoutAlign="center center" width80 style="padding: 20px 0">
+        <div fxFlex="50">
+          <img src="/assets/monetHome/monet1.jpeg" width="90%" alt="">
+        </div>
+
+        <div fxFlex="50" fxLayout="column" fxLayoutGap="20px">
+          <h2 h1Text>Discover Monet Live™ for Corporate Trainings! </h2>
+
+          <div fxLayout="column" fxLayoutGap="10px">
+            <strong fWeight500 >See our new native AI-powered video conferencing platform in action for:</strong>
+            <ol>
+              <li>Trainees: Standard video conferencing tools plus</li>
+              <li>Trainer:   Engagement and mood dashboards, performance statistics, and intervention tools.</li>
+              <li>External Observer: Performance statistics, intervention tools.</li>
+              <li>Business Managers: Overall and per-participant reports.</li>
+              <li>Developers: Monet’s API/SDK for customization and 3rd-party platforms integrations.</li>
+            </ol>
+          </div>
+
+          <h4>Our experts in Business Transformation will help you design the best solution using Monet that suits your ideal online training needs and expectations.</h4>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div fxLayoutAlign="center center" full-width>
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center start" relative width80 style="font-size: 16px">
+        <div fxFlex="50" fxLayout="column" fxLayoutGap="5%">
+          <img src="/assets/monetHome/monetLogo.svg" width="220px" alt="">
+        <p>  Monet is the first AI powered Platform to humanize data in service of creativity. This patented
+          new technology harmonizes conscious and subconscious emotional reactions with attitudinal and behavioral
+          data for any content, any context and any audience
+        </p>
+          <div fxLayout="column" class="pMargin">
+            <p>Monet Analytics </p>
+            <p> Contact: +19495080381 </p>
+            <p>  Email: human@monetnetworks.com </p>
+              <p> Offices in Barcelona, Chicago, Delhi, Los Angeles, London, Mexico City, Seattle, Dubai</p>
+          </div>
+          <h2 m20 routerLink="/privacy-policy" pointer>Privacy Policy</h2>
+        </div>
+        <div fxFlex="50" fxLayoutGap="30px" fxLayout="column" fxLayoutAlign="center center">
+        <h1 socialM>Social Media</h1>
+          <div fxLayoutGap="40px" >
+            <ng-container *ngFor="let i of contextObj?.fourth?.context">
+              <a [href]="i?.link" target="_blank"><img [src]="'/assets/monetHome/' + i?.name + '.png'" colorWite alt="not found" > </a>
+            </ng-container>
+          </div>
+
+          </div>
+          <footer>©Monet Networks Inc. | All right reserved</footer>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>

@@ -1,0 +1,24 @@
+.main-container {
+  font-family: 'CircularStd-book' !important;
+  background-color: black;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.meeting-over-container {
+  border-radius: 8px;
+  width: 45%;
+  min-width: 45%;
+  max-width: 45%;
+  height: auto;
+  padding: 24px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}

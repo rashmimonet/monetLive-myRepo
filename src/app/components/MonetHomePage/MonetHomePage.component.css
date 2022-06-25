@@ -1,0 +1,117 @@
+[monetHomeDiv] {
+  width: 100%;
+  height: 100%;
+}
+
+[backImg] {
+  background: url('/assets/monetHome/backgroundText.jpg');
+}
+
+[loginBtn] {
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  background: linear-gradient(-60deg, #485fab, #92278f);
+  color: white;
+  cursor: pointer;
+}
+[loginBtn]:hover {
+  box-shadow: -7px 2px 25px -1px #92278f , 7px 4px 25px 3px #485fab , 0 0 0 0 rgba(0,0,0,0)!important;
+}
+
+[contextBody] {
+  overflow-y: auto;
+  color: white;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+li {
+  font-size: 16px;
+  line-height: 33px;
+  padding-left: 5px;
+
+}
+
+[secondType] {
+  font-size: 30px;
+  line-height: 40px;
+  letter-spacing: 3.5px;
+}
+
+[platFormDiv] {
+  min-height: 200px;
+  background: white;
+  flex-wrap: wrap;
+  /*min-width: 50%*/
+  margin-bottom: 20px;
+  padding: 10px;
+  /*max-width: 570px;*/
+}
+
+[pDiv] {
+  width: 80%;
+  color: #1A1A1A;
+  flex-wrap: wrap
+}
+
+.marginLeft {
+  margin-left: -20px;
+}
+
+[pType] {
+  width: 90%;
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 30px;
+  line-height: 40px;
+  letter-spacing: 3px;
+}
+
+[h1Text] {
+  font-size: 30px;
+  line-height: 40px;
+  letter-spacing: 3px;
+}
+
+footer {
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+}
+ol, ul {
+  margin: 0;
+  padding-left: 50px;
+}
+[width80] {
+  width: 80%;
+}
+
+[colorWite] {
+  color: white;
+  height: 35px;
+  width: 35px;
+}
+.pMargin p {
+  margin: 0;
+}
+[didFont] {
+  font-size: 18px;
+}
+[didFont] p {
+  text-align: center;
+}
+[m20] {
+  margin-bottom: 20px;
+}
+[m20]:hover {
+  text-decoration: underline;
+}
+[socialM] {
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 5px;
+}
+

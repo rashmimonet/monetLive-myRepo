@@ -1,0 +1,167 @@
+table {
+  width: 100%;
+}
+
+ .mat-table thead {
+  background: linear-gradient(to right, #77246C, #1E5AA1);
+  //color: white;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.mat-header-row {
+ background: transparent !important;
+}
+
+/*th.mat-header-cell { //this style has been mentioned in styles.scss in order to run in production build
+  color: white;
+}*/
+
+/*
+::ng-deep th.mat-header-cell {
+  color: white;
+}
+*/
+
+.mat-row:hover {
+  // box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+}
+
+#reportsContainer {
+  margin: auto;
+  height: calc(99vh - 75px);
+  max-height: calc(99vh - 75px);
+  padding: 0;
+}
+
+[paginator] {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}
+
+
+@mixin fontStyle ($w, $f, $lh, $ls) {
+  font-weight: $w;
+  font-size: $f;
+  line-height: $lh;
+  letter-spacing: $ls;
+  color: #000000;
+  //font-family: 'Poppins', sans-serif;
+  font-style: normal;
+}
+
+[clientName] {
+  @include fontStyle(500, 16px, 19px, '');
+}
+
+[msgStyle] {
+  font-size: 16px;
+}
+
+[columnData] {
+  min-height: 9.5% !important;
+  //font-family: Roboto !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+
+  .mat-icon {
+    cursor: pointer;
+    font-size: 26px;
+  }
+}
+
+[minWidth] {
+  min-width: 25%;
+}
+
+[minWidths] {
+  min-width: 15%;
+}
+
+[iminWidth] {
+  min-width: 10%;
+}
+
+[columnData]:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+}
+
+
+
+[tHeader] {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+[vdoDiv] {
+  position: absolute;
+  background: #000000;
+  width: 35%;
+  height: 40%;
+  bottom: 0;
+  right: 0;
+}
+
+[closeVdo] {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 25px;
+  border-radius: 50%;
+  color: #FFFFFF;
+  background: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  width: 35px;
+  z-index: 99;
+}
+
+ .reportsLoader .mat-progress-spinner circle,.mat-spinner circle {
+  stroke: #33387A !important;
+}
+
+[reportBtn] {
+  background: #F6F7FB;
+  border: 1px solid black;
+  border-radius: 30.5px;
+  color: black;
+}
+[reportBtn]:hover {
+  background: #33387A;
+  color: white;
+
+}
+
+[tableHeader] {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+::ng-deep .mat-raised-button:not([class*=mat-elevation-z]) {
+  box-shadow: none !important;
+}
+
+.recording {
+  ::ng-deep .mat-form-field-wrapper {
+    padding: 0 !important;
+  }
+}
+
+[gap] {
+  margin: 0 5px;
+}
+[button] {
+  background: transparent;
+  border: none;
+}
+

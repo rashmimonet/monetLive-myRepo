@@ -1,0 +1,35 @@
+<div fxLayout="row" fxFill  fxLayoutAlign="center center" fullDivs>
+  <div FxLayout="column" fxFlex="65" FxLayoutAlign="center center" loginArea>
+    <div fxLayout="row" fxFlex="100" fxLayoutAlign="center stretch" style="height: 100% !important; overflow: hidden; padding: 3px;">
+
+      <app-login fxFlex="60" *ngIf="tabIndex && !rolePopup" [instanceStatus]="instanceStatus" [term]="termsCondition"></app-login>
+      <app-role fxFlex="60" *ngIf="rolePopup"></app-role>
+      <app-register fxFlex="60" *ngIf="!tabIndex" [licenseToken]="token" (tabChange)="tabChange($event)" [term]="termsCondition"></app-register>
+      <div fxFlex="1" style="display: flex; align-items: center; margin: 0">
+      <hr hrTag>
+      </div>
+      <div fxLayout="column" fxFlex="39" fxLayoutGap="40px" fxLayoutAlign="center center" style="border-radius: 0 10px 10px 0; background-size: contain;">
+        <img src="/assets/MonetLiveWhite.png" width="50%" padding alt="monet" pointer>
+        <div f-white fxLayoutGap="5px" *ngIf="!rolePopup">
+          <span>Don't have an account ?</span>
+
+        <span (click)="tabIndex = !tabIndex" style="font-size: 16px; cursor: pointer; text-decoration: underline; font-style: italic">{{tabIndex ? 'Sign Up' : 'Login'}}</span>
+        </div>
+        <div f-white fxLayout="column" fxLayoutGap="20px" *ngIf="!rolePopup" >
+<!--          <button thirdPartyLogin [ngStyle]="{'cursor': instanceStatus ? 'pointer' : ''}" [disabled]="!instanceStatus" (click)="login('google')"><img src="/assets/images/google.png"   style="height: 40px;" alt="not Found"></button>-->
+          <button thirdPartyLogin [ngStyle]="{'cursor': instanceStatus && termsCondition ? 'pointer' : ''}" [disabled]="!(instanceStatus && termsCondition)" (click)="login('google')"><img src="/assets/images/google_login.svg"   style="width: 210px;" alt="not Found"></button>
+<!--          <button thirdPartyLogin [ngStyle]="{'cursor': instanceStatus ? 'pointer' : ''}" [disabled]="!instanceStatus" (click)="login('outlook')"><img src="/assets/images/microsoft.png" style="height: 40px;" alt="not Found"></button>-->
+          <button thirdPartyLogin [ngStyle]="{'cursor': instanceStatus && termsCondition ? 'pointer' : ''}" [disabled]="!(instanceStatus && termsCondition)" (click)="login('outlook')"><img src="/assets/images/ms-signin_dark.svg" style="height: 40px;" alt="not Found"></button>
+<!--          <span>InstanceAvailable : {{instanceStatus}} , termsConditionChekced : {{termsCondition}} : Result = {{!(instanceStatus && termsCondition)}}</span>-->
+        </div>
+        <div fxLayout="row" fxLayoutGap="10px">
+        <span>
+           <input type="checkbox" [value]="termsCondition" [(ngModel)]="termsCondition">
+        </span>
+          <span style="color: #FFFFFF" pointer routerLink="/privacy-policy">I agree with <span bold>Terms</span> and <span bold>Conditions</span></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.payBtn {
+    width: 180px;
+    height: 45px;
+    text-align: center;
+    background: #33387A;
+    margin-bottom: 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+::ng-deep .mat-spinner circle {
+  stroke:#FFFFFF !important;
+}
+
+#submit:active {
+  background: #111982;
+}
+

@@ -1,0 +1,190 @@
+//@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+$shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+@mixin toggleBtn($w) {
+  border: none;
+  height: 100%;
+  width: $w;
+  display: flex;
+  color: black !important;
+  font-size: 15px;
+}
+@mixin fontStyle ($w, $f, $lh, $ls) {
+  font-weight: $w;
+  font-size: $f;
+  line-height: $lh;
+  letter-spacing: $ls;
+  color: #000000;
+  font-style: normal;
+}
+
+[leftDiv] {
+  width: 100%;
+  height: 100%
+}
+
+ [gridDiv] {
+   width: 65%;
+   height: 100%;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   column-gap: 20px;
+   grid-auto-rows: minmax(100px, auto);
+  img {
+    width: 40px;
+    height: 40px;
+  }
+ }
+
+[gridItems] {
+  border-radius: 34px;
+  height: 85%;
+}
+
+[gridText] {
+  @include fontStyle(bold, 16px, 21px, '' );
+
+}
+
+[rightDiv] {
+  width: 100%;
+  height: 100%;
+  background: #F6F7FB;
+}
+
+  .classBtn {
+    background: #33387A !important;
+    ::ng-deep span.mat-button-toggle-label-content {
+      color: white !important;
+    }
+  }
+
+
+
+  [toggleGroupBtn] {
+    width: 175px;
+    border: 1px solid grey;
+    border-radius: 20px;
+    height: 40px;
+
+  }
+  .leftToggleBtn {
+    @include toggleBtn(55%);
+  }
+  .rightToggleBtn {
+    @include toggleBtn(45%);
+  }
+
+  [dataShowDiv] {
+    width: 95%;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+
+  }
+
+  [clientName] {
+    @include fontStyle(500, 16px, 19px, '' );
+  }
+[clientRName] {
+    @include fontStyle(500, 14px, 18px, '' );
+  }
+
+  [timeStyle] {
+    @include fontStyle(normal, 14px, 14px, 0.08em );
+  }
+  [roomIdStyle] {
+    @include fontStyle(normal, 12px, 12px, 0.1em );
+
+  }
+
+  [btnStart] {
+    border-radius: 20px 0 0 20px;
+    font-size: 16px;
+    background: #33387A;
+    color: white
+  }
+
+  [msgStyle] {
+   font-size: 16px;
+   //border: 1px solid red;
+  }
+  [headingFont] {
+    display: flex;
+    align-self: center;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 15px;
+  }
+
+  [rightDiv] {
+    .mat-card:not([class*=mat-elevation-z]) {
+      box-shadow: none;
+      border-radius: 15px;
+    }
+  }
+
+  [recentDiv] {
+    .mat-card:not([class*=mat-elevation-z]):hover {
+      box-shadow: shadow;
+    }
+    .mat-icon:hover {
+      cursor: pointer;
+      border-radius: 50%;
+      background: #f6f6f6;
+      padding: 5px;
+    }
+  }
+
+[meetShow] {
+  width: 90%;
+  min-height: 18% !important;
+}
+
+[divGrid] {
+  background: #E9E9EA;
+  border-radius: 19px;
+  height: 60%;
+}
+
+.myMeeting {
+  ::ng-deep .mat-select{
+    width: 10% !important;
+    outline: none;
+    border-radius: 5px;
+    background: #33387A;
+    height: 40%;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    padding: 10px;
+  }
+
+  ::ng-deep .sundayClass .mat-calendar-body-cell-content.mat-focus-indicator {
+    color: red ;
+  }
+  ::ng-deep .saturdayClass .mat-calendar-body-cell-content.mat-focus-indicator {
+    color: blue;
+  }
+  ::ng-deep .mat-calendar-body-selected {
+    color: white !important;
+    box-shadow: 0 0 8px #33387A !important;
+  }
+  ::ng-deep .mat-calendar-body-cell-content {
+    border-radius: 3px !important;
+  }
+
+  ::ng-deep .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    background: #33387A !important;
+    ::ng-deep span.mat-button-toggle-label-content {
+      color: white !important;
+    }
+  }
+
+  ::ng-deep .mat-select-arrow {
+    color: white !important;
+  }
+
+  ::ng-deep .mat-select-value-text {
+    color: white !important;
+    font-size: 16px;
+  }
+}

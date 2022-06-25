@@ -1,0 +1,9 @@
+<div class="student-list" fxLayout="column" fxLayoutGap="20px">
+  <div *ngFor="let std of students" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+    <mat-icon f-grey fxFlex="30px">person</mat-icon>
+    <div fxFlex>
+      <span f-grey>{{std.name}}</span>
+    </div>
+    <!--<span fxFlex="20px" [ngClass]="std.cat" [matTooltip]="'Engagement: '+std.value">{{std.value}}</span>-->
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.side-nav {
+  overflow-y: auto;
+}
+.message-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+.message-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+  height: 500px;
+  width: 300px;
+  background: white;
+  z-index: 20;
+}

@@ -1,0 +1,110 @@
+<div fxLayout="column" [ngClass]="['question']" matPadding>
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="start stretch" fxLayoutGap="20px" fxLayoutGap.md="10px" [ngClass]="['dialog-mat-card']">
+    <form class="survey-form" [formGroup]="questionForm" fxLayout="column" [fxFlex]="'100'" fxLayoutAlign="start " matPadding>
+      <span titleBlue22 [ngStyle]="{'margin-bottom':'20px'}" >{{'Add'}} grid choice question</span>
+      <div fxLayout="row" #questionBlock style="min-height: 60px">
+        <app-write-question  style="width: 100%; height:auto"></app-write-question>
+      </div>
+      <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between" >
+        <div fxLayout="column" fxFlex="100">
+          <div fxLayout="row" fxLayoutAlign="space-between" [ngStyle]="{'height': 'calc(100vh - 410px)', 'overflow-y':'auto'}">
+            <div fxLayout="column" fxFlex="48" fxLayoutGap="10px" #optionsBlock>
+              <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center" formGroupName="qs_flags">
+                <span title>Options</span>
+               <!-- <div fxLayoutGap="10px" fxLayout="row" fxLayoutAlign="start center">
+                  <mat-slide-toggle formControlName="opt_shuffle" aria-label *ngIf="checkSetting && checkSetting.can_rand_ques_options"><span title>Randomize</span></mat-slide-toggle>
+                  <mat-icon (click)="constructOption('options')" matTooltip="direct add options">dns</mat-icon>
+                </div>-->
+              </div>
+              <div [formArrayName]="'options'" *ngFor="let option of questionForm.get('options')['controls']; let i = index;">
+                <div [formGroupName]="i" [ngClass]="['answer-block option' + i]">
+                  <div [ngClass]="['badge']" [ngStyle]="{'height':'18px','width':'24px', 'min-width':'20px', 'margin-top':'-18px', 'font-size':'12px'}">{{i + 1}}</div>
+                  {{option.opt_id}}
+                  <mat-form-field class="full-width" [floatLabel]="'never'">
+                    <input matInput [placeholder]="'Option ' + ( i + 1 )" formControlName="option">
+                   <!-- <mat-error *ngIf="questionForm['controls'].question.errors?.required">
+                      Option {{ i + 1 }} is <strong>required</strong>
+                    </mat-error>-->
+                    <button mat-button *ngIf="true" matSuffix mat-icon-button aria-label="delete"  [ngClass]="['delete']">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div [ngClass]="['add-more']"  fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center" >
+                <span>
+                  <mat-icon [ngStyle]="{'color':'#5C95E4'}">add_circle</mat-icon>
+                </span>
+                <mat-form-field pointer>
+                  <input matInput pointer placeholder="Add more options" disabled>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="column" fxFlex="48" fxLayoutGap="10px" #valuesBlock>
+              <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center" formGroupName="qs_flags">
+                <span title>Values</span>
+                <mat-icon  matTooltip="direct add options">dns</mat-icon>
+              </div>
+              <div [formArrayName]="'values'" *ngFor="let values of questionForm.get('values')['controls']; let i = index;">
+                <div [formGroupName]="i" [ngClass]="['answer-block value' + i]">
+                  <div [ngClass]="['badge']" [ngStyle]="{'height':'18px','width':'20px', 'margin-top':'-18px', 'font-size':'12px'}">{{i + 1}}</div>
+                  <mat-form-field class="full-width" [floatLabel]="'never'">
+                    <input matInput [placeholder]="'Value ' + ( i + 1 )" formControlName="option">
+                    <mat-error *ngIf="questionForm['controls'].question.errors?.required">
+                      Value {{ i + 1 }} is <strong>required</strong>
+                    </mat-error>
+
+                    <button mat-button *ngIf="true" matSuffix mat-icon-button aria-label="delete"  [ngClass]="['delete']">
+                      <mat-icon [ngClass]="['delete']">delete</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div [ngClass]="['add-more']" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+                <span>
+                <mat-icon [ngStyle]="{'color':'#5C95E4'}">add_circle</mat-icon>
+              </span>
+
+                <mat-form-field pointer>
+                  <input matInput pointer placeholder="Add more values" disabled>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="column" fxFlex="100" fxLayoutAlign="end end" fxLayoutGap="10px">
+        <div #saveButton fxLayout="row" fxLayoutGap="20px">
+          <button mat-raised-button [ngClass]="['white-button']" >Cancel</button>
+          <button mat-raised-button [disabled]="questionForm.invalid" [ngClass]="['monet-button']">Save</button>
+        </div>
+      </div>
+    </form>
+    <mat-divider vertical="true" *ngIf="true"></mat-divider>
+    <div fxFlex="45" *ngIf="true" fxLayout="column" fxLayoutGap="10px" fxLayoutGap.md="6px" matPadding [ngStyle]="{height:'41vh'}" [ngStyle.md]="{height:'44vh'}" [ngClass]="['grey-container']" style="background-color: #F9F9F9 !important;">
+      <span titleBlue18>Example question</span>
+      <div fxLayout="row" [ngStyle] ="{'background-color' :'#eee','padding': '10px'}">
+        <span title fxFlex="100">Q. Select the amount of times per week you watch the following channels?</span>
+      </div>
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutGap.md="12px" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutGap="22px" fxLayoutGap.md="2px">
+          <div fxLayout="row" fxFlex="33px"></div>
+          <div fxLayout="row" fxFlex="30px" fxLayoutAlign="start end" fxLayoutGap="10px" [ngClass]="['title']" title *ngFor="let option of demoGridArray.options">
+            {{option.option}}
+          </div>
+        </div>
+        <div fxLayout="column" fxLayoutGap="20px" fxLayoutGap.md="4px" *ngFor="let option of demoGridArray.values" fxLayoutAlign="center center" [ngClass]="['title']">
+          <div fxLayout="row" fxFlex="33px" fxLayoutAlign="center center" fxLayoutGap="10px" fxLayoutGap.md="7px" title>
+            {{option.option}}
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center" fxFlex="30px" [ngClass]="['title']"  *ngFor="let option of demoGridArray.options">
+            <mat-radio-button disabled style="border: 1px solid grey; border-radius: 50%"></mat-radio-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--  <div fxLayout="column" fxFlex="100" fxLayoutAlign="start stretch" *ngIf="previewQuestions">
+    <app-preview-grid  [edit]="true" [previewQuestions] = "previewQuestions" [child]="false" (delete)="deleteQue($event)" (update)="updateQue($event)"  [header]="false" fxLayout="column" fxFlex="100"></app-preview-grid>
+  </div>-->
+</div>

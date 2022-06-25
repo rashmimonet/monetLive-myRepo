@@ -1,0 +1,58 @@
+
+<div fxLayout="column"   fxFlex="100" fxLayoutGap="10px"  style="background: #F6F8FD;">
+  <div fxLayout="row" fxLayoutAlign="start center"  fxFlex="10" id="logo">
+    <img src="/assets/MonetLiveWhite.png" width="115px" padding alt="monet" pointer>
+  </div>
+  <mat-card fxLayout="row" fxLayoutAlign="space-between center" [ngClass]="['scroll']" [ngStyle]="{'padding':'0px','height': '90vh', 'width': '100vw'}" style="background: #F6F8FD;">
+    <div fxLayout="column" fxFlex="100" fxLayoutGap="10px" fxLayoutAlign="center center"  [hidden]="false" style="padding: 0 20%;">
+      <div #question fxLayout="column" fxLayoutGap="10px" style="width: 100%;">
+        <mat-card fxLayout="column" fxLayoutGap="10px" fxLayoutGap.lt-lg="0px"  style="background: #FFFFFF;" *ngIf="selectedTab === 0">
+          <mat-card-title  [ngStyle]="{'font-size':'20px'}" [ngStyle.md]="{'font-size':'16px'}" [ngStyle.xs]="{'font-size':'14px'}" style="color: rgb(30, 115, 197);">Create Assignment</mat-card-title>
+          <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
+            <mat-form-field  fxFlex="64">
+              <input matInput placeholder="Add Title">
+<!--              <span style="color: red;">&#42;</span>-->
+
+              <mat-error *ngIf="false">Assignment name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field  fxFlex="32">
+              <input matInput placeholder="Description" >
+              <mat-error *ngIf="false">Assignment name is required</mat-error>
+            </mat-form-field>
+            <!--<mat-form-field  fxFlex="32">
+              <input matInput placeholder="Campaign Description" formControlName="cmp_description" >
+            </mat-form-field>-->
+          </div>
+        </mat-card>
+
+        <ng-container [ngSwitch]="selectedTab">
+          <app-grid-info *ngSwitchCase= "0" (tabSelected)="selectedTab = $event"></app-grid-info>
+          <app-single-multiple *ngSwitchCase= "1" [languages]="languages" (tabSelected)="selectedTab = $event" [type]="'single'" (deleteQuestion)="deleteQuestions($event)" (outputQuestions)="handleOutputQuestions($event, false)" [ngStyle]="{'width':'100%'}"></app-single-multiple>
+          <app-single-multiple *ngSwitchCase= "2" (tabSelected)="selectedTab = $event" [type]="'multiple'" (deleteQuestion)="deleteQuestions($event)" (outputQuestions)="handleOutputQuestions($event, false)" [ngStyle]="{'width':'100%'}"></app-single-multiple>
+          <app-numerical *ngSwitchCase= "3" (tabSelected)="selectedTab = $event"   (outputQuestions)="handleOutputQuestions($event, false)"  [ngStyle]="{'width':'100%'}"></app-numerical>
+          <app-free-text *ngSwitchCase= "4" (tabSelected)="selectedTab = $event"  (updateQuestion)="handleOutputQuestions($event, true)" (outputQuestions)="handleOutputQuestions($event, false)"  [ngStyle]="{'width':'100%'}" ></app-free-text>
+          <app-grid *ngSwitchCase= "5" (tabSelected)="selectedTab = $event"  (updateQuestion)="handleOutputQuestions($event, true)" (outputQuestions)="handleOutputQuestions($event, false)" [ngStyle]="{'width':'100%'}"></app-grid>
+          <app-image *ngSwitchCase= "6" (tabSelected)="selectedTab = $event"   (updateQuestion)="handleOutputQuestions($event, true)" (outputQuestions)="handleOutputQuestions($event, false)"  [ngStyle]="{'width':'100%'}" ></app-image>
+
+          <!--
+                    <app-single-multiple *ngSwitchCase= "1" [languages]="languages" (tabSelected)="selectedTab = $event" [checkSetting]="checkSetting" [type]="'single'" (deleteQuestion)="deleteQuestions($event)" (updateQuestion)="handleOutputQuestions($event, true)" [child]="false" [form] = "form.get('survey')" (outputQuestions)="handleOutputQuestions($event, false)" [defaultQuestions] = previewDefaultQuestions[tabIndex] [plan]="plan" [ngStyle]="{'width':'100%'}" [importQuestions]="previewImportQuestions[tabIndex]" (addRemoveImportQuestions)="handleImportQuestions($event)" (tutorialElements)="tutorialElements($event, tabIndex)"></app-single-multiple>
+                    <app-single-multiple *ngSwitchCase= "2" (tabSelected)="selectedTab = $event" [checkSetting]="checkSetting" [type]="'multiple'" (deleteQuestion)="deleteQuestions($event)" (updateQuestion)="handleOutputQuestions($event, true)" [child]="false" [form] = "form.get('survey')" (outputQuestions)="handleOutputQuestions($event, false)" [defaultQuestions] = previewDefaultQuestions[tabIndex] [plan]="plan" [ngStyle]="{'width':'100%'}" [importQuestions]="previewImportQuestions[tabIndex]" (addRemoveImportQuestions)="handleImportQuestions($event)" (tutorialElements)="tutorialElements($event, tabIndex)"></app-single-multiple>
+                    <app-numerical *ngSwitchCase= "3" (tabSelected)="selectedTab = $event" [form] = "form.get('survey')"  [checkSetting]="checkSetting" (deleteQuestion)="deleteQuestions($event)"  (updateQuestion)="handleOutputQuestions($event, true)" (outputQuestions)="handleOutputQuestions($event, false)" [defaultQuestions] = previewDefaultQuestions[tabIndex] [ngStyle]="{'width':'100%'}" [importQuestions]="previewImportQuestions[tabIndex]" (tutorialElements)="tutorialElements($event, tabIndex)"></app-numerical>
+                    <app-free-text *ngSwitchCase= "4" (tabSelected)="selectedTab = $event" [form] = "form.get('survey')"  [checkSetting]="checkSetting" (deleteQuestion)="deleteQuestions($event)"  (updateQuestion)="handleOutputQuestions($event, true)" (outputQuestions)="handleOutputQuestions($event, false)" [defaultQuestions] = previewDefaultQuestions[tabIndex] [ngStyle]="{'width':'100%'}" [importQuestions]="previewImportQuestions[tabIndex]" (tutorialElements)="tutorialElements($event, tabIndex)"></app-free-text>
+                    <app-grid *ngSwitchCase= "5" (tabSelected)="selectedTab = $event"  [checkSetting]="checkSetting"  [form] = "form.get('survey')" (deleteQuestion)="deleteQuestions($event)"  (updateQuestion)="handleOutputQuestions($event, true)" (outputQuestions)="handleOutputQuestions($event, false)" [defaultQuestions] = previewDefaultQuestions[tabIndex] [ngStyle]="{'width':'100%'}" [importQuestions]="previewImportQuestions[tabIndex]" (tutorialElements)="tutorialElements($event, tabIndex)"></app-grid>
+                    <app-image *ngSwitchCase= "6" (tabSelected)="selectedTab = $event" [form] = "form.get('survey')"  [checkSetting]="checkSetting" (deleteQuestion)="deleteQuestions($event)"  (updateQuestion)="handleOutputQuestions($event, true)" (outputQuestions)="handleOutputQuestions($event, false)" [defaultQuestions] = previewDefaultQuestions[tabIndex] [ngStyle]="{'width':'100%'}" [importQuestions]="previewImportQuestions[tabIndex]" (tutorialElements)="tutorialElements($event, tabIndex)"></app-image>
+          -->
+        </ng-container>
+      </div>
+    </div>
+  </mat-card>
+ <!-- <div fxLayout="row" fxLayoutAlign="end center" fxFlex="50px">
+    <div #continue>
+      <button mat-stroked-button [ngClass]="['monet-white']" (click)="goPrevious(surveyTab)" [disabled]="loading">Previous</button>
+      <button mat-raised-button [ngClass]="['monet-button']"  (click)="skipDefault()" *ngIf="surveyTab === 0 && checkSetting?.can_skip_def_survey"
+              [ngStyle]="{'margin-right' :'10px'}" [disabled]="mapped?.length || loading || (checkSetting ? !checkSetting?.can_skip_def_survey : false)" >
+        &lt;!&ndash;<mat-icon  [ngClass]="'custom-lock'">lock</mat-icon>&ndash;&gt; Skip Default Survey</button>
+      <button mat-raised-button [ngClass]="['monet-button']" [disabled]="loading" (click)="updateStage()">{{surveyTab === 0 ? mapped.length ? 'Update & Next': 'Add & Continue' : 'Next'}}</button>
+    </div>
+  </div>-->
+</div>

@@ -1,0 +1,35 @@
+<div fxLayout="row" fxLayoutAlign="space-around center" [ngClass]="['add-question']" [ngStyle]="{'margin-top':'0px', padding: '25px 10px'}">
+  <div fxFlex="60" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center center">
+<!--    <div *ngIf="questionCount && questionCount.plan" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center"-->
+   <!-- <div *ngIf="true" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center"
+         [ngStyle]="{backgroundColor:'#1e73c51f', padding:'16px', width:'94%', borderRadius:'7px'}">
+      <mat-icon [ngStyle]="{height:'18px', color: '#1E73C5'}" fxFlex="20px">info</mat-icon>
+      <span titleBlue fxFlex>
+        You can add <strong>{{questionCount?.plan[0].max}}</strong>  questions including pre and post survey.
+      </span>
+      <div fxLayout="row" fxLayoutAlign="end end" *ngIf="questionCount?.plan" fxFlex="100px">
+        <span style="font-style: italic" titleBlue><strong>{{questionCount?.plan[0]?.max - questionCount?.queCount?.all}}</strong> Remaining</span>
+      </div>
+    </div>-->
+    <span style="color: rgb(30, 115, 197); text-align: left;">Add Question</span>
+    <span title style="text-align: left;">Choose a question type from the list below.</span>
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="16px"  style="min-height: 200px">
+      <div [ngClass]="['choice-list']" *ngFor="let choice of infoList; let i = index" fxLayout="row" fxLayoutAlign="start center" pointer matRipple (click)="chooseType(choice, i)">
+        <button mat-icon-button>
+          <mat-icon>{{choice.icon}}</mat-icon>
+        </button>
+        <span style="color: rgb(30, 115, 197);">{{choice.name}}</span>
+      </div>
+    </div>
+
+  </div>
+<!--  <ng-container *ngIf="!child">-->
+  <ng-container *ngIf="true">
+    <mat-divider [vertical]="true" [ngStyle]="{'border': '1px solid #fff'}"></mat-divider>
+    <div fxFlex="40" fxLayoutAlign="center center" [ngClass]="['background-info']">
+      <app-file-upload #file></app-file-upload>
+<!--      App File Upload-->
+    </div>
+  </ng-container>
+</div>
+

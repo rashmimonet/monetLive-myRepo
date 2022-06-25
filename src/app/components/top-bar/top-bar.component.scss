@@ -1,0 +1,30 @@
+.user-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/*
+::ng-deep #waitingUsers .topbar-badge .mat-badge-content {
+  position: absolute;
+  width: auto;
+  display: grid;
+  min-width: 20px;
+  min-height: 20px;
+  text-align: center;
+  align-items: center;
+  padding: 2px 2px;
+  top: -5px;
+  right: -26px;
+  opacity: 0.8;
+  background: red !important;
+}
+*/
+
+
+#id {
+  position: relative;
+}
+
+

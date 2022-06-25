@@ -1,0 +1,56 @@
+@import "../../../../../../vars";
+.box-container {
+  .box{
+    min-height: 32px;
+    min-width: 32px;
+    max-height: 32px;
+    max-width: 32px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    border: 1px solid $info;
+    color: $info;
+    transition: all 0.3s linear;
+    span {
+      color: $info;
+    }
+  }
+  .box:hover {
+    background-color: $info;
+    color: #FFFFFF;
+    span {
+      color: #FFFFFF;
+    }
+    mat-icon {
+      color: #FFFFFF !important;
+    }
+  }
+}
+.active-box {
+  background-color: $greyColor;
+  color: #FFFFFF;
+  span {
+    color: #FFFFFF;
+  }
+}
+.marginBox {
+  margin: 0px 10px;
+}
+
+@media only screen and (max-width: 1280px) {
+  .box-container div{
+    min-height: 30px;
+    min-width: 30px;
+    max-height: 30px;
+    max-width: 30px;
+  }
+}
+.active {
+  .mat-icon-button {
+    background-color: $info-back !important;
+    color: $info !important;
+  }
+  mat-icon {
+    color: $info !important;
+  }
+}

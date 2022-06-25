@@ -1,0 +1,94 @@
+<div fxLayout="row" fxLayoutAlign="start stretch" fullDiv style="overflow-y: hidden; position: relative">
+  <div fxFlex="80" style="padding: 0 10px">
+    <app-calendar (eventList)="getEvents($event)" (outlookEventList)="getOutlookEvents($event)"
+      [deleteEvent]="deleteEventId"></app-calendar>
+  </div>
+  <div fxFlex="20" style="background: black" fxLayout="column" fxLayoutAlign="center center" class="sidebar">
+    <mat-tab-group tab-md-white style="width: 95%; height: 100%" fxFlex="100">
+      <mat-tab label="Ongoing / Upcoming">
+        <!-- <div fxFlex="100" fxLayout="column" fxLayoutGap="15px" meetDiv *ngIf="eventData?.length > 0"> -->
+        <div fxFlex="100" fxLayout="column" fxLayoutGap="15px" meetDiv *ngIf="eventData?.length > 0 || !apiLength">
+          <!-- <ng-container *ngFor="let link of eventData?.slice().reverse(); let i = index; trackBy:trackByMeetingId"> -->
+          <ng-container *ngFor="let link of upcoming; let i = index; trackBy:trackByMeetingId">
+            <div fxFlex="150px" fxLayout="column" fxLayoutGap="7px" divBox *ngIf="(link.now  - link.end?.dateTime) < 0">
+              <span title-white18-400>{{ link.summary }}</span>
+              <span title-secondary12-200>{{
+                link.start?.dateTime | date: "medium"
+                }}</span>
+              <span title-white14-300>{{
+                link.end?.dateTime - link.start?.dateTime | duration
+                }}</span>
+              <mat-divider style="background: #ffffff"></mat-divider>
+              <div fxFlex="100" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between center">
+                <mat-icon fxFlex="30" fxLayoutAlign="center center" style="color: #FFFFFF;">person</mat-icon>
+                <div fxFlex="70" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+                  <button class="button" (click)="StartMeeting(link)">
+                    Start
+                  </button>
+                  <button class="button" (click)="deleteEvent(link.sourceId)">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <!-- <span fxLayout="column" fxLayoutGap="20px" class="events" title-white14-300 *ngIf="eventData?.length === 0"
+          style="margin: 10px 0 0 15px">No Data Found</span> -->
+          <span fxLayout="column" fxLayoutGap="20px" class="events" title-white14-300 *ngIf="eventData?.length === 0"
+          style="margin: 10px 0 0 15px"></span> 
+      </mat-tab>
+      <mat-tab label="Past">
+        <div fxFlex="100" fxLayout="column" fxLayoutGap="15px" meetDiv *ngIf="eventData?.length > 0">
+          <ng-container *ngFor="let link of eventData; let i = index; trackBy:trackByMeetingId">
+            <div fxFlex="150px" fxLayout="column" fxLayoutGap="7px" divBox *ngIf="(link.now - link.end?.dateTime) > 0">
+              <span title-white18-400>{{ link.summary }}</span>
+              <span title-secondary12-200>{{
+                link.start?.dateTime | date: "medium"
+                }}</span>
+              <span title-white14-300>{{
+                link.end?.dateTime - link.start?.dateTime | duration
+                }}</span>
+              <mat-divider style="background: #ffffff"></mat-divider>
+              <div fxFlex="100" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between center"
+                style="position: relative;">
+                <mat-icon fxFlex="30" fxLayoutAlign="center center" style="color: #FFFFFF;">person</mat-icon>
+                <div fxFlex="70" fxLayout="row" fxLayoutAlign="center center">
+                  <div *ngIf="(link.alive === 2) ? true  : false" class="btn-view">
+                    <button class="button" (click)="viewReport(link.roomid)">
+                      View
+                    </button>
+                  </div>
+                  <div class="btn-del">
+                    <button class="button" (click)="deleteEvent(link.sourceId)">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- <span fxLayout="column" fxLayoutGap="20px" class="events" title-white14-300 *ngIf="eventData?.length === 0"
+          style="margin: 10px 0 0 15px">No Data Found</span> -->
+        <span fxLayout="column" fxLayoutGap="20px" class="events" title-white14-300 *ngIf="eventData?.length === 0"
+          style="margin: 10px 0 0 15px"></span>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div class="overlay" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px" *ngIf="!isSignedIn">
+    <span id="overlay-msg" title-white24-400>Sign In first to avail calendar</span>
+    <div fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="center center">
+      <img src="/assets/images/google.png" (click)="GoogleLogin()" style="height: 60px; width: 60px; cursor: pointer"
+        alt="not Found" />
+      <img src="/assets/images/microsoft.png" (click)="OutlookLogin()"
+        style="height: 60px; width: 60px; cursor: pointer" alt="not Found" />
+    </div>
+  </div>
+
+  <div class="overlay" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px" *ngIf="loader && isSignedIn">
+    <mat-spinner [diameter]="50"></mat-spinner>
+  </div>
+
+</div>

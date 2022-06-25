@@ -1,0 +1,152 @@
+@mixin screenSize($w, $h, $b) {
+  width: $w;
+  height: $h;
+  background: $b;
+}
+
+$shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+$inputShadow:  0px 2px 5px rgba(0, 0, 0, 0.08), 0px 1px 1px rgba(0, 0, 0, 0.04);
+
+[cardScreen] {
+  @include screenSize(55vw, 70vh, #FFEFEF);
+  box-shadow: $shadow;
+}
+
+[cardRight] {
+  @include screenSize('', 100%, #FFFFFF);
+  box-shadow: $shadow;
+
+  ::ng-deep .mat-form-field {
+    height: 40px;
+    box-shadow: $inputShadow;
+    padding: 5px 0px 0px 10px;
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    height: 0 !important;
+  }
+
+  ::ng-deep .mat-form-field-ripple {
+    height: 0 !important;
+  }
+}
+
+[contentStyle] {
+  @include screenSize(100%, '', #1A1A1A);
+  color: #FFFFFF;
+  border-radius: 4px;
+}
+
+[hrDiv] {
+  @include screenSize(100%, '', #FFFFFF);
+  border-radius: 4px;
+}
+
+[cardBody] {
+  width: 80%;
+  height: 100%;
+  color: #697386;
+  margin: auto;
+  position: relative;
+  input {
+    background: #FFFFFF;
+    height: 40px;
+    border: 1px solid rgba(60, 66, 87, 0.12);
+    box-sizing: border-box;
+    box-shadow: $inputShadow;
+    padding: 10px;
+    outline-color: deepskyblue;
+  }
+
+  ::ng-deep .mat-form-field {
+    padding: 0px 10px 0px 10px;
+  }
+
+  input::-webkit-input-placeholder {
+    opacity: 0.5;
+    /*Change the opacity between 0 and 1*/
+  }
+}
+
+[countryStyle] {
+  box-shadow: $inputShadow;
+  border-radius: 8px
+}
+
+[payContent] {
+  @include screenSize(100%, '', #e8d7d7);
+  color: #000000;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+}
+
+.validBtn {
+  cursor: pointer;
+  background: #3C4257;
+  color: #FFFFFF;
+}
+
+[minHeight] {
+  min-height: 48px !important;
+}
+
+[errorMessage] {
+  font-size: 12px;
+  padding-left: 10px;
+}
+
+[planName] {
+  font-weight: 500;
+  font-size: 30px;
+}
+
+[header] {
+  font-weight: 500;
+  font-size: 24px !important;
+  color: #000000;
+}
+
+[monthDiv] {
+  width: 50%;
+  box-shadow: $inputShadow;
+
+  input {
+    box-shadow: none;
+    width: 35px;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+  }
+
+}
+
+[errorDiv] {
+  flex-wrap: wrap;
+
+  mat-error {
+    @extend [errorMessage]
+  }
+}
+
+.close-button {
+  position: absolute;
+  background: #000000;
+  border: 4px solid #FFFFFF;
+  color: #FFFFFF;
+  box-sizing: border-box;
+  top: -45px;
+  right: -65px;
+  z-index: 99;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+
+}
+
+::ng-deep .icon-outside .mat-dialog-container {
+  overflow: unset
+}
+

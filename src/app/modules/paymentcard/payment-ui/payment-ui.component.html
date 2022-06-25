@@ -1,0 +1,9 @@
+<form id="payment-form" fxLayoutGap="30px" fxLayoutAlign="center center" fxLayout="column" style="width: 90%; margin: auto; position: relative">
+  <div id="payment-element">
+  </div>
+  <button id="submit" class="payBtn" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" [disabled]="loader">
+    <span id="button-text">{{loader ? 'Loading' : 'Pay Now'}}</span>
+    <mat-spinner [diameter]="20" *ngIf="loader"></mat-spinner>
+  </button>
+  <div id="payment-message" fxLayoutAlign="center center" class="hidden" style="color: red;"></div>
+</form>

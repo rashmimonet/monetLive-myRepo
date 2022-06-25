@@ -1,0 +1,27 @@
+<div fxLayout="column" p-l24>
+  <div fxLayout="row" fxLayoutAlign="center center" m-b16>
+    <img src="/assets/MonetLiveWhite.png" width="50%" padding alt="monet"  pointer>
+  </div>
+
+  <div fxLayout="column"  *ngFor="let type of tabs;let i = index;">
+    <div fxLayout="row" fxLayoutAlign="space-between center" [ngClass]="i === selectedTab ? 'selectedTab' : ''">
+      <span [ngStyle]="{color: i === selectedTab ? '#ffffff': '#AFB4B8'}" p-l16 m-b8 m-t8>{{type.tabType}}</span>
+    </div>
+    <mat-accordion class="example-headers-align" multi m-l20>
+      <mat-expansion-panel *ngFor="let tab of type.tabName; let ind = index" m-l32 hideToggle [disabled]="tab.value | matExpansionFilter: 'disable'" [expanded]="(tab.value | matExpansionFilter: 'expand') && tab.Options[0].status">
+        <mat-expansion-panel-header>
+          <mat-panel-title [ngStyle]="{color: tab.Status ? '#ffffff': '#AFB4B8'}" fxLayout="row"  p-l16 (click)="nav(type.value, tab.value, ind, i, false, 0)" pointer>
+            <span class="material-icons-outlined">
+              <mat-icon>{{tab.Status ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</mat-icon>
+            </span>
+            <span style="line-height: 27px">
+             {{tab.Name}}
+            </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-label p-l52 [ngStyle]="{color: option.status ? '#ffffff': '#AFB4B8'}" [hidden]="tab.value | matExpansionFilter: 'disable'" *ngFor="let option of tab.Options;let o_index = index;" (click)="nav(type.value, tab.value, ind, i, true, o_index)" pointer>{{option.Name}}</mat-label>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+

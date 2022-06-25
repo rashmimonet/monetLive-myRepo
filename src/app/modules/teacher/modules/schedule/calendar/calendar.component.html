@@ -1,0 +1,35 @@
+
+<!--<button mat-icon-button (click)="addDummy()"><mat-icon f-white>addi_cirle</mat-icon></button>-->
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" style="background: black; padding: 1% 1%">
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end center" style="background: black;">
+      <span f-white medium>{{ viewDate |date: 'medium'}}</span> <!--| calendarDate:(view + 'ViewTitle'):'en' }-->
+      <div fxLayout="row" style="background-color: rgba(255, 255 , 255, 0.2)">
+        <button mat-button mwlCalendarToday [(viewDate)]="viewDate" f-white>Today</button>
+        <button mat-icon-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"  (viewDateChange)="closeOpenMonthViewDay()"><mat-icon f-white small>arrow_back_ios</mat-icon></button>
+        <button mat-icon-button mwlCalendarNextView  [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()"><mat-icon f-white small>arrow_forward_ios</mat-icon></button>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="end center">
+      <button mat-icon-button id='refresh' (click)="refreshEvents()"><mat-icon f-white>cached</mat-icon></button>
+<!--      <button mat-icon-button (click)="handleSignoutClick('')"><mat-icon f-white>exit_to_app</mat-icon></button>-->
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="Month">
+        <mat-button-toggle value="Month" (click)="setView(CalendarView.Month)">Month</mat-button-toggle>
+        <mat-button-toggle value="Week" (click)="setView(CalendarView.Week)">Week</mat-button-toggle>
+        <mat-button-toggle value="Day" (click)="setView(CalendarView.Day)">Day</mat-button-toggle>
+      </mat-button-toggle-group>
+      <button (click)="addEvent()" mat-raised-button>Add Event</button>
+    </div>
+</div>
+<br />
+<div [ngSwitch]="view" class="calendar">
+  <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" (beforeViewRender)="beforeMonthViewRender($event, '')" [viewDate]="viewDate" [events]="loggedInService === 'outlook' ? outlookEvents : events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day, $event.day);"  (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"></mwl-calendar-month-view>
+  <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="loggedInService === 'outlook' ? outlookEvents : events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"></mwl-calendar-week-view>
+  <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="loggedInService === 'outlook' ? outlookEvents : events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"></mwl-calendar-day-view>
+</div>
+<!--
+<div [ngSwitch]="view" class="calendar">
+  <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" (beforeViewRender)="beforeMonthViewRender($event, '')" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day, $event.day);"  (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"></mwl-calendar-month-view>
+  <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"></mwl-calendar-week-view>
+  <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"></mwl-calendar-day-view>
+</div>
+-->

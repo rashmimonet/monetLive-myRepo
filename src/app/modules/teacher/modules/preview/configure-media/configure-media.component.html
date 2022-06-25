@@ -1,0 +1,71 @@
+  <div class="container" fxLayout="column">
+    <div id="content">
+      <div id="main-content">
+        <mat-tab-group>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <button mat-raised-button  color="primary">
+                <mat-icon>{{settings[0].icon}}</mat-icon>
+                <span>{{settings[0].name}}</span>
+              </button>
+            </ng-template>
+            <div fxLayout="row" fxFlex="50" fxLayoutAlign="space-around center">
+              <div fxLayout="column"  fxFill style="border-radius: 10px">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                  <mat-label>Available Audio In Devices</mat-label>
+                  <mat-select (selectionChange)="selectDevice($event)">
+                    <mat-option *ngFor="let item of data.devicesList | categoryFilter: {deviceType: 'audioinput'}" [matTooltip]="item.label" value="{{item.id}}">{{item.label}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <button mat-raised-button  color="primary">
+                <mat-icon>{{settings[1].icon}}</mat-icon>
+                <span>{{settings[1].name}}</span>
+              </button>
+            </ng-template>
+            <div fxLayout="row" fxFlex="50" fxLayoutAlign="space-around center">
+              <div fxLayout="column"  fxFill style="border-radius: 10px">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                  <mat-label>Available Audio Out Devices</mat-label>
+                  <mat-select (selectionChange)="selectDevice($event)">
+                    <mat-option *ngFor="let item of data.devicesList | categoryFilter: {deviceType: 'audiooutput'}" [matTooltip]="item.label" value="{{item.id}}">{{item.label}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-tab>
+
+
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <button mat-raised-button  color="primary">
+                <mat-icon>{{settings[2].icon}}</mat-icon>
+                <span>{{settings[2].name}}</span>
+              </button>
+            </ng-template>
+            <div fxLayout="row" fxFlex="50" fxLayoutAlign="space-around center">
+              <div fxLayout="column"  fxFill style="border-radius: 10px">
+                <mat-form-field appearance="fill" style="width: 100%;">
+                  <mat-label>Available WebCam Devices</mat-label>
+                  <mat-select (selectionChange)="selectDevice($event)">
+                    <mat-option *ngFor="let item of data.devicesList | categoryFilter: {deviceType: 'videoinput'}" [matTooltip]="item.label" value="{{item.id}}">{{item.label}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
+      </div>
+    </div>
+
+    <mat-dialog-actions align="center">
+      <button id="close" mat-raised-button color="primary"  (click)="dialogRef.close({result: selectedOption})">Close</button>
+    </mat-dialog-actions>
+  </div>
+
