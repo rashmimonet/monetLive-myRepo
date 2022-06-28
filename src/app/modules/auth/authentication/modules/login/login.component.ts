@@ -60,7 +60,7 @@ termCondition: any = true;
               private utility: UtilityService) {
     this.form = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEX)])],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(PASSWORD_REGEX)]],
     });
     this.resetForm = this.fb.group({
         email: ['', Validators.compose([Validators.required, Validators.pattern(EMAIL_REGEX)])],

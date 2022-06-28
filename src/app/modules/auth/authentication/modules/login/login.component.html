@@ -1,16 +1,16 @@
 
 
 <div fxLayout="column" fxLayoutAlign="center center" fxFill fxLayoutGap="22px" style=" border-radius: 10px 0 0 10px;">
-  <form fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start" ngClass="formClass"
+  <form fxLayout="column" fxLayoutAlign="center start" ngClass="formClass"
         padding class="card" (ngSubmit)="signUp(form.value)" [formGroup]="form" *ngIf="!forgotPass">
 
-    <div fxLayout="column" fxFlex="28" fxLayoutGap="10px" style="width: 100%">
+    <div fxLayout="column" fxFlex="28" style="width: 100%">
       <span fxFlex="25">Email Id</span>
       <span fxFlex="75">
         <input type="email" autofocus formControlName="email" placeholder="Ex. abc@xyz.com" inputStyle>
       </span>
     </div>
-    <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center" style="width: 100%; color: #c8663c !important;">
+    <div fxLayout="row" fxFlex="8" fxLayoutGap="7px" fxLayoutAlign="start start" style="width: 100%; color: #c8663c !important;">
       <mat-error *ngIf=" form['controls']?.email.errors?.required && !form['controls'].password.errors?.required ">
         Email is <strong>required</strong>
       </mat-error>
@@ -18,7 +18,7 @@
         Email is <strong>Invalid</strong>
       </mat-error>
       </div>
-    <div fxLayout="column" fxFlex="28" fxLayoutGap="10px" style="width: 100%; ">
+    <div fxLayout="column" fxFlex="28" style="width: 100%; ">
       <span fxFlex="25">Password</span>
       <span fxFlex="75" style="position: relative">
         <input type="password" [type]="passView ? 'password' : 'text'"  formControlName="password" inputStyle>
@@ -26,7 +26,7 @@
       </span>
     </div>
 
-      <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center" style="width: 100%; color: #c8663c !important;">
+      <div fxLayout="row" fxFlex="8" fxLayoutGap="7px" fxLayoutAlign="start start" style="width: 100%; color: #c8663c !important;">
         <!-- <mat-error *ngIf=" form['controls']?.email.errors?.required && !form['controls'].password.errors?.required ">
           Email is <strong>required</strong>
         </mat-error>
@@ -35,6 +35,10 @@
         </mat-error> -->
         <mat-error *ngIf=" form['controls'].password.errors?.required && !form['controls']?.email.errors?.required ">
                   Password is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="form.controls['password']?.touched && form.controls['password'].errors?.pattern">
+                  Password should be of <b>8</b> characters <b>(at least one digit, one lower case, one upper case, one special
+                    character)</b>
                 </mat-error>
         <mat-error *ngIf="isSourceMonet && form['controls']?.email.errors?.required && form['controls'].password.errors?.required && form.controls['email']?.touched">
                 Email and  Password is <strong>required</strong>
@@ -79,7 +83,7 @@
     </div>
 
 
-    <div fxLayout="column" fxFlex="8" fxLayoutGap="5px" fxLayoutAlign="center center" style="width: 70%; color: #c8663c !important;"  >
+    <div fxLayout="column" fxFlex="8" fxLayoutGap="5px" fxLayoutAlign="start center" style="width: 70%; color: #c8663c !important;"  >
         <mat-error *ngIf="resetForm.controls['email']?.touched &&  resetForm['controls']?.email?.errors?.required">
           Email is <strong>required</strong>
         </mat-error>

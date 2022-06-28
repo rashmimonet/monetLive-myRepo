@@ -86,10 +86,10 @@ $shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
   input:not([type='email']) {
     text-transform: capitalize;
   }
-// .help-block{
-//   color: red;
-//   text-align: center;
-// }
+.help-block{
+  margin-left: -1050%;
+}
+
   .mat-radio-group {
     font-size: 14px !important;
     color: #33387A;

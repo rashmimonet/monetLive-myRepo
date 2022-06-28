@@ -31,6 +31,11 @@
         <div fxLayout="row" fxLayoutAlign="start center" monthDiv >
           <input type="text" formControlName="exp_month" placeholder="00" maxlength="2" (keypress)="validateNo($event)" (input)="monthCheck($event)" style=" border-bottom-left-radius: 8px;" /> /
           <input type="text" formControlName="exp_year" placeholder="00" maxlength="2" (keypress)="validateNo($event)" />
+<!-- 
+           <input name="exp_date" id="exp_date" type="text" maxlength="7" onChange="validateExp()" placeholder="MM / YYYY ">
+      <br>
+        <span id="error4" ></span> -->
+      <br>
           <!-- <input type="text" id="exMonth" formControlName="exp_month" placeholder="00" maxlength="2" (keypress)="validateNo($event)" (keyup)="valid($event)" (input)="monthCheck($event)" style=" border-bottom-left-radius: 8px;" /> /
           <input type="text" id="exYear" formControlName="exp_year" placeholder="00" minlength="2" (keypress)="validateNo($event)"  (keyup)="valid($event)" /> -->
            <!-- <div fxLayout="row" fxLayoutAlign="start center" >
@@ -62,7 +67,7 @@
       <input type="text" placeholder="Enter name" formControlName="name" style="border-radius: 8px" />
       <mat-error errorMessage *ngIf="validationFunc('name')">Name is required</mat-error>
       <mat-error *ngIf="addCardForm.get('name').errors?.pattern">
-        Name should be of minimum <b>3</b> characters
+        First and Last Name both are required with minimum <b>2</b> characters
       </mat-error>
     </div>
   </div>

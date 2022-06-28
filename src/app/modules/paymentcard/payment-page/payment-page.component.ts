@@ -6,7 +6,8 @@ import * as countryData from '../../../../assets/countryData.json';
 import {UtilityService} from "../../shared/services/utility.service";
 // import { debug } from 'console';
 
-const NAME_REGEX = /[a-zA-Z]{3,}$/;
+// const NAME_REGEX = /[a-zA-Z]{3,}$/;
+const NAME_REGEX = /^[A-Z]{1}[a-z]+[ ]{1}[A-Z]{1}[a-z]+$/;
 @Component({
   selector: 'app-payment-page',
   templateUrl: './payment-page.component.html',
@@ -5701,6 +5702,26 @@ export class PaymentPageComponent implements OnInit {
 //     }
 //   }
 // 
+
+// validateExp(){
+//   let expire = document.getElementById('exp_date');
+//   let error4 = document.getElementById('error4');
+//   let d = new Date();
+//     let currentYear = d.getFullYear();
+//     let currentMonth = d.getMonth() + 1;
+//     // get parts of the expiration date
+//     let parts = expire.toString().split(/[-\/]+/);
+//     let year = parseInt(parts[1], 10);
+//     let month = parseInt(parts[0], 10);
+//     // compare the dates
+//     if (year < currentYear || (year == currentYear && month < currentMonth)) {
+//       error4.innerHTML = "The expiry date has passed.\n";
+
+//     }else if (month > 12){
+//      error4.innerHTML = "Invalid month.\n";
+//     };
+//   };
+
   createCardForm(): void {
     this.addCardForm = this.fb.group({
       number: ['', [Validators.required]],

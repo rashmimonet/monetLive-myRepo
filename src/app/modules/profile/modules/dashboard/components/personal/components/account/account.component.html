@@ -95,93 +95,95 @@
           </div>
           <!-- <div style="background: aqua;">{{personalDataForms.controls.city.errors?.pattern | json}}</div> -->
           <div fxFlex="75" commonStyle fxLayoutAlign="center center">
-            <div> <input [placeholder]="field.placeholder" [formControlName]="field.name" class="form-control"
+            <!-- <div>  -->
+              <input [placeholder]="field.placeholder" [formControlName]="field.name" class="form-control"
                 [type]="field.type" *ngIf="field.type !== 'radio' && field.type !== 'select'" [pattern]="field.regex"
                 [required]="field.required" />
-            </div>
-            <!-- <input placeholder ="enter email" formControlName ="email" class="form-control" [disabled] ="true" type ="email" 
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' 
-              && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'name'"/> -->
-            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
-              style="width: 100%; color: #c8663c !important;">
-  
+            <!-- </div> -->
+           
+            <div fxLayout="row" fxFlex="8" style="width: 100%; color: #c8663c !important; margin-top:25%;">
+
               <mat-error class="help-block"
                 *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.name.errors?.required && personalDataForms.controls.name.touched">
                 Required
               </mat-error>
               <mat-error class="help-block"
                 *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.name.errors?.pattern && personalDataForms.controls.name.touched">
-                Name is Invalid
+                Invalid Name
+              </mat-error>
+              <!-- </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+              style="width: 100%; color: #c8663c !important; margin-top:30%;"> -->
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'name' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.contact.errors?.required && personalDataForms.controls.contact.touched">
+                Required
+              </mat-error>
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'name' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.contact.errors?.pattern && personalDataForms.controls.contact.touched">
+                Invalid Contact
+              </mat-error>
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'name' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.address.errors?.required && personalDataForms.controls.address.touched">
+                Required
+              </mat-error>
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'name' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.address.errors?.pattern && personalDataForms.controls.address.touched">
+                Invalid Address
+              </mat-error>
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'name' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.age.errors?.required && personalDataForms.controls.age.touched">
+                Required
+              </mat-error>
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'name' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.age.errors?.pattern && personalDataForms.controls.age.touched">
+                Invalid Age
+              </mat-error>
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'name' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.pinCode.errors?.required && personalDataForms.controls.pinCode.touched">
+                Required
+              </mat-error>
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'name' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.pinCode.errors?.pattern && personalDataForms.controls.pinCode.touched">
+                Invalid Pincode
+              </mat-error>
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'name' && field.name !== 'email' && personalDataForms.controls.city.errors?.required && personalDataForms.controls.city.touched">
+                Required
+              </mat-error>
+              <mat-error class="help-block"
+                *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'name' && field.name !== 'email' && personalDataForms.controls.city.errors?.pattern && personalDataForms.controls.city.touched">
+                Invalid City
               </mat-error>
             </div>
-            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
-              style="width: 100%; color: #c8663c !important;">
-            <mat-error class="help-block"
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'name' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.contact.errors?.required && personalDataForms.controls.contact.touched">
-              Required
-            </mat-error>
-            <mat-error class="help-block"
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'name' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.contact.errors?.pattern && personalDataForms.controls.contact.touched">
-              Contact is Invalid
-            </mat-error>
-            <mat-error class="help-block"
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'name' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.address.errors?.required && personalDataForms.controls.address.touched">
-              Required
-            </mat-error>
-            <mat-error class="help-block"
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'name' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.age.errors?.required && personalDataForms.controls.age.touched">
-              Required
-            </mat-error>
-            <mat-error class="help-block"
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'name' && field.name !== 'pinCode' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.age.errors?.pattern && personalDataForms.controls.age.touched">
-              Age is Invalid
-            </mat-error>
-            <mat-error class="help-block"
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'name' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.pinCode.errors?.required && personalDataForms.controls.pinCode.touched">
-              Required
-            </mat-error>
-            <mat-error class="help-block"
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'name' && field.name !== 'city' && field.name !== 'email' && personalDataForms.controls.pinCode.errors?.pattern && personalDataForms.controls.pinCode.touched">
-              PinCode is Invalid
-            </mat-error>
-            <mat-error class="help-block"
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'name' && field.name !== 'email' && personalDataForms.controls.city.errors?.required && personalDataForms.controls.city.touched">
-              Required
-            </mat-error>
-            <mat-error class="help-block"
-              *ngIf="field.type !== 'radio' && field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'name' && field.name !== 'email' && personalDataForms.controls.city.errors?.pattern && personalDataForms.controls.city.touched">
-              City is Invalid
-            </mat-error>
-          </div>
-          <mat-radio-group style="width: 80%" [formControlName]="field.name" fxLayoutGap="10px"
-            *ngIf="field.type === 'radio'">
-            <ng-container *ngFor="let c of field?.child">
-              <mat-radio-button [value]="c">{{ c }}</mat-radio-button>
-            </ng-container>
-          </mat-radio-group>
-          <div *ngIf="field.type === 'select'" fxLayoutAlign="center center" full-width>
+            <mat-radio-group style="width: 80%" [formControlName]="field.name" fxLayoutGap="10px"
+              *ngIf="field.type === 'radio'">
+              <ng-container *ngFor="let c of field?.child">
+                <mat-radio-button [value]="c">{{ c }}</mat-radio-button>
+              </ng-container>
+            </mat-radio-group>
+            <div *ngIf="field.type === 'select'" fxLayoutAlign="center center" full-width>
 
-            <mat-form-field *ngIf="field.name === 'country'">
-              <mat-select [formControlName]="field.name">
-                <ng-container *ngFor="let c of country">
-                  <mat-option [value]="c.country_name" (click)="chooseState(c)">{{
-                    c.country_name
-                    }}</mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>
+              <mat-form-field *ngIf="field.name === 'country'">
+                <mat-select [formControlName]="field.name">
+                  <ng-container *ngFor="let c of country">
+                    <mat-option [value]="c.country_name" (click)="chooseState(c)">{{
+                      c.country_name
+                      }}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
 
-            <mat-form-field *ngIf="field.name === 'state'">
-              <mat-select [formControlName]="field.name">
-                <ng-container *ngFor="let s of stateChoose">
-                  <mat-option [value]="s.state_name">{{
-                    s.state_name
-                    }}</mat-option>
-                </ng-container>
-              </mat-select>
-            </mat-form-field>
+              <mat-form-field *ngIf="field.name === 'state'">
+                <mat-select [formControlName]="field.name">
+                  <ng-container *ngFor="let s of stateChoose">
+                    <mat-option [value]="s.state_name">{{
+                      s.state_name
+                      }}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
 
-            <!-- <mat-form-field *ngIf="field.name === 'country'">
+              <!-- <mat-form-field *ngIf="field.name === 'country'">
                 <mat-select [formControlName]="field.name">
                   <mat-option *ngFor="let c of country[0]; let i = index;" [value]="c.country_name"
                     (click)="chooseState(c)">
@@ -196,7 +198,7 @@
                 </mat-select>
               </mat-form-field> -->
 
-            <!-- <span class="help-block" *ngIf="field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'name' && field.name !== 'email' && field.name !== 'city' && personalDataForms.controls.gender.errors?.required && personalDataForms.controls.gender.touched">
+              <!-- <span class="help-block" *ngIf="field.type !== 'select' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'name' && field.name !== 'email' && field.name !== 'city' && personalDataForms.controls.gender.errors?.required && personalDataForms.controls.gender.touched">
                 Required
                </span>
                <span class="help-block" *ngIf="field.type !== 'radio' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'name' && field.name !== 'email' && field.name !== 'city' && personalDataForms.controls.country.errors?.required && personalDataForms.controls.country.touched">
@@ -205,19 +207,19 @@
                <span class="help-block" *ngIf="field.type !== 'radio' && field.name !== 'contact' && field.name !== 'address' && field.name !== 'age' && field.name !== 'pinCode' && field.name !== 'name' && field.name !== 'email' && field.name !== 'city' &&  personalDataForms.controls.state.errors?.required && personalDataForms.controls.state.touched">
                 Required
                </span> -->
+            </div>
           </div>
         </div>
-    </div>
-    </ng-container>
-    <div fxFlex="10" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end center" style="width: 95%">
-      <button mat-raised-button class="cancelBtn" (click)="cancel()">
-        {{ formField.edit ? "Cancel" : "" }}
-      </button>
-      <button mat-raised-button [class]="formField?.edit ? 'submitBtn' : 'editBtn'"
-        (click)="personalDataFormDisabled()">
-        {{ formField.edit ? "Update" : "Edit" }}
-      </button>
+      </ng-container>
+      <div fxFlex="10" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end center" style="width: 95%">
+        <button mat-raised-button class="cancelBtn" (click)="cancel()">
+          {{ formField.edit ? "Cancel" : "" }}
+        </button>
+        <button mat-raised-button [class]="formField?.edit ? 'submitBtn' : 'editBtn'"
+          (click)="personalDataFormDisabled()">
+          {{ formField.edit ? "Update" : "Edit" }}
+        </button>
+      </div>
     </div>
   </div>
-</div>
 </div>

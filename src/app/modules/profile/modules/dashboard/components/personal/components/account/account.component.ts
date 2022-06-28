@@ -9,12 +9,14 @@ import { UtilityService } from "../../../../../../../shared/services/utility.ser
 import { StyleDirective } from "./style.directive";
 import { HttpClient } from '@angular/common/http';
 
-const NAME_REGEX = /[a-zA-Z]{3, }$/;
+const NAME_REGEX = /^[A-Z]{1}[a-z]+[ ]{1}[A-Z]{1}[a-z]+$/;
 const CONTACT_REGEX = /[0-9]{7,15}$'/;
 const PINCODE_REGEX = /(., '^[0-9]{6}$')/;
-const Address_Regex = /[a-zA-Z]{3,130}$/;
+const Address_Regex = /[a-zA-Z0-9][0-9\.\-\\/# ,a-zA-Z]+[ ,]+[0-9\\\/#, a-zA-Z]{1,}$/;
 const City_Regex = /[a-zA-Z]{3,30}$/;
-const Age_Regex = /[0-9]/;
+const Age_Regex = /^[1-9][0-9]/;
+
+// 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -45,7 +47,7 @@ export class AccountComponent implements OnInit {
         placeholder: 'enter name',
         type: 'text',
         required: true,
-        regex: '[a-zA-Z]{3,}$',
+        regex: '^[A-Z]{1}[a-z]+[ ]{1}[A-Z]{1}[a-z]+$',
       },
       {
         name: 'email',
@@ -59,15 +61,15 @@ export class AccountComponent implements OnInit {
         placeholder: 'enter contact',
         type: 'number',
         required: true,
-        regex: '[0-9]{10}$',
+        regex: '[0-9]{7,15}$',
       },
       {
         name: 'address',
         placeholder: 'enter address',
         type: 'text',
         required: true,
-        regex: '[a-z]{10,250}',
-      },
+        regex: '^[a-zA-Z0-9][0-9\.\-\\/# ,a-zA-Z]+[ ,]+[0-9\\\/#, a-zA-Z]{1,}',
+      },//[A-Za-z0-9'\.\-\s\,
       {
         name: 'gender',
         placeholder: '',
@@ -79,7 +81,7 @@ export class AccountComponent implements OnInit {
         placeholder: 'enter age',
         type: 'number',
         required: true,
-        regex: '[0-9]{1,2}$',
+        regex: '^[1-9][0-9]{0,1}$',
       },
       {
         name: 'pinCode',
@@ -93,7 +95,7 @@ export class AccountComponent implements OnInit {
         placeholder: 'enter city name',
         type: 'text',
         required: true,
-        regex: '[a-zA-Z]{3,30}$',
+        regex: '[a-zA-Z]{2,30}$',
       },
 
       {
@@ -136,7 +138,7 @@ export class AccountComponent implements OnInit {
       email: [{value: '', disabled: true}],
       contact: ['', [Validators.required, Validators.pattern(CONTACT_REGEX)]],
       pincode: ['', [Validators.required, Validators.pattern(PINCODE_REGEX)]],
-      address: ['', [Validators.required, Validators.pattern(Address_Regex), Validators.min(5), Validators.max(130)]],
+      address: ['', [Validators.required, Validators.pattern(Address_Regex)]],
       age: ['', [Validators.required, Validators.pattern(Age_Regex), Validators.min(1), Validators.max(2)]],
       city: ['', [Validators.required, Validators.pattern(City_Regex), Validators.min(3), Validators.max(30)]],
       // gender: ['', Validators.required],

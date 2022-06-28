@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UtilityService } from "../../../../../../../shared/services/utility.service";
 import { DatePipe } from '@angular/common';
 import { I } from '@angular/cdk/keycodes';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-reports',
@@ -41,7 +42,7 @@ export class ReportsComponent implements OnInit {
   dataSource: MatTableDataSource<any> | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('vdo') vdoTag: any;
-
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(private api: ApiService, private tps: ThirdPartyService, private utility: UtilityService, private datePipe: DatePipe) {
   }
 
@@ -126,31 +127,37 @@ export class ReportsComponent implements OnInit {
     // return allData;
     // return [];
   }
+  applyFilter(filterValue: string) {
+    this.dataSource.filterPredicate = this.filterPeriod;
+  }
 
-  /*dateDataFilter(): void {
-    if (this.recordData) {
-      this.recordData = this.filterData.filter((item: any) => {
-        if (
-          new Date(item.start.dateTime) >= this.startDate &&
-          new Date(item.start.dateTime) <=
-          new Date(new Date(this.endDate).setHours(23, 59, 59, 999))
-        ) {
-          return item;
-        }
-      });
-      if (!this.recordData.length) {
-        this.msg = ' Data Not Found ';
-      } else {
-        this.msg = '';
-      }
-    }
-  }*/
+  filterPeriod(data: any, filter: string) {
+    return data.referenceDate > this.startDate.value() && data.referenceDate < this.endDate.value();
+  }
+
+  // dateDataFilter(): void {
+  //   if (this.recordData) {
+  //     this.recordData = this.filterData.filter((item: any) => {
+  //       if (
+  //         new Date(item.start.dateTime) >= this.startDate &&
+  //         new Date(item.start.dateTime) <=
+  //         new Date(new Date(this.endDate).setHours(23, 59, 59, 999))
+  //       ) {
+  //         return item;
+  //       }
+  //     });
+  //     if (!this.recordData.length) {
+  //       this.msg = ' Data Not Found ';
+  //     } else {
+  //       this.msg = '';
+  //     }
+  //   }
+  // }
 
   dateDataFilter(): void {
-    // this.startDate = this.datePipe.transform(Date.now(),'yyyy-MM-dd');
-    // this.endDate = this.datePipe.transform(Date.now(),'yyyy-MM-dd');
-    // this.getRecording({start: this.startDate.toString(), end: this.endDate.toString()});
-    this.getAllInviteRoomsData({ start: this.startDate.toString(), end: this.endDate.toString() });
+          this.endDate =  new Date(new Date(this.endDate).setHours(23, 59, 59, 999));
+          this.getAllInviteRoomsData({ start: this.startDate.toString(), end: this.endDate.toString() });
+    // this.getAllInviteRoomsData({ start: this.startDate.toString(), end: this.endDate.toString() });
 
   }
 
