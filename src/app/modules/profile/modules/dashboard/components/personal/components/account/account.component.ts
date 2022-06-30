@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormControl, Validators,  } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators,  } from '@angular/forms';
 import { ApiService } from '../../../../../../../shared/services/api.service';
 import { BehaviourSubjectsService } from '../../../../../../../../services/behaviour-subjects.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +9,9 @@ import { UtilityService } from "../../../../../../../shared/services/utility.ser
 import { StyleDirective } from "./style.directive";
 import { HttpClient } from '@angular/common/http';
 
-const NAME_REGEX = /^[A-Z]{1}[a-z]+[ ]{1}[A-Z]{1}[a-z]+$/;
+// const NAME_REGEX = /^[a-zA-Z]{1}[a-z]+[ ]{1}[a-zA-Z]{1}[a-z]+$/;
+// const NAME_REGEX = /^[a-zA-Z ]{2,}(?: [a-zA-Z] +)?(?: [a-zA-Z ]+)?$/;
+const NAME_REGEX = /[a-zA-Z ]{3,}$/;
 const CONTACT_REGEX = /[0-9]{7,15}$'/;
 const PINCODE_REGEX = /(., '^[0-9]{6}$')/;
 const Address_Regex = /[a-zA-Z0-9][0-9\.\-\\/# ,a-zA-Z]+[ ,]+[0-9\\\/#, a-zA-Z]{1,}$/;
@@ -39,6 +41,9 @@ export class AccountComponent implements OnInit {
   imgExtension = ['png', 'jpg', 'jpeg', 'gif'];
   country: any = [];
   stateChoose: any = [];
+  phoneData: any= [];
+  phoneHint: any;
+  isPhoneHint: boolean= false;
   formField = {
     edit: false,
     fields: [
@@ -47,7 +52,7 @@ export class AccountComponent implements OnInit {
         placeholder: 'enter name',
         type: 'text',
         required: true,
-        regex: '^[A-Z]{1}[a-z]+[ ]{1}[A-Z]{1}[a-z]+$',
+        regex: '[a-zA-Z ]{3,}$',
       },
       {
         name: 'email',
@@ -56,13 +61,13 @@ export class AccountComponent implements OnInit {
         required: true,
         regex: '/\S+@\S+\.\S+/',
       },
-      {
-        name: 'contact',
-        placeholder: 'enter contact',
-        type: 'number',
-        required: true,
-        regex: '[0-9]{7,15}$',
-      },
+      // {
+      //   name: 'contact',
+      //   placeholder: '+919876543210',
+      //   type: 'number',
+      //   required: true,
+      //   regex: '[0-9]{7,15}$',
+      // },
       {
         name: 'address',
         placeholder: 'enter address',
@@ -113,14 +118,10 @@ export class AccountComponent implements OnInit {
     ],
   };
 
-  //  package_validation_messages = {
-  //   'maxWidth': [
-  //      {type: 'required', message: 'Required.'},
-  //      {type: 'pattern', message: 'Invalid.'}
-  //   ]
-  // };
+  phoneForm = new FormGroup({});
   @Output() tabSelected = new EventEmitter();
   form: any;
+
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -130,35 +131,29 @@ export class AccountComponent implements OnInit {
     private styleDirective: StyleDirective,
     private cdRef: ChangeDetectorRef,
     private http: HttpClient
-  ) {
-    // debugger
+  ) { 
+      // contact: ['', [Validators.required, Validators.pattern(CONTACT_REGEX)]],
+      // phone: ['+919876543210',[Validators.required]],
     this.personalDataForms = this.fb.group({                  //added
-      // maxWidth: new FormControl, 
       name: ['', [Validators.required, Validators.pattern(NAME_REGEX), Validators.min(3)]],
       email: [{value: '', disabled: true}],
-      contact: ['', [Validators.required, Validators.pattern(CONTACT_REGEX)]],
       pincode: ['', [Validators.required, Validators.pattern(PINCODE_REGEX)]],
       address: ['', [Validators.required, Validators.pattern(Address_Regex)]],
       age: ['', [Validators.required, Validators.pattern(Age_Regex), Validators.min(1), Validators.max(2)]],
       city: ['', [Validators.required, Validators.pattern(City_Regex), Validators.min(3), Validators.max(30)]],
-      // gender: ['', Validators.required],
-      // country: ['', Validators.required],
-      // state: ['', Validators.required],
-
-      // name: ['', Validators.required]
-    })
+      country: ['', [Validators.required]],
+      state: ['', [Validators.required]]
+    });
+    this.phoneForm = this.fb.group({
+      phone: ['+919876543210',[Validators.required]]
+    });
   }
 
-  // validationFunc(type: string): boolean {
-  //   if (
-  //     this.personalDataForms.controls[type]?.touched &&
-  //     this.personalDataForms.controls[type]?.errors?.required
-  //   ) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  yourComponentMethodToTreatyCountryChangedEvent(event: any){
+    console.log('event', event);
+    this.phoneHint = event.placeHolder;
+    console.log('placeHolder', this.phoneHint);
+  }
   validateNo(e: any): boolean {
     const charCode = e.which ? e.which : e.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -181,7 +176,9 @@ export class AccountComponent implements OnInit {
     this.defultIconSet(this.userDetails);
     // this.bService.userDetails.next(this.userDetails);
     this.personalDataForms.disable();
+    this.phoneForm.disable();
   }
+  
   
 dateConvert(date: any): any {
   return new Date(date);
@@ -196,6 +193,7 @@ createPersonalForm(): void {
     formGroup[item.name] = [''];
   });
   this.personalDataForms = this.fb.group(formGroup);
+  // this.phoneForm = this.fb.group(formGroup);
 }
 
 // chooseState(country: any): void {
@@ -223,8 +221,10 @@ personalDataFormDisabled(): void {
   if(this.formField.edit) {
   this.personalDataForms.enable();
   this.personalDataForms.controls['email'].disable();
+  this.phoneForm.enable();
+  this.isPhoneHint= true;
 } else {
-  if (this.personalDataForms.touched) {
+  if (this.personalDataForms.touched && this.phoneForm.touched) {
     const formData = new FormData();
     formData.append('ID', this.personalDataForms.get('ID').value);
     this.formField.fields.forEach((field: any) => {
@@ -236,9 +236,12 @@ personalDataFormDisabled(): void {
     if (this.fileUpload.file) {
       formData.append('avatar', this.fileUpload.file, this.fileUpload.name);
     }
+  
     this.updateApi(formData);
   }
   this.personalDataForms.disable();
+  this.phoneForm.disable();
+  this.isPhoneHint= false;
 }
   }
 
@@ -248,6 +251,7 @@ updateApi = (data: any) => {
       this.userDetails = next.data;
       this.userDetails.paymentHistory.reverse();
       this.personalDataForms.touched = false;
+      // this.phoneForm.touched = false;
       // this.bService.userDetails.next(next.data);
       this.defultIconSet(this.userDetails);
       this.api.storeLocalStorage('userDetails', next.data);
@@ -278,6 +282,7 @@ cancel = () => {
   this.formField.edit = false;
   this.defultIconSet(this.userDetails);
   this.personalDataForms.disable();
+  this.phoneForm.disable();
 };
 
 formData(): any {

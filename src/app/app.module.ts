@@ -25,6 +25,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {SharedModule} from './modules/shared/shared.module';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NgxMatIntlTelInputModule } from 'ngx-11-mat-intl-tel-input';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -55,7 +59,11 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     FlexLayoutModule,
     CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory}),
     MatPaginatorModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    NgxMatIntlTelInputModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     InternetSpeedService,

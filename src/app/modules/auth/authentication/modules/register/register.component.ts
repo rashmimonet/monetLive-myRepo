@@ -5,7 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {UtilityService} from "../../../../shared/services/utility.service";
 
 // const NAME_REGEX =/[a-zA-Z]{3,}$/;
-const NAME_REGEX = /^[A-Z]{1}[a-z]+[ ]{1}[A-Z]{1}[a-z]+$/;
+const NAME_REGEX = /[a-zA-Z_ ]*$/
 const EMAIL_REGEX = /^[a-zA-Z]+[a-zA-Z0-9._]+@[a-zA-Z]+\.[a-zA-Z.]{2,3}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_!@#$%^&'])[^ ]{8,}$/;
 // const mail_REGEX = /(., '^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+[.][A-Za-z]{2,}$')/;               //added by me

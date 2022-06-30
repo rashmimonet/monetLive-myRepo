@@ -22,6 +22,7 @@ export class MyMeetingComponent implements OnInit {
   limit = 20;
   page = 1;
   isError: boolean;
+  recentData: any= [];
   // adminId = 'malkoti.mayank@gmail.com';
   adminId = JSON.parse(localStorage.getItem('userDetails') || '').email;
   recentMeetingData: any = {};
@@ -56,7 +57,10 @@ export class MyMeetingComponent implements OnInit {
           // item.end = new Date(item.end);
           return item;
         });
-        this.recentMeetingData.recent = this.reportDataFilter(next.response.results.slice(0, 3));
+        this.recentMeetingData.recent = this.reportDataFilter(next.response.results);
+        // console.log('recent', this.reportDataFilter(next.response.results));
+        this.recentData = this.recentMeetingData.recent.slice(0,3);
+        // console.log('recent ans', this.recentData);
         this.calenderEvent(this.toDayZeroTime);
       } else if (next.code === 400) {
         this.utility.notify(next.message, 'error');

@@ -67,7 +67,7 @@
       <input type="text" placeholder="Enter name" formControlName="name" style="border-radius: 8px" />
       <mat-error errorMessage *ngIf="validationFunc('name')">Name is required</mat-error>
       <mat-error *ngIf="addCardForm.get('name').errors?.pattern">
-        First and Last Name both are required with minimum <b>2</b> characters
+        Name should be of minimum <b>3</b> alpha characters
       </mat-error>
     </div>
   </div>
@@ -89,7 +89,7 @@
       <div fxLayout="row" fxLayoutGap="10px">
         <mat-error errorMessage *ngIf="validationFunc('address_country')">Country is required</mat-error>
         <mat-error errorMessage *ngIf="validationFunc('address_zip')">Zip is required</mat-error>
-        <mat-error errorMessage *ngIf="minlengthFunc('address_zip')">Invalid Zip_Code</mat-error>
+        <mat-error errorMessage *ngIf="minlengthFunc('address_zip')">Invalid Zip Code</mat-error>
       </div>
     </div>
     <div></div>

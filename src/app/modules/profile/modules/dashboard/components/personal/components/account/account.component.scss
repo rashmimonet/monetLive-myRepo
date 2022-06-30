@@ -89,7 +89,9 @@ $shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 .help-block{
   margin-left: -1050%;
 }
-
+::ng-deep .mat-form-field-infix{
+  width:168px !important;
+}
   .mat-radio-group {
     font-size: 14px !important;
     color: #33387A;

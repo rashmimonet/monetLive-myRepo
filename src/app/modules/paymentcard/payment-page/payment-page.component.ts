@@ -7,7 +7,7 @@ import {UtilityService} from "../../shared/services/utility.service";
 // import { debug } from 'console';
 
 // const NAME_REGEX = /[a-zA-Z]{3,}$/;
-const NAME_REGEX = /^[A-Z]{1}[a-z]+[ ]{1}[A-Z]{1}[a-z]+$/;
+const NAME_REGEX = /[a-zA-Z_ ]*$/
 @Component({
   selector: 'app-payment-page',
   templateUrl: './payment-page.component.html',

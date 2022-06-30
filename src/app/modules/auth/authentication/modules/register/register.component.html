@@ -13,7 +13,7 @@
           Name is <strong>required</strong>
         </mat-error>
         <mat-error *ngIf="form.get('name').errors?.pattern">
-          First and Last Name both are required with minimum <b>2</b> characters
+          Name should be of minimum <b>3</b> alpha characters
         </mat-error>
       </div>
     </div>
