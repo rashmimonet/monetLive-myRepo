@@ -29,17 +29,20 @@
     </div>-->
 
   </div>
-  <div fxLayout="row" fxLayoutAlign="space-evenly start"  fxLayoutGap="10px" fxFlex="auto">
+  <div fxLayout="row" fxLayoutAlign="space-evenly start" fxLayoutGap="10px" fxFlex="auto">
     <button mat-button (click)="openDialog($event)"
       style="background: linear-gradient(to right, #77246C, #1E5AA1);">View PDF</button>
-      &nbsp;  &nbsp;
-    <button  mat-button (click)="openDialogBox()"
+    &nbsp; &nbsp;
+    <button mat-button (click)="openDialogBox()"
       style="background: linear-gradient(to right, #77246C, #1E5AA1);">Assignment</button>
   </div>
   <!-- <div fxLayout="row" fxLayoutGap="10px" style="position: absolute; right: 25px; align-items: center"> -->
-    <div fxLayout="row"  fxLayoutAlign="end start">
-    <span id="name" style="color: white;">{{userDetails?.name}} &nbsp;</span>
-    <div [matMenuTriggerFor]="menu" pointer>
+  <div fxLayout="row" fxLayoutAlign="center start">
+    <span style="color: white; padding-right: 5%; font-weight: 500; white-space: nowrap;
+    width:50%;
+    overflow: hidden;
+    text-overflow: ellipsis;">{{userDetails?.name | titlecase}}</span>
+    <div id="icon" [matMenuTriggerFor]="menu" pointer>
       <img [src]="userDetails?.avatar" *ngIf="userDetails?.avatar" width="40px" height="40px"
         style="border-radius: 50%">
       <mat-icon *ngIf="!userDetails?.avatar"> person </mat-icon>

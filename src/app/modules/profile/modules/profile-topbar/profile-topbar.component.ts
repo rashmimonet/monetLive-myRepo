@@ -81,7 +81,12 @@ export class ProfileTopbarComponent implements OnInit {
     // my changes
     this.email = this.userDetails.email;
     this.as.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
-      this.plan = data.data[0].name;
+      if(data.planType === 'purchased'){
+        this.plan = data.data[0].name;
+      }else{
+        this.plan = data.planType;
+      }
+      
     });
   //   this.as.getApiStatic(`notification?email=${this.email}`).subscribe((data: any) => {
   //     console.log('notification',data.data);

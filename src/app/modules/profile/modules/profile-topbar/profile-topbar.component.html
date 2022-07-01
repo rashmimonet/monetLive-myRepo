@@ -29,7 +29,12 @@
         </div>
       </div>
     </mat-menu>
-    <span title-navy14-400 style="font-size: 16px !important; font-weight: 500">{{userDetails?.name | titlecase}}</span>
+    <span title-navy14-400 
+    title="{{userDetails?.name | titlecase}}"
+    style="font-size: 16px !important; font-weight: 500; white-space: nowrap;
+    width:40%;
+    overflow: hidden;
+    text-overflow: ellipsis;">{{userDetails?.name | titlecase}}</span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon style="font-size: 40px !important;" *ngIf="!userDetails?.avatar">account_circle</mat-icon>
       <img [src]="userDetails?.avatar" profileImg alt="not found" *ngIf="userDetails?.avatar">
@@ -37,7 +42,12 @@
     <mat-menu #menu="matMenu">
       <div fxLayout="column" full-width fxLayoutGap="10px" full-height>
         <div fxLayout="row" fxFlex="50" fxLayoutAlign="space-around center">
-          <span style="color: #33387A; font-size: 16px; padding-top: 2%;">{{userDetails?.email}}</span>
+          <span
+          title="{{userDetails?.email}}"
+          style="color: #33387A; font-size: 16px; white-space: nowrap;
+          width:50%;
+          overflow: hidden;
+          text-overflow: ellipsis;">{{userDetails?.email}}</span>
           <span style="color: #00A23E;font-size: 18px; padding-top: 2%;">{{plan}}</span>
         </div>
         <div fxFlex="30" fxLayoutAlign="center center" fxLayout="column">

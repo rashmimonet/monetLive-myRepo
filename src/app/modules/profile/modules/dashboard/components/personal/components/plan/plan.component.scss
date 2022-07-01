@@ -27,7 +27,7 @@ $theme-colors: (
   background: map.get($theme-colors, $b);
   color: map.get($theme-colors, $c);
   box-shadow: none;
-  border: 1px solid map.get($theme-colors, 'grey');
+  // border: 1px solid map.get($theme-colors, 'grey');
   box-sizing: border-box;
   border-radius: 22.5px;
   font-size: 16px;
@@ -52,7 +52,9 @@ $theme-colors: (
 .selectedUpgrade {
   @include buttonStyle(144px, 45px, 'upgradePlan', 'white', default);
 }
-
+.renewPlan{
+  @include buttonStyle(144px, 45px, 'upgradePlan', 'white', pointer);
+}
 [pStyle] {
  @include fontSize(18px, 500);
 }

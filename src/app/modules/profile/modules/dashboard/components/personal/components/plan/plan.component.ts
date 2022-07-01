@@ -2,7 +2,7 @@ import { I } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../../../../shared/services/api.service';
-import {UtilityService} from "../../../../../../../shared/services/utility.service";
+import { UtilityService } from "../../../../../../../shared/services/utility.service";
 
 @Component({
   selector: 'app-plan',
@@ -73,13 +73,18 @@ export class PlanComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router, private as: ApiService, private utility: UtilityService) {}
+  constructor(private router: Router, private as: ApiService, private utility: UtilityService) { }
 
   ngOnInit(): void {
     this.user = this.as.getLocalStorage('userDetails');
     this.email = this.user.email
-    console.log('email',this.email);
-    this.getPlan();
+    // console.log('email', this.email);
+    this.as.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
+      this.planValidity = data.planType;
+      // console.log('plan', this.planValidity);
+      this.getPlan();
+    });
+
   }
 
   getPlan(): any {
@@ -98,27 +103,26 @@ export class PlanComponent implements OnInit {
   }
 
   modifyPlan(plans: any): void {
-    this.as.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
-      this.planValidity = data.planType;
-      console.log('plan', this.planValidity);
-    });
     if (plans) {
       this.getPlans = plans.map((p: any) => {
         if (p.planUid > this.user.plan.planUid) {
           p.button = 'Upgrade';
-        } else {
+        }
+        else {
           p.button = 'Downgrade';
         }
-        if ( p.planUid === 0 && this.user.plan.planUid > 0) p.hide = true;
-        if (p.planUid === this.user.plan.planUid) {
+
+        if (p.planUid === 0 && this.user.plan.planUid > 0) p.hide = true;
+        // console.log('plan2', this.planValidity);
+        if (p.planUid === this.user.plan.planUid && this.planValidity === 'purchased') {
           p.button = 'In Use',
-          p.backGround = 'rgba(173, 252, 203, 0.41)';
+            p.backGround = 'rgba(173, 252, 203, 0.41)';
           p.class = 'selectedUpgrade';
-          if(this.planValidity === 'expired'){
-            p.button = 'Renew',
-            p.backGround = 'rgba(123, 128, 129, 0.31)';
-            p.class = 'upgradePlan';
-          }
+        }
+        else if (p.planUid === this.user.plan.planUid && this.planValidity === 'expired') {
+          p.button = 'Renew'
+          p.backGround = 'rgba(173, 252, 203, 0.41)';
+          p.class = 'renewPlan';
         } else {
           p.backGround = 'rgba(123, 128, 129, 0.31)';
           p.class = 'upgradePlan';
@@ -136,7 +140,9 @@ export class PlanComponent implements OnInit {
 
   planUpgrade = (plan: any) => {
     if (this.user.plan.planUid !== plan.planUid) {
-      // console.log('Plan Upgrade If : ', plan);
+      this.as.storeLocalStorage('planUpgrade', plan);
+      this.router.navigate(['profile/dashboard/payCard']);
+    } else if (this.user.plan.planUid === plan.planUid && this.planValidity === 'expired') {
       this.as.storeLocalStorage('planUpgrade', plan);
       this.router.navigate(['profile/dashboard/payCard']);
     }
