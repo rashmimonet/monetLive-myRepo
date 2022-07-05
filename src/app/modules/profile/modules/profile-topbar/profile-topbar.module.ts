@@ -6,12 +6,13 @@ import {StartMeetComponent} from './start-meet/start-meet.component';
 import { ApiService } from 'src/app/modules/shared/services/api.service';
 import { ThirdPartyService } from 'src/app/modules/shared/services/third-party.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     StartMeetModule,
-    MatTooltipModule,
+    MatTooltipModule
   ],
 
 })

@@ -9,6 +9,9 @@ import { BehaviourSubjectsService } from '../../../../services/behaviour-subject
 import { ThirdPartyService } from '../../../shared/services/third-party.service';
 import { StartMeetComponent } from './start-meet/start-meet.component';
 import { UtilityService } from '../../../shared/services/utility.service';
+import { WebsocketService } from 'src/app/services/websocket.service';
+import { I } from '@angular/cdk/keycodes';
+// import { WebsocketService } from 'src/app/services/websocket.service';
 
 
 declare let gapi: any;
@@ -24,6 +27,7 @@ declare let dynamoIp: any;
 })
 
 export class ProfileTopbarComponent implements OnInit {
+  planType: any;
   markId: any;
   roomResponse: any;
   dynamicLink: any;
@@ -70,7 +74,8 @@ export class ProfileTopbarComponent implements OnInit {
     private http: HttpClient,
     private tps: ThirdPartyService,
     private zone: NgZone,
-    private utility: UtilityService) {
+    private utility: UtilityService,
+    private webs: WebsocketService) {
   }
 
 
@@ -81,16 +86,17 @@ export class ProfileTopbarComponent implements OnInit {
     // my changes
     this.email = this.userDetails.email;
     this.as.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
-      if(data.planType === 'purchased'){
+      this.planType = data.planType;
+      if (this.planType === 'purchased') {
         this.plan = data.data[0].name;
-      }else{
-        this.plan = data.planType;
+      } else {
+        this.plan = this.planType;
       }
-      
+
     });
-  //   this.as.getApiStatic(`notification?email=${this.email}`).subscribe((data: any) => {
-  //     console.log('notification',data.data);
-  // })
+    //   this.as.getApiStatic(`notification?email=${this.email}`).subscribe((data: any) => {
+    //     console.log('notification',data.data);
+    // })
     this.notificationDetails();
     this.bhvSub.dynamicLink$.subscribe((link: any) => {
       this.dynamicLink = link;
@@ -110,11 +116,12 @@ export class ProfileTopbarComponent implements OnInit {
       } else {
         this.dispStdList = false;
         this.badge = 0;
-        this.msg = data.message;
+        this.msg = 'No Notification';
       }
     })
   }
-  markAllRead(data: any){
+
+  markAllRead(data: any) {
     this.as.putApiStatic(`/markasread?email=${this.email}`, data).subscribe((data: any) => {
       console.log('mark', data);
       if (!data.error) {
@@ -138,6 +145,7 @@ export class ProfileTopbarComponent implements OnInit {
 
   }
   scheduleMeeting(): any {
+    if (this.planType === 'purchased') {
     let test: any = {
       status: true
     };
@@ -149,16 +157,23 @@ export class ProfileTopbarComponent implements OnInit {
       console.log('Routing is unsuccessful to schedule page', error);
     });
   }
+  }
 
   // This method is only responsible for opening dialog box for start meeting
   hostMeeting(): any {
-    this.dialogOpener = this.dialog.open(StartMeetComponent, {
-      hasBackdrop: true,
-      width: '684px',
-      height: '550px',
-      panelClass: ['startMeet-dialog-container', 'icon-outside'],
-      backdropClass: 'startMeetDialogueBackdrop'
-    });
+    if (this.planType === 'purchased') {
+      this.dialogOpener = this.dialog.open(StartMeetComponent, {
+        hasBackdrop: true,
+        width: '684px',
+        height: '550px',
+        panelClass: ['startMeet-dialog-container', 'icon-outside'],
+        backdropClass: 'startMeetDialogueBackdrop'
+      });
+    } else {
+      console.log('expired');
+
+    }
+
     //     // this.createCall('/teacher/call');
   }
 

@@ -29,6 +29,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatIntlTelInputModule } from 'ngx-11-mat-intl-tel-input';
+import { WebsocketService } from './services/websocket.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -63,13 +66,15 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     ReactiveFormsModule,
     NgxMatIntlTelInputModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTooltipModule
   ],
   providers: [
     InternetSpeedService,
     GuardGuard,
     IsLoggedIn,
     BehaviourSubjectsService,
+    WebsocketService,
     DatePipe,
     {
       provide: HTTP_INTERCEPTORS,

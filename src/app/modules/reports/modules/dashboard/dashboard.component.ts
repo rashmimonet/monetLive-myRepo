@@ -353,7 +353,6 @@ export class DashboardComponent implements OnInit {
     this.route.queryParams.subscribe(next => {
       if (next) {
         this.roomId = next.roomid;
-        this.gettingData = true;
       }
     })
 
@@ -365,6 +364,7 @@ export class DashboardComponent implements OnInit {
       this.studentData = data;
       if ((this.studentData || '[]') && this.segmentData.length === 0) {
         this.createSegment((this.studentData || '[]'));
+        console.log('seg', this.segmentData);
       }
 
     })
@@ -412,6 +412,9 @@ export class DashboardComponent implements OnInit {
   }
   generateReport(roomId: number) {
     this.api.getApiStatic(`getReportData?roomid=` + this.roomId).subscribe((data: any) => {
+      // if(data.report.overallEngagement === null || data.report.pieData.length === 0){
+      //   this.gettingData = false;
+      // }
       let interval: any;
       this.studentReportData = data;
       this.reportData = data.report;
@@ -519,9 +522,12 @@ export class DashboardComponent implements OnInit {
         return el;
       });
       this.sessionDataMinutes = this.dashService.SecArrToMinuteArr(data.overallEngagement);
+      console.log('session minute', this.sessionDataMinutes.length);
+      
     }
     else {
       console.error('Data Not Available');
+      this.gettingData = true;
     }
 
   }

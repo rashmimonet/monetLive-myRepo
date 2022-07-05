@@ -40,7 +40,7 @@
           {{email}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
-        <input matInput type="text" placeholder="Type Email (Optional)" [matChipInputFor]="chipList"
+        <input matInput type="text" placeholder="Type Email" [matChipInputFor]="chipList"
                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                [matChipInputAddOnBlur]="addOnBlur"
                (matChipInputTokenEnd)="add($event)">

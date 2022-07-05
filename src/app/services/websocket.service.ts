@@ -1,15 +1,13 @@
-import {Injectable} from '@angular/core';
-
+import { Injectable } from '@angular/core';
 declare function io(url: string, extra?: any): any;
 
 declare let socket: any;
 
 declare let dynamoLink: any;
-
 @Injectable({
   providedIn: 'root'
 })
-export class SocketService {
+export class WebsocketService {
 
   socket: any;
 
@@ -20,7 +18,7 @@ export class SocketService {
     try {
       if (!socket) {
         this.socket = io(`https://www.monetlive.com`, {
-          path: `/${dynamoLink}/sock`,
+          path: `/35_89_97_246/sock`,
           transports: ['websocket'],
           reconnect: true
         });
@@ -29,7 +27,7 @@ export class SocketService {
       }
     } catch (e) {
       this.socket = io(`https://www.monetlive.com`, {
-        path: `/${dynamoLink}/sock`,
+        path: `/35_89_97_246/sock`,
         transports: ['websocket'],
         reconnect: true
       });
@@ -47,5 +45,4 @@ export class SocketService {
   managerSocket(grp: string): void {
     this.socket = io(`https://www.monetlive.com`, {path: `/${grp}/sock`, transports: ['websocket'], reconnect: true});
   }
-
 }

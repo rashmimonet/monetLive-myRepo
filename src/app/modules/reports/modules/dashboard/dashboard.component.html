@@ -223,10 +223,11 @@
   <span style="color: white; padding: 1%; border: 1px solid white">No Data Available</span>
 </div>
 </ng-container> -->
-<ng-container *ngIf = "!gettingData">
+<ng-container *ngIf = "(gettingData)">
   <div fxLayout="column" fxLayoutAlign="center center" fxFill>
     <span style="color: white; padding: 1%; border: 1px solid white">No Data Available</span>
   </div>
 </ng-container>
-<mat-spinner [ngClass]="['customLoader']" [diameter]="50" *ngIf="segmentData?.length === 0"></mat-spinner>
+<mat-spinner [ngClass]="['customLoader']" [diameter]="50" *ngIf="(segmentData?.length === 0 && sessionDataMinutes.length)"></mat-spinner>
+<!-- <mat-spinner [ngClass]="['customLoader']" [diameter]="50" *ngIf="gettingData"></mat-spinner> -->
 <!--<span style="border: 1px solid red; background: white; color: black">Session Data Minutes : {{!(sessionDataMinutes.length && segmentData[0].length)}}</span>-->

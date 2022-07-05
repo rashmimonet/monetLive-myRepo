@@ -150,9 +150,9 @@ export class AccountComponent implements OnInit {
   }
 
   yourComponentMethodToTreatyCountryChangedEvent(event: any){
-    console.log('event', event);
+    // console.log('event', event);
     this.phoneHint = event.placeHolder;
-    console.log('placeHolder', this.phoneHint);
+    // console.log('placeHolder', this.phoneHint);
   }
   validateNo(e: any): boolean {
     const charCode = e.which ? e.which : e.keyCode;
