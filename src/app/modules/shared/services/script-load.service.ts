@@ -6,23 +6,23 @@ interface Scripts {
   src: string;
 }
 export const ScriptList: Scripts[] = [
-  {name: 'agent', src: 'https://webrtc.monetrewards.com/web2s/proctor1.js'},
+  // {name: 'agent', src: 'https://webrtc.monetrewards.com/web2s/proctor1.js'},
   // {name: 'user', src: `https://${environment.serverName}.monetrewards.com/many/MonetConference.js`},
-   {name: 'user', src: '../../../../assets/js/MonetConference.js'},
+  //  {name: 'user', src: '../../../../assets/js/MonetConference.js'},
   {name: 'user', src: 'https://www.monetlive.com/many/MonetConference.js'},
   // {name: 'janus', src: `https://${environment.serverName}.monetrewards.com/many/janus.js`},
   // {name: 'janus', src: `http://localhost:8092/many/janus.js`},
   {name: 'janus', src: `https://www.monetlive.com/many/janus.js`},
 
 
-  {name: 'client', src: 'https://webrtc.monetrewards.com/web2s/student2.js'},
-  {name: 'manager', src: 'https://webrtc.monetrewards.com/web2s/manager3.js'},
-  {name: 'camvas', src: 'assets/js/camvas.js'},
-  {name: 'pico', src: 'assets/js/pico.js'},
-  {name: 'fd', src: 'assets/js/fd.js'},
-  {name: 'checkout', src: 'assets/js/checkout.js'},
-  {name: 'lploc', src: 'assets/js/lploc.js'},
-  {name: 'socket', src: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=='},
+  // {name: 'client', src: 'https://webrtc.monetrewards.com/web2s/student2.js'},
+  // {name: 'manager', src: 'https://webrtc.monetrewards.com/web2s/manager3.js'},
+  // {name: 'camvas', src: 'assets/js/camvas.js'},
+  // {name: 'pico', src: 'assets/js/pico.js'},
+  // {name: 'fd', src: 'assets/js/fd.js'},
+  // {name: 'checkout', src: 'assets/js/checkout.js'},
+  // {name: 'lploc', src: 'assets/js/lploc.js'},
+  // {name: 'socket', src: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=='},
 ];
 
 @Injectable({providedIn: 'root'})

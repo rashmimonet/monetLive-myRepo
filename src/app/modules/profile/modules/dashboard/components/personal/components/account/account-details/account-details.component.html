@@ -1,0 +1,228 @@
+<div fxLayout="column" fxLayoutAlign="start center" ngClass="formClass">
+    <form fxLayout="column" fxLayoutGap="16px" fxLayoutAlign="start start" padding class="card"
+    [class]="form.invalid ? 'inputEnabled' : 'inputDisabled'"
+        (ngSubmit)="signUp(form.value)" [formGroup]="form" #form1>
+        <!-- [class]="form.valid ? 'inputEnabled' : 'inputDisabled'" -->
+        <div fxFlex="17" fxLayout="column" fxLayoutAlign="center start"  style="width: 100%; position: relative;">
+            <div imgDiv (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
+              <mat-icon acountIcon *ngIf="!defaultIcon">account_circle</mat-icon>
+              <img [src]="imageUrl" rel="noreferrer noopener" referrerpolicy="no-referrer" imgs *ngIf="imageUrl"
+                [style.opacity]="mouseHover ? '0.3' : ''" />
+              <input type="file" id="file" hidden (change)="imageUpload($event)" formControlName="image" accept="image/*" />
+              <label for="file">
+                <div addPhoto *ngIf="form.invalid && !mouseHover">
+                  <mat-icon style="width: 20px; height: 20px; font-size: 20px">add_a_photo
+                  </mat-icon>
+                </div>
+              </label>
+              <div RemoveBtn [ngClass]="mouseHover ? 'removebtnHover' : 'removebtnhoverR'" fxLayout="column"
+                (click)="removeAvatar()">
+                <mat-icon>delete</mat-icon>
+                Remove
+              </div>
+            </div>
+          </div>
+
+        <div fxLayout="column" fxFlex="20" fxLayoutGap="10px" style="width: 100%">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <label>Name : </label>
+                <input type="text" autofocus formControlName="name" placeholder="Enter Your Name" inputStyle>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['name']?.touched &&  form['controls']?.name.errors?.required">
+                    <!-- Name is <strong>required</strong> -->
+                    Required
+                </mat-error>
+                <mat-error *ngIf="form.get('name').errors?.pattern">
+                    <!-- Name should be of minimum <b>3</b> alpha characters -->
+                    Invalid
+                </mat-error>
+            </div>
+        </div>
+
+        <div fxLayout="column" fxFlex="20" fxLayoutGap="10px" style="width: 100%">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <label>Email Id : </label>
+                <input type="email" formControlName="email" placeholder="Ex. abc@xyz.com" inputEmail>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['email']?.touched &&  form['controls']?.email.errors?.required">
+                    <!-- Email is <strong>required</strong> -->
+                    Required
+                </mat-error>
+                <mat-error *ngIf="form.controls['email']?.touched && form.controls['email'].errors?.pattern">
+                    <!-- Email is <strong>Invalid</strong> -->
+                    Invalid
+                </mat-error>
+            </div>
+        </div>
+
+        <div fxLayout="column" fxFlex="20" fxLayoutGap="10px" style="width: 100%">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <label>Address : </label>
+                <input type="text" formControlName="address" placeholder="Enter Your Address" inputStyle>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['address']?.touched &&  form['controls']?.address.errors?.required">
+                    <!-- Address is <strong>required</strong> -->
+                    Required
+                </mat-error>
+                <mat-error *ngIf="form.controls['address']?.touched && form.controls['address'].errors?.pattern">
+                    <!-- Address is <strong>Invalid</strong> -->
+                    Invalid
+                </mat-error>
+            </div>
+        </div>
+
+        <div fxLayout="column" fxFlex="20" fxLayoutGap="10px" style="width: 100%">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <label>Age : </label>
+                <input type="number" formControlName="age" placeholder="Age between 13 to 99" id="defaultClasses" (click)="preventDefault()" inputStyle>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['age']?.touched &&  form['controls']?.age.errors?.required">
+                    <!-- Age is <strong>required</strong> -->
+                    Required
+                </mat-error>
+                <mat-error *ngIf="form.controls['age']?.touched && form.controls['age'].errors?.pattern">
+                    <!-- Age is <strong>Invalid</strong> -->
+                    Invalid
+                </mat-error>
+            </div>
+        </div>
+        <div fxLayout="column" fxFlex="20" fxLayoutGap="10px" style="width: 100%">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <label>Gender : </label>
+                <mat-radio-group style="width: 100%" formControlName="gender" fxLayoutGap="10px">
+                    <mat-radio-button value="1">Male</mat-radio-button>
+                    <mat-radio-button value="2">Female</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['gender']?.touched &&  form['controls']?.gender.errors?.required">
+                    <!-- Gender is <strong>required</strong> -->
+                    Required
+                </mat-error>
+            </div>
+        </div>
+
+        <div fxLayout="column" fxFlex="20" style="width: 100%">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <label>Contact : </label>
+                <mat-form-field class="form-control">
+                    <ngx-11-mat-intl-tel-input [preferredCountries]="['us', 'gb']" [enablePlaceholder]="true"
+                        [enableSearch]="true" (countryChanged)="yourComponentMethodToTreatyCountryChangedEvent($event)"
+                        formControlName="contact" id="defaultContact" (click)="preventDefault()">
+                    </ngx-11-mat-intl-tel-input>
+                    <mat-hint *ngIf="isPhoneHint"
+                        style="margin-left: 8%;">eg : {{phoneHint}}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['contact']?.touched &&  form['controls']?.contact.errors?.required">
+                    Required </mat-error>
+            </div>
+        </div>
+
+        <!-- *ngIf="!(form.controls['contact']?.touched &&  form['controls']?.contact.errors?.required)" -->
+
+        <div fxLayout="column" fxFlex="20" fxLayoutGap="10px" style="width: 100%">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <label>City : </label>
+                <input type="text" formControlName="city" placeholder="Enter Your City Name" inputStyle>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['city']?.touched &&  form['controls']?.city.errors?.required">
+                    <!-- City is <strong>required</strong> -->
+                    Required
+                </mat-error>
+                <mat-error *ngIf="form.controls['city']?.touched && form.controls['city'].errors?.pattern">
+                    <!-- City is <strong>Invalid</strong> -->
+                    Invalid
+                </mat-error>
+            </div>
+        </div>
+
+        <div fxLayout="column" fxFlex="20" fxLayoutGap="10px" style="width: 100%" appearance="fill">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <label>Country : </label>
+                <mat-form-field class="form-control">
+                    <mat-select formControlName="country">
+                        <ng-container  *ngFor="let c of country;  let i = index;">
+                            <mat-option  [value]="c.country_name" (click)="chooseState(c)">{{
+                                c.country_name
+                                }}</mat-option>
+                    </ng-container>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['country']?.touched &&  form['controls']?.country.errors?.required">
+                    <!-- Country is <strong>required</strong> -->
+                    Required
+                </mat-error>
+            </div>
+        </div>
+
+
+
+        <div fxLayout="column" fxFlex="20" fxLayoutGap="10px" style="width: 100%" appearance="fill">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <label>State : </label>
+                <mat-form-field class="form-control">
+                    <mat-select formControlName="state"  >
+                        <ng-container *ngFor="let s of stateChoose">
+                            <mat-option [value]="s.state_name">
+                                {{s.state_name}}</mat-option>
+                          </ng-container>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['state']?.touched &&  form['controls']?.state.errors?.required">
+                    <!-- State is <strong>required</strong> -->
+                    Required
+                </mat-error>
+            </div>
+
+        </div>
+
+
+        <div fxLayout="column" fxFlex="20" fxLayoutGap="10px" style="width: 100%">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <label>Pincode : </label>
+                <input type="number" formControlName="pinCode" placeholder="Enter Your Pincode" id="defaultClass" (click)="preventDefault()" inputStyle>
+            </div>
+            <div fxLayout="row" fxFlex="8" fxLayoutGap="10px" fxLayoutAlign="center center"
+                style="width: 100%; color: #c8663c !important;">
+                <mat-error *ngIf="form.controls['pinCode']?.touched &&  form['controls']?.pinCode.errors?.required">
+                    <!-- Pincode is <strong>required</strong> -->
+                    Required
+                </mat-error>
+                <mat-error *ngIf="form.controls['pinCode']?.touched && form.controls['pinCode'].errors?.pattern">
+                    <!-- Pincode is <strong>Invalid</strong> -->
+                    Invalid
+                </mat-error>
+            </div>
+        </div>
+      
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px" style="width: 88%">
+            <button mat-button class="editBtn" (click)="setFormSubmissionFlag()"
+                [disabled]="form.valid">Edit</button>
+            <button mat-raised-button *ngIf="!isEnabled" class="submitBtn"
+                (click)="setFormSubmissionFlag()" [disabled]="form.invalid">Update</button>
+        </div>
+        <!-- <p style="border: 2px soild black;">{{form.value | json}}</p> -->
+    </form>
+    
+</div>

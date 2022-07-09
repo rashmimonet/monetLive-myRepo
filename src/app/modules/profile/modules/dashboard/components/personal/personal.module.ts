@@ -28,6 +28,7 @@ import { NgxMatIntlTelInputModule } from 'ngx-11-mat-intl-tel-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { AccountDetailsComponent } from './components/account/account-details/account-details.component';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -36,7 +37,8 @@ import { MatInputModule } from '@angular/material/input';
     SettingComponent, ScheduleMeetingComponent, PlanComponent, CardDetailsComponent,
     AssignLicenseComponent,
     ReportsComponent, PaginatorComponent, StyleDirective,
-    StyleDirective],
+    StyleDirective,
+    AccountDetailsComponent],
 
   imports: [
     CommonModule,

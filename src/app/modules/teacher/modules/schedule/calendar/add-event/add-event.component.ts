@@ -20,7 +20,8 @@ export class AddEventComponent implements OnInit {
   videoUri: any;
   emailids: Array<string> = [];
   selectedFile: any;
-  emailRegExp = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  topicRegex = /^[a-zA-Z][A-Za-z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+  emailRegExp = /^([a-z0-9_\.\-])+\@(([a-z0-9\-])+\.)+([a-z0-9]{2,4})+$/;
   readonly separatorKeysCodes: number[] = [ ENTER, COMMA, SPACE ];
   addOnBlur = true;
   chipError: any;
@@ -32,7 +33,7 @@ export class AddEventComponent implements OnInit {
               private fb: FormBuilder,
               public dialogRef: MatDialogRef<AddEventComponent>) {
     this.eventForm  = this.fb.group({
-      summary: ['', Validators.required],
+      summary: ['', [Validators.required, Validators.pattern(this.topicRegex)]],
       description: ['', Validators.required],
       observerEmail: [{value: '', disabled: !JSON.parse(localStorage.getItem('userPlanDetails') || '{}').observerAccess}, Validators.pattern(this.emailRegExp)],
       start: fb.group({

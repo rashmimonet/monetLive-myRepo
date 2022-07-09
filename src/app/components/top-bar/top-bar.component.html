@@ -13,9 +13,9 @@
        <div class="user-avatar" fxLayout="row" fxLayoutAlign="center center" style="background-image: linear-gradient(to right, #77246C , #1E5AA1); color: white">
          <span title-white16-300>{{name}}</span>
        </div>
-        <button mat-icon-button  [matTooltip]="'Click here to refresh the session'" style="background-image: linear-gradient(to right, #77246C , #1E5AA1); color: white" (click)="refresh()">
+        <!-- <button mat-icon-button  [matTooltip]="'Click here to refresh the session'" style="background-image: linear-gradient(to right, #77246C , #1E5AA1); color: white" (click)="refresh()">
           <mat-icon f-white>cached</mat-icon>
-        </button>
+        </button> -->
      </div>
 
     <ng-container *ngIf="role === 'moderator' && waitingUsersList.length">

@@ -1,0 +1,234 @@
+.formClass {
+  background: rgb(246, 247, 251);
+  width: 23vw;
+  // height: 100%;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  // color: #33387A !important;
+  overflow-y: auto;
+}
+
+//   [detailsDiv] {
+//     border-radius: 5px;
+//     background: #F6F7FB;
+//     font-style: normal;
+//     font-weight: normal;
+//     font-size: 16px;
+//     line-height: 21px;
+//     color: #33387A;
+//     overflow-y: auto;
+
+//     input {
+//       width: 80%;
+//       height: 10%;
+//       border: 1px solid grey;
+//       padding: 15px;
+//       border-radius: 5px;
+//       color: #000000;
+//     }
+
+//     input:not([type='email']) {
+//       text-transform: capitalize;
+//     }}
+
+[imgDiv] {
+  margin-left: 27%;
+  position: relative;
+  background: #e1e1e1;
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+[imgs] {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-position: center;
+}
+
+[RemoveBtn] {
+  position: absolute;
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  top: 0;
+  color: #000000;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  cursor: pointer;
+}
+
+.removebtnhoverR {
+  display: none !important;
+}
+
+.removebtnHover {
+  display: block;
+
+  [imgs] {
+    opacity: 0.3;
+  }
+}
+
+[addPhoto] {
+  cursor: pointer;
+  position: absolute;
+  right: 0%;
+  top: 65%;
+  color: #3f51b5;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+    // input {
+    //   border-radius: 10px;
+    //   width: 85%;
+    //   height: 40%;
+    //   padding: 10px;
+    //   border: 1px solid gainsboro;
+    //   outline: none;
+    //   color: #000;
+    //   text-transform: capitalize;
+    //   padding-left: 2%;
+    // }
+
+    // input:not([type='email']) {
+    //   text-transform: capitalize;
+    // }
+
+
+[inputStyle] {
+  // background: #F6F7FB;
+  border-radius: 10px;
+  width: 85%;
+  height: 40%;
+  padding: 10px;
+  border: 1px solid gainsboro;
+  outline: none;
+  color: #000;
+  text-transform: capitalize;
+}
+
+[inputEmail] {
+  // background: transparent;
+  border-radius: 10px;
+  width: 85%;
+  height: 40%;
+  padding: 10px;
+  border: 1px solid gainsboro;
+  outline: none;
+  color: #000;
+}
+
+
+.inputEnabled {
+  input{
+    border: 1px solid gainsboro;
+  }
+}
+
+.inputDisabled {
+  input {
+      background: #F6F7FB;
+      // border: none;
+      color: #33387A;
+      font-size: 15px;
+  }
+  ::ng-deep .mat-select-value {
+      color: #33387A !important;
+    }
+    ::ng-deep .mat-radio-label-content {
+      color: #33387A !important;
+    }
+}
+
+
+
+label {
+  color: #33387A;
+  text-align: right;
+  width: 40%;
+  clear: left;
+  padding-right: 5%
+}
+
+.editBtn {
+  border-radius: 20px;
+  width: 100px;
+  background: lightgray;
+  color: black;
+}
+
+.submitBtn {
+  border-radius: 20px;
+  width: 100px;
+  background: #3f51b5;
+  color: white;
+}
+
+
+::ng-deep .mat-error {
+  color: rgba(210, 70, 11, 0.99) !important;
+  font-size: 14px !important;
+  margin-left: -5% !important;
+}
+
+.mat-radio-button~.mat-radio-button {
+  margin-left: 16px;
+}
+
+::ng-deep .mat-radio-outer-circle {
+  border-color: #bec0c8 !important;
+
+}
+
+
+::ng-deep .mat-select-value {
+  color: #000 !important;
+  margin-left: 10%;
+}
+//   ::ng-deep .mat-select-value-text{
+//     margin-left: 5%!important;
+//   }
+// ::ng-deep .mat-form-field-infix{
+//   margin-left: -3% !important;
+// }
+// ::ng-deep .mat-select-arrow-wrapper {
+//   margin-right: 15% !important;
+// }
+
+// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+//   padding: 0;
+// }
+
+// ::ng-deep .mat-form-field {
+//   margin-bottom: -1% !important;
+// }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::ng-deep .mat-form-field-underline {
+  width: 100% !important;
+  margin-left: 2% !important;
+}
+
+//   ::ng-deep #contactId{
+//   padding: 0 0 0 83px !important;
+//  }
