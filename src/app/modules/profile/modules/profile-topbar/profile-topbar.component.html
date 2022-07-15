@@ -1,14 +1,16 @@
 <div fxLayout="row" fxFlex="97" fxLayoutAlign="space-between center" Height style="margin: auto" class="profile">
   <div fxLayout="row" fxFlex="33" fxLayoutAlign="start center" fxLayoutGap="20px" Height>
-    <button mat-raised-button btnStyle (click)="scheduleMeeting()" [disabled]="planType === 'expired'">Schedule in Calendar</button>
+    <button mat-raised-button btnStyle (click)="scheduleMeeting()" [disabled]="planType === 'expired'">Schedule in
+      Calendar</button>
     <button mat-raised-button btnStyle (click)="hostMeeting()" [disabled]="planType === 'expired'">Meet Now</button>
   </div>
   <div fxLayout="row" fxFlex="20" fxLayoutAlign="space-around center" fxLayoutGap="10px" Height>
-    <!-- <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge="0" matBadgeColor="warn" matBadgeSize="small"  [matMenuTriggerFor]="notificationMenu"> notifications </span> -->
-    <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{notification}}
+
+    <!-- Notification through socket connection -->
+    <!-- <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{notification}}
       matBadgeColor="warn" matBadgeSize="small" [matMenuTriggerFor]="notificationMenu"> notifications </span>
     <mat-menu #notificationMenu="matMenu">
-      <!-- <p style="text-align: center; margin-top: 10%;">{{msg}}</p> -->
+    
       <div *ngIf="notification !== 0">
         <h3 class="msg">Notification
           <span style="float: right !important;"><button mat-flat-button >Mark all as read</button>
@@ -18,16 +20,35 @@
         <div *ngFor="let notifications of notifications;" class="wrapNotification">
           <mat-icon style="font-size: 9px; color: red;">fiber_manual_record</mat-icon>
           {{notifications.message | titlecase}}
-          <!-- <span><button mat-icon-button (click)="markRead($event)"><mat-icon style="font-size: 15px;">visibility</mat-icon></button></span> -->
         </div>
       </div>
       <div *ngIf="notification === 0" style="text-align: center; margin-top: 10%;">
         No Notifications
       </div>
+    </mat-menu> -->
+
+    <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{badge}}
+      matBadgeColor="warn" matBadgeSize="small" [matMenuTriggerFor]="notificationMenu"> notifications </span>
+    <mat-menu #notificationMenu="matMenu">
+      <p style="text-align: center; margin-top: 10%;">{{msg}}</p>
+      <div *ngIf="dispStdList">
+        <h3 class="msg">Notification
+          <span style="float: right !important;"><button mat-flat-button (click)="markAllRead($event)">Mark all as
+              read</button>
+          </span>
+        </h3>
+        <hr>
+        <div *ngFor="let notifications of remainingHours;" class="wrapNotification">
+          <mat-icon style="font-size: 9px; color: red;">fiber_manual_record</mat-icon>
+          {{notifications.message}}
+          <span><button mat-icon-button (click)="markRead($event)">
+              <mat-icon style="font-size: 15px;">visibility</mat-icon>
+            </button></span>
+        </div>
+      </div>
     </mat-menu>
-    <span title-navy14-400 
-    title="{{userDetails?.name | titlecase}}"
-    style="font-size: 16px !important; font-weight: 500; white-space: nowrap;
+
+    <span title-navy14-400 title="{{userDetails?.name | titlecase}}" style="font-size: 16px !important; font-weight: 500; white-space: nowrap;
     width:40%;
     overflow: hidden;
     text-overflow: ellipsis;">{{userDetails?.name | titlecase}}</span>
@@ -38,9 +59,7 @@
     <mat-menu #menu="matMenu">
       <div fxLayout="column" full-width fxLayoutGap="10px" full-height>
         <div fxLayout="row" fxFlex="50" fxLayoutAlign="space-around center">
-          <span
-          title="{{userDetails?.email}}" 
-          style="color: #33387A; font-size: 16px; white-space: nowrap;
+          <span title="{{userDetails?.email}}" style="color: #33387A; font-size: 16px; white-space: nowrap;
           width:50%;
           overflow: hidden;
           text-overflow: ellipsis;">{{userDetails?.email}}</span>

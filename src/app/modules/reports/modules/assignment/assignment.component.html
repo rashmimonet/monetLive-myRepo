@@ -1,15 +1,17 @@
-<div class="container" style="position: relative;">
-  <div class="d-flex justify-content-center">
-    <div class="spinner-border" role="status">
-        <span class="sr-only" id="loading"></span>
-    </div>
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status" style=" overflow: hidden;">
+    <span class="sr-only" id="loading"></span>
+  </div>
 </div>
+
+<div class="container" style="position: relative;">
   <button mat-icon-button (click)="dialogRef.close(true)"
     style=" color: #000; font-size: 20px; top: 0; right: 0; position: absolute; transform: translate(50%, -50%);">
     <mat-icon>close</mat-icon>
   </button>
   <div>
-    <span fxFlex="100" *ngIf="score.length === 0" fxLayoutAlign="center center" style="font-weight: bold; margin-top:4%">{{msg}}</span>
+    <span fxFlex="100" *ngIf="score.length === 0" fxLayoutAlign="center center"
+      style="font-weight: bold; margin-top:4%">{{msg}}</span>
   </div>
   <div *ngFor="let report of score; let i = index;">
     <br>
@@ -30,16 +32,16 @@
       </ng-container>
       <ng-container matColumnDef="overallEngagement">
         <th mat-header-cell *matHeaderCellDef>Average Engagement </th>
-        <td mat-cell *matCellDef="let element"> {{element.overallEngagement | number: '1.0-0'}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.overallEngagement | number: '1.0-0'}}% </td>
       </ng-container>
       <ng-container matColumnDef="overallMood">
         <th mat-header-cell *matHeaderCellDef>Average Mood </th>
-        <td mat-cell *matCellDef="let element"> {{element.overallMood | number: '1.0-0'}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.overallMood | number: '1.0-0'}}% </td>
       </ng-container>
       <ng-container matColumnDef="score">
-        <th mat-header-cell *matHeaderCellDef> Scores(%) </th>
+        <th mat-header-cell *matHeaderCellDef> Scores </th>
         <td mat-cell *matCellDef="let element"> {{element.totalQuestion > 0 ? (element.score | number: '1.0-0'):
-          element.score}} </td>
+          element.score}}{{element.totalQuestion > 0 ? '%': ''}} </td>
         <!-- <td mat-cell *matCellDef="let element"> {{element.score}} </td> -->
       </ng-container>
 

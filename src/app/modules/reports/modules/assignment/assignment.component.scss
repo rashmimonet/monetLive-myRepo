@@ -28,16 +28,17 @@ table {
 #loading{
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 49%;
   z-index: 1;
   // margin: -75px 0 0 -75px;
   margin-left: -5%;
   border: 5px solid #f3f3f3;
   border-radius: 50%;
   border-top: 5px solid blueviolet;
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   animation: spin 2s linear infinite;
+  overflow-y: hidden;
   }
     
   @keyframes spin {

@@ -90,43 +90,34 @@ export class ProfileTopbarComponent implements OnInit {
     private utility: UtilityService,
     private ss: SocketService,
     private webss: WebsocketService) {
-     this.initialSocket();
-   
-    // socket.disconnect();
+    //  this.initialSocket();
   }
-  initialSocket(): any {
-    try {
-        this.socket = io('wss://www.monetlive.com', {
-          path: '/sock',
-          transports: ['websocket'],
-        });
+  // initialSocket(): any {
+  //   try {
+  //       this.socket = io('wss://www.monetlive.com', {
+  //         path: '/sock',
+  //         transports: ['websocket'],
+  //       });
     
         
-    } catch (e) {
-      console.error('error connecting socket', e);
-      // this.socket = io(`wss://www.monetlive.com`, {
-      //   path: `/sock/`,
-      //   transports: ['websocket'],
-      // });
-    }
-    this.socket.on('connection', (e: any) => {
-      console.log('socket connection', e);
-    });
-    // const params = {
-    //   sender: this.userDetails.email
-    // }
-    this.socket.emit('notify', this.userDetails.email, () => {
-      console.log('notify', this.userDetails.email);
+  //   } catch (e) {
+  //     console.error('error connecting socket', e);
+  //   }
+  //   this.socket.on('connection', (e: any) => {
+  //     console.log('socket connection', e);
+  //   });
+  //   this.socket.emit('notify', this.userDetails.email, () => {
+  //     console.log('notify', this.userDetails.email);
       
-    });
-    this.socket.on('message', (request: any) => {
-      console.log('notify', request);
-      this.notifications.push(request);
-      this.notification = this.notifications.length;
-      console.log('notification', this.notification);
+  //   });
+  //   this.socket.on('message', (request: any) => {
+  //     console.log('notify', request);
+  //     this.notifications.push(request);
+  //     this.notification = this.notifications.length;
+  //     console.log('notification', this.notification);
       
-    });
-  }
+  //   });
+  // }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((next: any) => {

@@ -99,6 +99,7 @@ import {BehaviourSubjectsService} from "../../../../services/behaviour-subjects.
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { AssignmentComponent } from '../assignment/assignment.component';
+import { isHidden } from '@amcharts/amcharts4/.internal/core/utils/DOM';
 // import {PostProcessingService} from "../../../shared/services/post-processing.service";
 
 @Component({

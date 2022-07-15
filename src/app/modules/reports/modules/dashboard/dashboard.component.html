@@ -156,7 +156,7 @@
 
             <div id="studentList" fxLayout="column" fxLayoutAlign="center" fxFlex="50">
             <span id="stdName" title-black12-400 fxLayoutAlign="start" zero
-                  style="text-align: start" >{{student.name}}</span>
+                  style="text-align: start" >{{student.name | titlecase}}</span>
             </div>
 
             <span fxfelx="10" fxLayoutAlign="start center" zero>
@@ -197,7 +197,7 @@
                [queryParamsHandling]="'merge'">
             <mat-icon>account_circle</mat-icon>
             <div fxLayout="column" fxLayoutAlign="center" fxFlex="100">
-              <span title-black12-400 fxLayoutAlign="start" zero style="text-align: start">{{student.name}}</span>
+              <span title-black12-400 fxLayoutAlign="start" zero style="text-align: start">{{student.name | titlecase}}</span>
             </div>
             <span fxflex="10" fxLayoutAlign="start center" zero>
               <mat-icon xsmall fxLayoutAlign="start center" [ngClass]="segSpecificData.iconClassName">
