@@ -21,7 +21,7 @@ import { ApiService } from 'src/app/modules/shared/services/api.service';
   styleUrls: ['./assignment.component.scss']
 })
 export class AssignmentComponent implements OnInit {
-  displayedColumns: string[] = ['index', 'name', 'totalQuestion', 'rightanswer', 'wronganswer', 'scores'];
+  displayedColumns: string[] = ['index', 'name', 'totalQuestion', 'overallEngagement', 'overallMood', 'score'];
   dataSource: MatTableDataSource<any> | undefined;
   roomId: any;
   score: any = [];
@@ -29,23 +29,33 @@ export class AssignmentComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AssignmentComponent>,
     private as: ApiService,
     private route: ActivatedRoute,) {
-      this.route.queryParams.subscribe(next => {
+    this.route.queryParams.subscribe(next => {
       if (next) {
         this.roomId = next.roomid;
       }
-    }); }
+    });
+  }
 
   ngOnInit(): void {
     this.getAssignment();
   }
-getAssignment(){
-this.as.getApiStatic('assignmentscore?roomid=' + this.roomId).subscribe((response: any) =>{
-this.score = response.score;
-if(this.score.length === 0){
-  this.msg = 'No data found';
-}else{
-  this.msg = '';
+  getAssignment() {
+    this.as.getApiStatic('assignmentscore?roomid=' + this.roomId).subscribe((response: any) => {
+      if (response) {
+        hideloader();
+      }
+      this.score = response.score;
+      if (this.score.length === 0) {
+        this.msg = 'No Assignment';
+      } else {
+        this.msg = '';
+      }
+    });
+    function hideloader() {
+      document.getElementById('loading')
+        .style.display = 'none';
+    }
+  }
 }
-})
-}
-}
+
+

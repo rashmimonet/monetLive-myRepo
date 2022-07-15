@@ -49,8 +49,9 @@ export class AccountDetailsComponent implements OnInit {
     this.userDetails?.paymentHistory.reverse();
     this.id = this.userDetails.ID;
     this.email = this.userDetails.email;
-    this.http.get('https://www.eemo.live/Monet-quick/api/getCountries').subscribe((data: any) => {
-      this.country = data.response;
+    this.http.get('https://www.monetlive.com/many/api/country').subscribe((data: any) => {
+      this.country = data.data;
+      // console.log('country', this.country);
     })
     this.form = this.fb.group({
       ID: [this.id],
@@ -106,11 +107,9 @@ export class AccountDetailsComponent implements OnInit {
     if (data) {
       this.countryCode = data.country_id;
       // console.log('states id', this.stateChoose);
-      this.http.get(`https://www.eemo.live/Monet-quick/api/getStates?country_id=${this.countryCode}`).subscribe((data: any) => {
-        this.stateChoose = data.response;
-        console.log('state', this.stateChoose);
-       
-
+      this.http.get(`https://www.monetlive.com/many/api/countryState?id=${this.countryCode}`).subscribe((data: any) => {
+        this.stateChoose = data.data;
+        // console.log('state', this.stateChoose);
       })
     }
   }

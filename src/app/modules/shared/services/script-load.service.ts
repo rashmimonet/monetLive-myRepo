@@ -12,7 +12,8 @@ export const ScriptList: Scripts[] = [
   {name: 'user', src: 'https://www.monetlive.com/many/MonetConference.js'},
   // {name: 'janus', src: `https://${environment.serverName}.monetrewards.com/many/janus.js`},
   // {name: 'janus', src: `http://localhost:8092/many/janus.js`},
-  {name: 'janus', src: `https://www.monetlive.com/many/janus.js`},
+  {name: 'janus', src: 'https://www.monetlive.com/many/janus.js'},
+  
 
 
   // {name: 'client', src: 'https://webrtc.monetrewards.com/web2s/student2.js'},
@@ -20,7 +21,7 @@ export const ScriptList: Scripts[] = [
   // {name: 'camvas', src: 'assets/js/camvas.js'},
   // {name: 'pico', src: 'assets/js/pico.js'},
   // {name: 'fd', src: 'assets/js/fd.js'},
-  // {name: 'checkout', src: 'assets/js/checkout.js'},
+  {name: 'checkout', src: 'assets/js/checkout.js'},
   // {name: 'lploc', src: 'assets/js/lploc.js'},
   // {name: 'socket', src: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=='},
 ];
@@ -38,6 +39,7 @@ export class ScriptLoadService {
     });
   }
   load(...scripts: string[]): any {
+    // debugger
     const promises: any[] = [];
     scripts.forEach((script) => promises.push(this.loadScript(script)));
     return Promise.all(promises);
@@ -53,6 +55,7 @@ export class ScriptLoadService {
         } else {
           // load script
           const script = document.createElement('script') as any;
+          // debugger
           script.type = 'text/javascript';
           script.src = this.scripts[name].src;
           script.className = name;

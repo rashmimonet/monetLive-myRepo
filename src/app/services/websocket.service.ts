@@ -1,48 +1,70 @@
 import { Injectable } from '@angular/core';
-declare function io(url: string, extra?: any): any;
+import { io } from 'socket.io-client';
+
+// declare function io(url: string, extra?: any): any;
 
 declare let socket: any;
-
-declare let dynamoLink: any;
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
-
   socket: any;
-
+  notification: any;
+  notifications: any = [];
+  userDetails: any = JSON.parse(localStorage.getItem('userDetails') || '{}');
   constructor() {
   }
+  // generateSocket(): any {
+  //   try {
+  //     if (!socket) {
+  //       this.socket = io(`wss://www.monetlive.com`, {
+  //         path: `/sock/`,
+  //         transports: ['websocket'],
+  //       });
+  //     } else {
+  //       this.socket = socket;
+  //     }
+  //   } catch (e) {
+  //     this.socket = io(`wss://www.monetlive.com`, {
+  //       path: `/sock/`,
+  //       transports: ['websocket'],
+  //     });
+  //   }
 
-  generateSocket(): any {
-    try {
-      if (!socket) {
-        this.socket = io(`https://www.monetlive.com`, {
-          path: `/35_89_97_246/sock`,
-          transports: ['websocket'],
-          reconnect: true
-        });
-      } else {
-        this.socket = socket;
-      }
-    } catch (e) {
-      this.socket = io(`https://www.monetlive.com`, {
-        path: `/35_89_97_246/sock`,
-        transports: ['websocket'],
-        reconnect: true
-      });
-    }
+  //   this.socket.on('connection', (e: any) => {
+  //     console.log('socket connection', e);
+  //   });
+  //   const params = {
+  //     sender: this.userDetails.email
+  //   }
+  //   socket.emit('notify', params, () => {
+  //   });
+  //   socket.on('message', (request: any) => {
+  //     this.notifications.push(request);
+  //     this.notification = this.notifications.length;
+  //   })
+  // }
 
-    this.socket.on('disconnect', (e: any) => {
-      console.log('socket disconnect', e);
-    });
-  }
+  // actionOnRequest(button: any) {
+  //   socket.emit('sendNotifications', {
+  //     message: `You clicked on ${button}`,
+  //     sender: this.userDetails.email,
+  //     receiver: this.userDetails.email
+  //   }, () => {
 
-  disconnectSocket(): void {
-    this.socket.disconnect();
-  }
+  //   })
+  // }
 
-  managerSocket(grp: string): void {
-    this.socket = io(`https://www.monetlive.com`, {path: `/${grp}/sock`, transports: ['websocket'], reconnect: true});
-  }
+
+ 
+  // public getNewMessage = () =>{
+  //   this.socket.on('notification',function(data: any){
+  //     alert(data)
+  // });
+  // this.socket.on('message', (message: any)=>{
+  //   this.message.next(message);
+  // });
+  // return this.message.asObservable();
 }
+
+

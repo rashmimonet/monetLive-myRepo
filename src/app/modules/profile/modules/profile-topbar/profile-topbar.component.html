@@ -5,21 +5,24 @@
   </div>
   <div fxLayout="row" fxFlex="20" fxLayoutAlign="space-around center" fxLayoutGap="10px" Height>
     <!-- <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge="0" matBadgeColor="warn" matBadgeSize="small"  [matMenuTriggerFor]="notificationMenu"> notifications </span> -->
-    <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{badge}}
+    <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{notification}}
       matBadgeColor="warn" matBadgeSize="small" [matMenuTriggerFor]="notificationMenu"> notifications </span>
     <mat-menu #notificationMenu="matMenu">
-      <p style="text-align: center; margin-top: 10%;">{{msg}}</p>
-      <div *ngIf="dispStdList">
+      <!-- <p style="text-align: center; margin-top: 10%;">{{msg}}</p> -->
+      <div *ngIf="notification !== 0">
         <h3 class="msg">Notification
-          <span style="float: right !important;"><button mat-flat-button (click)="markAllRead($event)">Mark all as read</button>
+          <span style="float: right !important;"><button mat-flat-button >Mark all as read</button>
           </span>
         </h3>
         <hr>
-        <div *ngFor="let notifications of remainingHours;" class="wrapNotification">
+        <div *ngFor="let notifications of notifications;" class="wrapNotification">
           <mat-icon style="font-size: 9px; color: red;">fiber_manual_record</mat-icon>
-          {{notifications.message}}
-          <span><button mat-icon-button (click)="markRead($event)"><mat-icon style="font-size: 15px;">visibility</mat-icon></button></span>
+          {{notifications.message | titlecase}}
+          <!-- <span><button mat-icon-button (click)="markRead($event)"><mat-icon style="font-size: 15px;">visibility</mat-icon></button></span> -->
         </div>
+      </div>
+      <div *ngIf="notification === 0" style="text-align: center; margin-top: 10%;">
+        No Notifications
       </div>
     </mat-menu>
     <span title-navy14-400 

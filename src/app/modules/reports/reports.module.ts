@@ -16,6 +16,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { ReportServiceService } from './report-service.service';
 import { AssignmentComponent } from './modules/assignment/assignment.component';
 
+
 @NgModule({
   declarations: [ReportsComponent, AssignmentComponent, ],
   imports: [

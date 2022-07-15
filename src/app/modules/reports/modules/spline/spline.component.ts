@@ -1941,14 +1941,14 @@ export class SplineComponent implements OnInit, OnChanges {
       }
     });
   }
-  getRoom(roomid: any): void {
-    this.as.getApiStatic('getInviteRoom?roomid=' + roomid).subscribe(next => {
-      if (next) {
-        this.room = next.response;
-      }
-    });
+  // getRoom(roomid: any): void {
+  //   this.as.getApiStatic('getInviteRoom?roomid=' + roomid).subscribe(next => {
+  //     if (next) {
+  //       this.room = next.response;
+  //     }
+  //   });
 
-  }
+  // }
 
 
   public convertToPDF() {
@@ -1968,11 +1968,12 @@ export class SplineComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.as.getApiStatic('getInviteRoom?roomid=' + this.roomId).subscribe((room: any) => {
+      this.room = room.response;
       this.summary = room.response.summary;
       // this.date.transform(room.response.start.dateTime, 'MM/dd/yyyy');
       this.callDate = this.date.transform(room.response.start.dateTime, 'MM/dd/yyyy');
       // console.log('date', this.callDate);
-      
+
     })
     this.as.getApiStatic(`avg-engagement-req?roomid=` + this.roomId).subscribe((data: any) => {
       this.studentData = data;
@@ -2238,7 +2239,7 @@ export class SplineComponent implements OnInit, OnChanges {
     //   + ':' + minutes.toString().padStart(2, '0')
     //   + ':' + seconds.toString().padStart(2, '0');
     const timeString = minutes.toString().padStart(2, '0') + 'm '
-    + ': ' + seconds.toString().padStart(2, '0') + 's ';
+      + ': ' + seconds.toString().padStart(2, '0') + 's ';
 
     document.getElementById('sessionDuration').textContent
       = (`${timeString}`);

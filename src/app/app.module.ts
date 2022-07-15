@@ -31,6 +31,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxMatIntlTelInputModule } from 'ngx-11-mat-intl-tel-input';
 import { WebsocketService } from './services/websocket.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 
 
 export function MSALInstanceFactory(): IPublicClientApplication {
@@ -67,7 +68,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     NgxMatIntlTelInputModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule
   ],
   providers: [
     InternetSpeedService,

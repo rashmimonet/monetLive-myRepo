@@ -173,6 +173,9 @@ div[size="A4"] {
   }
 }
 
+::ng-deep  .mat-typography h3 {
+  margin-bottom: 0;
+}
 .close-button {
   position: absolute;
   background: #000000;

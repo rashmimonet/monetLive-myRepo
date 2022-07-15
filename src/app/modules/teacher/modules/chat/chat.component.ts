@@ -100,7 +100,7 @@ export class ChatComponent implements OnInit, OnChanges{
       this.messageList.push({msg: this.selectedFile[key].name, time: this.getCurrentTime(), self: true, name: this.param.name, receiver: this.privateChat ? this.selectedUser.name : 'Everyone', private: false, type: 'attachment'});
       formData.append('files', this.selectedFile[key]);
     }
-      this.as.postApi('upFile', formData).subscribe((res: any) => {
+      this.as.postApi1('upFile', formData).subscribe((res: any) => {
         console.log('Up File API response :', res);
         if (this.privateChat) {
           this.ss.socket.emit('downFile-user', {files: res.files, receiver_uuid: this.selectedUser.std_id});

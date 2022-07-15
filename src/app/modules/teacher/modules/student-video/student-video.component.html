@@ -4,7 +4,7 @@
 <!--<div fxLayout="row"  [fxLayoutAlign]="(screenshare || screen) && param ? 'center center' : 'end start'" [ngStyle]="{background: fullScreen? 'black' : '', minHeight: (screenshare || screen) ? '100vh' : '93vh'}" style="min-height: calc(93vh); position: relative">-->
 <div fxLayout="row"  [fxLayoutAlign]="(screenshare || screen) && param ? 'center center' : 'end start'" [ngStyle]="{background: fullScreen? 'black' : '', minHeight: (screenshare || screen) ? '100vh' : '93vh'}" style="min-height: calc(93vh); position: relative" *ngIf="faceDataState">
   <audio #audioview id="webcamaudio" preload=none autoplay [hidden]="true"></audio>
-  <audio #scShareAudio id="scShareAudio" preload=none autoplay [hidden]="true"></audio>
+  <!-- <audio #scShareAudio id="scShareAudio" preload=none autoplay [hidden]="true"></audio> -->
   <mat-icon
     f-white pointer
     [matTooltip]="collapseUsersList.action ? 'Expand Users List' : 'Collapse Users List'"

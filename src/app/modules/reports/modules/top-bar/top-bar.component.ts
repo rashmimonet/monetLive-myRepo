@@ -190,7 +190,7 @@ export class TopBarComponent implements OnInit {
     })
   }
   openDialogBox(){
-    const dialogRef = this.dialog.open(AssignmentComponent, { height: 'auto', width: '50%', disableClose: true});
+    const dialogRef = this.dialog.open(AssignmentComponent, { autoFocus: false, maxHeight: '100vh',minHeight: '100px', width: '50%', disableClose: true});
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

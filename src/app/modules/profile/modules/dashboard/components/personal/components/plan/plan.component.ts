@@ -140,6 +140,7 @@ export class PlanComponent implements OnInit {
 
   planUpgrade = (plan: any) => {
     if (this.user.plan.planUid !== plan.planUid) {
+      // debugger
       this.as.storeLocalStorage('planUpgrade', plan);
       this.router.navigate(['profile/dashboard/payCard']);
     } else if (this.user.plan.planUid === plan.planUid && this.planValidity === 'expired') {

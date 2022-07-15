@@ -41,8 +41,8 @@
     "jspdf": "^2.5.1",
     "libphonenumber-js": "^1.10.7",
     "ngx-11-mat-intl-tel-input": "^4.2.2",
-    "ngx-intl-tel-input": "^3.2.0",
     "rxjs": "^6.6.7",
+    "socket.io-client": "^4.5.1",
     "tslib": "^2.3.1",
     "zone.js": "~0.10.2"
   },

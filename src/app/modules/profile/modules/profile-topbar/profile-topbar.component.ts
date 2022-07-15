@@ -9,15 +9,22 @@ import { BehaviourSubjectsService } from '../../../../services/behaviour-subject
 import { ThirdPartyService } from '../../../shared/services/third-party.service';
 import { StartMeetComponent } from './start-meet/start-meet.component';
 import { UtilityService } from '../../../shared/services/utility.service';
-import { WebsocketService } from 'src/app/services/websocket.service';
+import { io } from 'socket.io-client';
 import { I } from '@angular/cdk/keycodes';
-// import { WebsocketService } from 'src/app/services/websocket.service';
+import { SocketService } from 'src/app/modules/shared/services/socket.service';
+import { WebsocketService } from 'src/app/services/websocket.service';
+
 
 
 declare let gapi: any;
 declare let dynamoLink: any;
 declare let dynamoIp: any;
+declare let StateSubscription: any;
 
+// const socket: any = io(`wss://www.monetlive.com`, {
+//   path: `/sock`,
+//   transports: ['websocket'],
+// });
 
 @Component({
   selector: 'app-profile-topbar',
@@ -42,6 +49,12 @@ export class ProfileTopbarComponent implements OnInit {
   dispStdList: boolean = false;
   userDetails: any = JSON.parse(localStorage.getItem('userDetails') || '{}');
   @Output() scheduleEmit = new EventEmitter();
+  subSession: any;
+  param: any;
+  index: any = 0;
+  socket: any;
+  notification: any;
+  notifications: any = [];
 
   inviteRoomObj: any = {
     attendees: [],
@@ -75,9 +88,45 @@ export class ProfileTopbarComponent implements OnInit {
     private tps: ThirdPartyService,
     private zone: NgZone,
     private utility: UtilityService,
-    private webs: WebsocketService) {
+    private ss: SocketService,
+    private webss: WebsocketService) {
+     this.initialSocket();
+   
+    // socket.disconnect();
   }
-
+  initialSocket(): any {
+    try {
+        this.socket = io('wss://www.monetlive.com', {
+          path: '/sock',
+          transports: ['websocket'],
+        });
+    
+        
+    } catch (e) {
+      console.error('error connecting socket', e);
+      // this.socket = io(`wss://www.monetlive.com`, {
+      //   path: `/sock/`,
+      //   transports: ['websocket'],
+      // });
+    }
+    this.socket.on('connection', (e: any) => {
+      console.log('socket connection', e);
+    });
+    // const params = {
+    //   sender: this.userDetails.email
+    // }
+    this.socket.emit('notify', this.userDetails.email, () => {
+      console.log('notify', this.userDetails.email);
+      
+    });
+    this.socket.on('message', (request: any) => {
+      console.log('notify', request);
+      this.notifications.push(request);
+      this.notification = this.notifications.length;
+      console.log('notification', this.notification);
+      
+    });
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((next: any) => {
@@ -92,17 +141,26 @@ export class ProfileTopbarComponent implements OnInit {
       } else {
         this.plan = this.planType;
       }
-
     });
-    //   this.as.getApiStatic(`notification?email=${this.email}`).subscribe((data: any) => {
-    //     console.log('notification',data.data);
-    // })
+    
     this.notificationDetails();
     this.bhvSub.dynamicLink$.subscribe((link: any) => {
       this.dynamicLink = link;
     });
     // this.loggedInService = this.tps.isLoggedIn().service;
   }
+
+
+
+  //   actionOnRequest(button: any) {
+  //   this.socket.emit('sendNotifications', {
+  //     message: `You clicked on ${button}`,
+  //     sender: this.userDetails.email,
+  //     receiver: this.userDetails.email
+  //   }, () => {
+
+  //   })
+  // }
   notificationDetails() {
     this.as.getApiStatic(`notificationDetails?email=${this.email}`).subscribe((data: any) => {
       if (data.data.length !== 0) {
@@ -145,23 +203,23 @@ export class ProfileTopbarComponent implements OnInit {
 
   }
   scheduleMeeting(): any {
-    if (this.planType === 'purchased') {
-    let test: any = {
-      status: true
-    };
-    test = Object.assign({}, test);
-    this.scheduleEmit.emit(Object.assign(test));
-    this.router.navigate(['/profile/dashboard/personal/my_meeting/schedule'], { queryParamsHandling: 'merge' }).then((status: boolean) => {
-      console.log('Routing is successful to schedule page', status);
-    }).catch((error: any) => {
-      console.log('Routing is unsuccessful to schedule page', error);
-    });
-  }
+    if (this.planType === 'purchased' || this.planType === 'free') {
+      let test: any = {
+        status: true
+      };
+      test = Object.assign({}, test);
+      this.scheduleEmit.emit(Object.assign(test));
+      this.router.navigate(['/profile/dashboard/personal/my_meeting/schedule'], { queryParamsHandling: 'merge' }).then((status: boolean) => {
+        console.log('Routing is successful to schedule page', status);
+      }).catch((error: any) => {
+        console.log('Routing is unsuccessful to schedule page', error);
+      });
+    }
   }
 
   // This method is only responsible for opening dialog box for start meeting
   hostMeeting(): any {
-    if (this.planType === 'purchased') {
+    if (this.planType === 'purchased' || this.planType === 'free') {
       this.dialogOpener = this.dialog.open(StartMeetComponent, {
         hasBackdrop: true,
         width: '684px',
