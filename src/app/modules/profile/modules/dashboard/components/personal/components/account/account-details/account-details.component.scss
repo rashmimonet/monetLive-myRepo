@@ -1,3 +1,6 @@
+// ::-webkit-scrollbar-button {
+//   height: 3px !important;
+// }
 .formClass {
   background: rgb(246, 247, 251);
   width: 23vw;
@@ -11,28 +14,6 @@
   overflow-y: auto;
 }
 
-//   [detailsDiv] {
-//     border-radius: 5px;
-//     background: #F6F7FB;
-//     font-style: normal;
-//     font-weight: normal;
-//     font-size: 16px;
-//     line-height: 21px;
-//     color: #33387A;
-//     overflow-y: auto;
-
-//     input {
-//       width: 80%;
-//       height: 10%;
-//       border: 1px solid grey;
-//       padding: 15px;
-//       border-radius: 5px;
-//       color: #000000;
-//     }
-
-//     input:not([type='email']) {
-//       text-transform: capitalize;
-//     }}
 
 [imgDiv] {
   margin-left: 27%;
@@ -92,22 +73,6 @@
   background: #FFFFFF;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 }
-
-    // input {
-    //   border-radius: 10px;
-    //   width: 85%;
-    //   height: 40%;
-    //   padding: 10px;
-    //   border: 1px solid gainsboro;
-    //   outline: none;
-    //   color: #000;
-    //   text-transform: capitalize;
-    //   padding-left: 2%;
-    // }
-
-    // input:not([type='email']) {
-    //   text-transform: capitalize;
-    // }
 
 
 [inputStyle] {

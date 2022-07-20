@@ -13,6 +13,7 @@ import { UtilityService } from "../../../../../../../shared/services/utility.ser
 })
 export class MyMeetingComponent implements OnInit {
   loggedInService = '';
+  userDetails: any = JSON.parse(localStorage.getItem('userDetails') || '{}');
   dataPreview: any = {};
   meetingData: [] | undefined;
   toggleBtnValue = 'Upcoming';
@@ -29,6 +30,8 @@ export class MyMeetingComponent implements OnInit {
   toDayZeroTime: any;
   @Output() tabSelected = new EventEmitter();
   msg: string;
+  email: any;
+  planType: any;
   constructor(private api: ApiService, private route: Router, private tps: ThirdPartyService, private utility: UtilityService) { }
 
 
@@ -38,6 +41,12 @@ export class MyMeetingComponent implements OnInit {
     this.getFilterDataApi(this.filterSelects);
     this.loggedInService = this.tps.isLoggedIn().service;
     this.getAllInviteRoomsData();
+    this.email = this.userDetails.email;
+    this.api.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
+      this.planType = data.planType;
+      console.log('plan upcoming', this.planType);
+      
+    });
   }
 
 
@@ -105,11 +114,6 @@ reportUpcomingFilter(allData: any){
   getTime = (e: any) => {
     let t = e.toString().split('T');
     t = t[1] > '12.00' ? t[1].slice(0, 5) + ' PM' : t[1].slice(0, 5) + ' AM';
-    /* if (t[1] > '12.00') {
-      t = t[1].slice(0, 5) + ' PM';
-    } else {
-      t = t[1].slice(0, 5) + ' AM';
-    }*/
     return t;
   }
   toggleBtn = (value: string) => {
@@ -175,17 +179,27 @@ reportUpcomingFilter(allData: any){
       this.selectedDate.Yesterday = this.dateFilter(date, 'any');
       const upData = this.dataFilterBtn(this.toggleBtnValue);
       const tData = this.reportUpcomingFilter(this.dataFilter(this.selectedDate.Today, upData));
-      if (tData && tData.length) {
+      if (tData && tData.length  && this.planType !== 'expired') {
         this.dataPreview.toDay = tData;
       } else {
-        this.dataPreview.tMsg = 'Data Not  Available';
+        if(this.planType === 'expired'){
+          this.dataPreview.tMsg = 'Plan Expired';
+        }else{
+          this.dataPreview.tMsg = 'Data Not  Available';  
+        } 
+        // this.dataPreview.tMsg = 'Data Not  Available';
+        // console.log('tData', this.dataPreview.toDay);
       }
       const yData = this.reportUpcomingFilter(this.dataFilter(this.selectedDate.Yesterday, upData));
-      if (yData && yData.length) {
+      if (yData && yData.length && this.planType !== 'expired') {
         //changed by me tData to yData
         this.dataPreview.toMorrow = yData;
       } else {
-        this.dataPreview.yMsg = 'Data Not  Available';
+        if(this.planType === 'expired'){
+          this.dataPreview.yMsg = 'Plan Expired';
+        }else{
+          this.dataPreview.yMsg = 'Data Not  Available';  
+        }  
       }
     } else {
       this.selectedDate.Today = this.dateFilter(date, 'today');

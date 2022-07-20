@@ -64,36 +64,24 @@
 .greenDot {
   color: green;
 }
-#joinwebcam {
-  //padding: 34px 16px;
-}
 mat-grid-tile {
-  //background: lightblue;
-  //border: 2px solid #56D8E1;
   border: 1px solid #56d8e12b;
   background: rgba(0,0,0,0.4);
-
-
 }
 mat-grid-list {
-  //height: calc(100vh - 80px);
   width: 100%;
 }
 .screen-div {
-  //padding: 12px 0 0 12px;
-  //border: 2px solid aliceblue;
   max-width: 70%;
   height: calc(100vh - 134px);
   position: relative;
   margin-right: 10px;
   .title-name {
     padding: 8px;
-    //background: #bfbcc1;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     font-size: 16px;
     text-align: center;
-    //display: none;
     position: absolute;
     bottom: 0;
     background: #0000006e;
@@ -109,12 +97,10 @@ mat-grid-list {
   display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 10px;
-  //background-color: #2196F3;
   padding: 10px;
 }
 
 .grid-container > div {
-  //background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
   padding: 5px;
   font-size: 30px;
@@ -149,16 +135,11 @@ mat-grid-list {
 }
 .single-view {
   .videodiv {
-    /*height: 90%;
-    width: 60%;*/
     height: 100%;
     width: 99%;
-    //box-shadow: 0 0 20px #eeeeee;
   }
 }
-.shadow {
-  //box-shadow: 0 0 30px #eeeeee;
-}
+
 mat-grid-tile {
   .video-title {
     position: absolute;
@@ -212,8 +193,6 @@ mat-card {
   -moz-transform:rotateZ(270deg); /* Firefox */
 }
 
-
-
 :host{
   border-radius: 30px;
 }
@@ -223,15 +202,6 @@ mat-card {
   min-width: inherit !important;
 }
 
-
-
 .example-margin {
   margin: 0 10px;
 }
-
-
-
-
-
-
-

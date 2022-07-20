@@ -1,16 +1,16 @@
-import {AfterViewInit, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ApiService} from '../../../shared/services/api.service';
-import {ScriptLoadService} from '../../../shared/services/script-load.service';
-import {SocketService} from '../../../shared/services/socket.service';
-import {Subscription} from 'rxjs';
-import {UtilityService} from '../../../shared/services/utility.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {BehaviourSubjectsService} from '../../../../services/behaviour-subjects.service';
-import {ProgressSpinnerMode} from "@angular/material/progress-spinner";
-import {DatePipe} from '@angular/common';
-import {AssignmentComponent} from "../assignment/assignment.component";
-import {MatDialog} from "@angular/material/dialog";
+import { AfterViewInit, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ApiService } from '../../../shared/services/api.service';
+import { ScriptLoadService } from '../../../shared/services/script-load.service';
+import { SocketService } from '../../../shared/services/socket.service';
+import { Subscription } from 'rxjs';
+import { UtilityService } from '../../../shared/services/utility.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BehaviourSubjectsService } from '../../../../services/behaviour-subjects.service';
+import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
+import { DatePipe } from '@angular/common';
+import { AssignmentComponent } from "../assignment/assignment.component";
+import { MatDialog } from "@angular/material/dialog";
 
 declare function fetchAvailableInstance(link: string, ip: string): any;
 
@@ -42,8 +42,8 @@ export class StudentLoginComponent implements OnInit, AfterViewInit, OnDestroy {
   queryParamsSubscription: Subscription;
   availableMediaDevices: any;
   id: any = this.utility.create_UUID().replaceAll('-', '');
-  permissions: any = {audio: true, video: true, screen: false};
-  video = {loadstart: true, buffering: false, canplay: false};
+  permissions: any = { audio: true, video: true, screen: false };
+  video = { loadstart: true, buffering: false, canplay: false };
   startMeet: any = true;
   actions = [
     {
@@ -66,20 +66,20 @@ export class StudentLoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   constructor(private sl: ScriptLoadService,
-              private changeDetectorRef: ChangeDetectorRef,
-              private bhvSub: BehaviourSubjectsService,
-              private route: ActivatedRoute,
-              private apiService: ApiService,
-              private socketService: SocketService,
-              private utility: UtilityService,
-              private formBuilder: FormBuilder,
-              private zone: NgZone,
-              private dialog:MatDialog,
-              private datePipe: DatePipe,
-              private router: Router) {
+    private changeDetectorRef: ChangeDetectorRef,
+    private bhvSub: BehaviourSubjectsService,
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private socketService: SocketService,
+    private utility: UtilityService,
+    private formBuilder: FormBuilder,
+    private zone: NgZone,
+    private dialog: MatDialog,
+    private datePipe: DatePipe,
+    private router: Router) {
     localStorage.setItem('student_uuid', this.id);
   }
- 
+
   ngAfterViewInit(): void {
     // this.context = this.myCanvas.nativeElement.getContext('2d');
   }
@@ -96,7 +96,7 @@ export class StudentLoginComponent implements OnInit, AfterViewInit, OnDestroy {
     this.queryParamsSubscription = this.route.queryParams.subscribe((params: Params) => {
       this.urlParams = params;
 
-      this.studentLoginForm.setValue({name: '', roomid: this.urlParams.room, room: this.urlParams.room, id: this.id});
+      this.studentLoginForm.setValue({ name: '', roomid: this.urlParams.room, room: this.urlParams.room, id: this.id });
     }, (error: any) => {
       console.error(error)
     }, () => {
@@ -141,19 +141,19 @@ export class StudentLoginComponent implements OnInit, AfterViewInit, OnDestroy {
           this.socketService.socket.on('join-response', (data: any) => {
             if (data.confirmed === false) {
               this.zone.run(() => {
-                this.router.navigate(['student/rejected'], {queryParams: this.studentLoginForm.value}).then().catch();
+                this.router.navigate(['student/rejected'], { queryParams: this.studentLoginForm.value }).then().catch();
                 return
               });
             }
             if (data.confirmed) {
               this.zone.run(() => {
-                this.router.navigate(['student/dashboard'], {queryParams: this.studentLoginForm.value}).then().catch();
+                this.router.navigate(['student/dashboard'], { queryParams: this.studentLoginForm.value }).then().catch();
               });
             }
           });
           this.socketService.socket.on('call-not-started', (data: any) => {
             this.case = 3;
-          } );
+          });
           this.socketService.socket.on('meeting-initiated', (data: any) => {
             this.case = 2;
             this.socketService.socket.emit('join-request', {
@@ -161,10 +161,10 @@ export class StudentLoginComponent implements OnInit, AfterViewInit, OnDestroy {
               uuid: this.studentLoginForm.value.id,
               name: this.studentLoginForm.value.name
             });
-            this.router.navigate(['student/waiting-room'], {queryParamsHandling: 'merge'}).then().catch();
-          } );
+            this.router.navigate(['student/waiting-room'], { queryParamsHandling: 'merge' }).then().catch();
+          });
           this.socketService.socket.on('assignment-broadcast', (data: any) => {
-            this.assignmentData =  data;
+            this.assignmentData = data;
             localStorage.setItem('assignment', JSON.stringify(data));
             this.openDialogBox();
           });
@@ -200,7 +200,7 @@ export class StudentLoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openDialogBox(): void {
-    const dialogBox = this.dialog.open(AssignmentComponent, { disableClose: true, width: 'auto', height: 'auto', data: this.assignmentData} );
+    const dialogBox = this.dialog.open(AssignmentComponent, { disableClose: true, width: 'auto', height: 'auto', data: this.assignmentData });
     dialogBox.afterClosed().subscribe((data: any) => {
     });
   }
@@ -213,8 +213,9 @@ export class StudentLoginComponent implements OnInit, AfterViewInit, OnDestroy {
         uuid: this.studentLoginForm.value.id,
         name: this.studentLoginForm.value.name
       });
-      if(!this.scheduled) {
-        this.router.navigate(['student/waiting-room'], {queryParamsHandling: 'merge'}).then().catch();
+      this.router.navigate(['student/waiting-room'], {queryParamsHandling: 'merge'}).then().catch();
+      if (!this.scheduled) {
+        // this.router.navigate(['student/waiting-room'], {queryParamsHandling: 'merge'}).then().catch();
       }
     } else {
       return;
@@ -235,16 +236,16 @@ export class StudentLoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
   mainActions(action: any): void {
     switch (action.value) {
-      case  'video': {
+      case 'video': {
         this.permissions.video = action.status;
         mediaDev.toggleVideo(action.status);
-        this.socketService.socket.emit('preview-toggle-video', {status: action.status});
+        this.socketService.socket.emit('preview-toggle-video', { status: action.status });
         break;
       }
       case 'audio': {
         this.permissions.audio = action.status;
         mediaDev.toggleAudio(action.status);
-        this.socketService.socket.emit('preview-toggle-audio', {status: action.status});
+        this.socketService.socket.emit('preview-toggle-audio', { status: action.status });
         break;
       }
       case 'screen': {

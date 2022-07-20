@@ -1,170 +1,3 @@
-
-// .filter-bottom {
-//   position: absolute;
-//   bottom: 7px;
-// }
-
-// .filter-bottom-screenshare {
-//   position: absolute;
-//   bottom: 4px;
-//   left: 0px;
-//   width: 115px;
-// }
-// .mat-button-toggle-checked {
-//   background-color: #1C5BA2;
-//   color: #ffffff;
-// }
-// .message {
-//   background-color: #eeeeee;
-//   color: #777777;
-//   padding: 10px;
-//   border-radius: 3px;
-//   max-height: 300px;
-//   overflow-y: auto;
-//   a {
-//     color: #1C5BA2;
-//     text-decoration: none;
-//   }
-// }
-// .intro {
-//   //background-color: #bbbbbb;
-//   height: calc(100% - 72px);
-//   .intro-box {
-//     padding: 20px;
-//     width: 500px;
-//     border-radius: 5px;
-//     //box-shadow: 0 0 20px #777777;
-//     background-color: #eeeeee;
-//     span {
-//       color: #777777;
-//     }
-//     .start-message {
-//       width: 100%;
-//       text-align: left;
-//       padding: 10px;
-//       border-radius: 3px;
-//       background-color: rgba(28, 91, 162, 0.09);
-//       color: #1C5BA2;
-//     }
-//   }
-// }
-// ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-//   background-color: #1C5BA2;
-// }
-// ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar  {
-//   background-color: rgba(28, 91, 162, 0.35);
-// }
-// .side-nav {
-//   height: calc(100vh - 43px);
-//   overflow-y: auto;
-// }
-// .message-btn {
-//   position: absolute;
-//   right: 20px;
-//   bottom: 20px;
-// }
-// .message-panel {
-//   position: fixed;
-//   right: 10px;
-//   bottom: 0;
-//   height: 500px;
-//   width: 300px;
-//   background: white;
-//   z-index: 20;
-// }
-
-//  .mat-button-toggle {
-//   //border: 4px solid #35254B;
-// }
-
-// .moderatorVid {
-//   position: relative;
-//  }
-
-// #sideNav {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-// }
-
-// #video_streams {
-//   position: absolute;
-//   top: 0;
-//   /*
-//   left: 18vw;
-//   width: 82vw;
-//   */
-// }
-
-// .leave_button {
-//   background: #E71C31;
-//   height: 60px;
-//   width: 60px;
-//   border-radius: 50px;
-//   font-size: 35px;
-//   line-height: 55px;
-// }
-
-// .other_buttons {
-//   height: 50px;
-//   width: 50px;
-//   font-size: 40px;
-//   line-height: 55px;
-// }
-
-// .screenShare {
-//   object-fit: cover;
-//   width: 250px;
-//   height: 170px;
-//   margin-left: 2%;
-//   video{
-//     background-color: #777777;
-//   }
-//   display: none;
-// }
-
-// #moderatorvideo {
-//   /*Mirror code starts*/
-//   transform: rotateY(180deg);
-//   -webkit-transform:rotateY(180deg); /* Safari and Chrome */
-//   -moz-transform:rotateY(180deg); /* Firefox */
-//   /*Mirror code ends*/
-//   //border: 1px solid green;
-// }
-
-// #screenShareVideo {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   z-index: -1;
-//   //border: 1px solid red;
-// }
-
-// #unfold {
-//   transform: rotateZ(270deg);
-//   -webkit-transform:rotateZ(270deg); /* Safari and Chrome */
-//   -moz-transform:rotateZ(270deg); /* Firefox */
-// }
-
-// .popup-upload {
-//   display: flex;
-//   flex-direction: column;
-//   background-color: #775FEE;
-//   height: max-content !important;
-// }
-
-// ::ng-deep .mat-menu-content:not(:empty) {
-//   padding: 16px !important;
-//   height: 100%;
-//   overflow: hidden;
-// }
-
-// ::ng-deep .mat-menu-content:not(:empty) {
-// padding: 0 !important;
-// }
-
-
-
 .filter-bottom {
   position: absolute;
   bottom: 7px;
@@ -193,7 +26,6 @@
   }
 }
 .intro {
-  //background-color: #bbbbbb;
   height: calc(100% - 72px);
   .intro-box {
     padding: 20px;
@@ -243,10 +75,6 @@
   z-index: 20;
 }
 
- .mat-button-toggle {
-  //border: 4px solid #35254B;
-}
-
 .moderatorVid {
   position: relative;
  }
@@ -260,10 +88,6 @@
 #video_streams {
   position: absolute;
   top: 0;
-  /*
-  left: 18vw;
-  width: 82vw;
-  */
 }
 
 .leave_button {
@@ -298,8 +122,6 @@
   transform: rotateY(180deg);
   -webkit-transform:rotateY(180deg); /* Safari and Chrome */
   -moz-transform:rotateY(180deg); /* Firefox */
-  /*Mirror code ends*/
-  //border: 1px solid green;
 }
 
 #screenShareVideo {
@@ -325,7 +147,7 @@
 
 ::ng-deep .mat-menu-content:not(:empty) {
   padding: 16px !important;
-  height: 100%;
+  height: auto !important;
   overflow: hidden;
 }
 

@@ -26,6 +26,7 @@ export class AssignmentComponent implements OnInit {
   roomId: any;
   score: any = [];
   msg: any = '';
+  stopLoading: boolean = false;
   constructor(public dialogRef: MatDialogRef<AssignmentComponent>,
     private as: ApiService,
     private route: ActivatedRoute,) {
@@ -42,7 +43,7 @@ export class AssignmentComponent implements OnInit {
   getAssignment() {
     this.as.getApiStatic('assignmentscore?roomid=' + this.roomId).subscribe((response: any) => {
       if (response) {
-        hideloader();
+        hideloading();
       }
       this.score = response.score;
       if (this.score.length === 0) {
@@ -51,7 +52,7 @@ export class AssignmentComponent implements OnInit {
         this.msg = '';
       }
     });
-    function hideloader() {
+    function hideloading() {
       document.getElementById('loading')
         .style.display = 'none';
     }

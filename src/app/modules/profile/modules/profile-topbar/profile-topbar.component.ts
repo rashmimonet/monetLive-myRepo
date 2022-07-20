@@ -34,6 +34,7 @@ declare let StateSubscription: any;
 })
 
 export class ProfileTopbarComponent implements OnInit {
+  @Output() planTypeData: EventEmitter<any> = new EventEmitter<any>();
   planType: any;
   markId: any;
   roomResponse: any;
@@ -55,7 +56,7 @@ export class ProfileTopbarComponent implements OnInit {
   socket: any;
   notification: any;
   notifications: any = [];
-
+  hideMatBadge: boolean = false;
   inviteRoomObj: any = {
     attendees: [],
     conferenceData: {},
@@ -90,34 +91,37 @@ export class ProfileTopbarComponent implements OnInit {
     private utility: UtilityService,
     private ss: SocketService,
     private webss: WebsocketService) {
-    //  this.initialSocket();
+    this.initialSocket();
   }
-  // initialSocket(): any {
-  //   try {
-  //       this.socket = io('wss://www.monetlive.com', {
-  //         path: '/sock',
-  //         transports: ['websocket'],
-  //       });
-    
-        
-  //   } catch (e) {
-  //     console.error('error connecting socket', e);
-  //   }
-  //   this.socket.on('connection', (e: any) => {
-  //     console.log('socket connection', e);
-  //   });
-  //   this.socket.emit('notify', this.userDetails.email, () => {
-  //     console.log('notify', this.userDetails.email);
-      
-  //   });
-  //   this.socket.on('message', (request: any) => {
-  //     console.log('notify', request);
-  //     this.notifications.push(request);
-  //     this.notification = this.notifications.length;
-  //     console.log('notification', this.notification);
-      
-  //   });
-  // }
+  initialSocket(): any {
+    try {
+      this.socket = io('wss://www.monetlive.com', {
+        path: '/sock',
+        transports: ['websocket'],
+      });
+
+
+    } catch (e) {
+      console.error('error connecting socket', e);
+    }
+    this.socket.on('connection', (e: any) => {
+      console.log('socket connection', e);
+    });
+    this.socket.emit('notify', this.userDetails.email, () => {
+    });
+    this.socket.on('message', (request: any) => {
+      this.notification = request.length;
+      this.notifications = request;
+      if (this.notification === 0) {
+        this.hideMatBadge = true;
+      }
+      // console.log('notification length', this.notifications);
+    });
+    this.socket.on('status', (updated: any) => {
+      // console.log('status updated', updated);
+
+    })
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((next: any) => {
@@ -127,74 +131,77 @@ export class ProfileTopbarComponent implements OnInit {
     this.email = this.userDetails.email;
     this.as.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
       this.planType = data.planType;
-      if (this.planType === 'purchased') {
+      this.planTypeEmitter(this.planType);
+      if (this.planType !== 'expired') {
         this.plan = data.data[0].name;
       } else {
         this.plan = this.planType;
       }
     });
-    
-    this.notificationDetails();
+    // this.notificationDetails();
     this.bhvSub.dynamicLink$.subscribe((link: any) => {
       this.dynamicLink = link;
     });
-    // this.loggedInService = this.tps.isLoggedIn().service;
   }
-
-
-
-  //   actionOnRequest(button: any) {
-  //   this.socket.emit('sendNotifications', {
-  //     message: `You clicked on ${button}`,
-  //     sender: this.userDetails.email,
-  //     receiver: this.userDetails.email
-  //   }, () => {
-
-  //   })
-  // }
-  notificationDetails() {
-    this.as.getApiStatic(`notificationDetails?email=${this.email}`).subscribe((data: any) => {
-      if (data.data.length !== 0) {
-        this.dispStdList = true;
-        this.badge = data.data.length;
-        this.msg = '';
-        for (let i = 0; i < data.data.length; i++) {
-          this.remainingHours = data.data;
-          this.markId = data.data[i]._id
-        }
-      } else {
-        this.dispStdList = false;
-        this.badge = 0;
-        this.msg = 'No Notification';
-      }
+ 
+  planTypeEmitter(plan: any) {
+    this.planTypeData.emit(plan);
+  }
+  markAllAsRead(event: any) {
+    this.socket.emit('markAllAsRead', this.email, () => {
     })
   }
 
-  markAllRead(data: any) {
-    this.as.putApiStatic(`/markasread?email=${this.email}`, data).subscribe((data: any) => {
-      console.log('mark', data);
-      if (!data.error) {
-        this.notificationDetails();
-      } else {
-        console.log(data.message);
-
-      }
-    });
+  markAsRead(event: any) {
+    this.socket.emit('markAsread', {
+      id: event._id,
+      email: this.email
+    }, () => { })
   }
-  markRead(data: any) {
-    this.as.putApiStatic(`/markasread?id=${this.markId}`, data).subscribe((data: any) => {
-      console.log('mark', data);
-      if (!data.error) {
-        this.notificationDetails();
-      } else {
-        console.log(data.message);
 
-      }
-    });
+  // notificationDetails() {
+  //   this.as.getApiStatic(`notificationDetails?email=${this.email}`).subscribe((data: any) => {
+  //     if (data.data.length !== 0) {
+  //       this.dispStdList = true;
+  //       this.badge = data.data.length;
+  //       this.msg = '';
+  //       for (let i = 0; i < data.data.length; i++) {
+  //         this.remainingHours = data.data;
+  //         this.markId = data.data[i]._id
+  //       }
+  //     } else {
+  //       this.dispStdList = false;
+  //       this.badge = 0;
+  //       this.msg = 'No Notification';
+  //     }
+  //   })
+  // }
 
-  }
+  // markAllRead(data: any) {
+  //   debugger
+  //   this.as.putApiStatic(`/markasread?email=${this.email}`, data).subscribe((data: any) => {
+  //     console.log('mark', data);
+  //     if (!data.error) {
+  //       // this.notificationDetails();
+  //     } else {
+  //       console.log(data.message);
+
+  //     }
+  //   });
+  // }
+  // markRead(data: any) {
+  //   debugger
+  //   this.as.putApiStatic(`/markasread?id=${data._id}`, data).subscribe((data: any) => {
+  //     console.log('mark', data);
+  //     if (!data.error) {
+  //       // this.notificationDetails();
+  //     } else {
+  //       console.log(data.message);
+  //     }
+  //   });
+  // }
   scheduleMeeting(): any {
-    if (this.planType === 'purchased' || this.planType === 'free') {
+    if (this.planType !== 'expired') {
       let test: any = {
         status: true
       };
@@ -210,7 +217,7 @@ export class ProfileTopbarComponent implements OnInit {
 
   // This method is only responsible for opening dialog box for start meeting
   hostMeeting(): any {
-    if (this.planType === 'purchased' || this.planType === 'free') {
+    if (this.planType !== 'expired') {
       this.dialogOpener = this.dialog.open(StartMeetComponent, {
         hasBackdrop: true,
         width: '684px',

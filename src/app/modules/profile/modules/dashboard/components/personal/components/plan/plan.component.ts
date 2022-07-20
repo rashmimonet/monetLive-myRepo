@@ -114,15 +114,24 @@ export class PlanComponent implements OnInit {
 
         if (p.planUid === 0 && this.user.plan.planUid > 0) p.hide = true;
         // console.log('plan2', this.planValidity);
-        if (p.planUid === this.user.plan.planUid && this.planValidity === 'purchased') {
-          p.button = 'In Use',
-            p.backGround = 'rgba(173, 252, 203, 0.41)';
-          p.class = 'selectedUpgrade';
-        }
-        else if (p.planUid === this.user.plan.planUid && this.planValidity === 'expired') {
+        if (p.planUid === this.user.plan.planUid && this.planValidity === 'expired') {
+          // p.button = 'In Use',
+          // p.backGround = 'rgba(173, 252, 203, 0.41)';
+          // p.class = 'selectedUpgrade';
+
           p.button = 'Renew'
           p.backGround = 'rgba(173, 252, 203, 0.41)';
           p.class = 'renewPlan';
+
+        }
+        else if (p.planUid === this.user.plan.planUid) {
+          // p.button = 'Renew'
+          // p.backGround = 'rgba(173, 252, 203, 0.41)';
+          // p.class = 'renewPlan';
+
+          p.button = 'In Use',
+          p.backGround = 'rgba(173, 252, 203, 0.41)';
+          p.class = 'selectedUpgrade';
         } else {
           p.backGround = 'rgba(123, 128, 129, 0.31)';
           p.class = 'upgradePlan';

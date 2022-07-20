@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 export class DashboardComponent implements OnInit, OnChanges {
   scheduleEmit: any;
   json = JSON;
-
+  plan = "";
   constructor(private router: Router) {
   }
 
@@ -27,7 +27,9 @@ export class DashboardComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {}
-
+  planData(plan: any){
+    this.plan = plan;
+  }
   x(e: any): void {
     this.scheduleEmit = e;
   }

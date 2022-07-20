@@ -259,22 +259,6 @@ export class StudentVideoComponent implements OnInit, AfterViewInit, OnDestroy ,
       },
       leave: () => {
         this.openDialog();
-        // if (confirm("Are you sure you want to leave ? \nLeaving this call will end the session for everyone.")) {
-          // console.log('Call ended by moderator');
-          // this.moderatorLeave(true);
-          /*this.pub.destroy();
-          this.sendToAdmin();
-          this.stopScreen();
-          if (dynamoIp) {
-            // console.log('DynamoIp :', dynamoIp);
-            this.http.get('https://www.monetlive.com/many/api/freeInstance?secret=janusoverlord&ip=' + dynamoIp).subscribe(() => {});
-          }
-          else {
-            // console.warn('dynamoIp not available');
-          }
-          this.ss.socket.emit('leave', {uuid: this.param.id, type: 'webcam'});
-          this.router.navigate(['report'], {queryParams: {roomid: this.param.roomid}}).then(() => {});*/
-        // } else {}
       },
       endRoom: () => {
           this.moderatorLeave(false);
@@ -508,23 +492,6 @@ export class StudentVideoComponent implements OnInit, AfterViewInit, OnDestroy ,
       },
       'join-request': () => this.bhvSub.obAddToWaitingList({userName: data.name, userId: data.uuid, socketId: data.sid}),
       '': () => {},
-     /* 'connect': () => {
-        console.log('Socket Connected');
-        this.subSession = new StateSubscription(`wss://www.monetlive.com/${this.dynamicLink}/rtc/`, this.param.id, parseInt(this.param.room, 10), this.ss.socket);
-        // @ts-ignore
-        this.subSession.on('remote', ({type, stream, slot, mid, sub, user}) => {
-          console.log('State Subscription (remote) : ', user);
-          this.getSubscribedUsers(type, stream, sub, slot, mid, user);
-        });
-        this.subSession.start();
-        this.managePublisher();
-      },
-      'connected': () => {
-        console.log('Socket Connected');
-        this.subSession = new StateSubscription(`wss://www.monetlive.com/${this.dynamicLink}/rtc/`, this.param.id, parseInt(this.param.room, 10), this.ss.socket);
-        this.subSession.start();
-        this.managePublisher();
-      }*/
     };
 
     eventObj[event] && eventObj[event]() || eventObj['']();
@@ -567,12 +534,9 @@ export class StudentVideoComponent implements OnInit, AfterViewInit, OnDestroy ,
   ngAfterViewInit(): void {
     this.route.queryParams.subscribe(next => {
        this.link = window?.location?.href?.split('#')[0] + '#/' + 'student/login?roomid=' + next?.roomid + '&room=' + next?.room;
-      //this.link = 'https://www.monetlive.com/beta/' + '#/' + 'student/login?roomid=' + next?.roomid + '&room=' + next?.room;
       this.param = next;
       this.ss.generateSocket();
       if (this.dynamicLink) {
-        // this.subSession = new StateSubscription(`ws://localhost:8188/`, this.param.id, parseInt(this.param.room, 10), this.ss.socket);
-        // this.subSession = new StateSubscription(`ws://localhost:8188/`, this.param.id, parseInt(this.param.room, 10), this.ss.socket);
         this.subSession = new StateSubscription(`wss://www.monetlive.com/${this.dynamicLink}/rtc/`, this.param.id, parseInt(this.param.room, 10), this.ss.socket);
         this.subSession.start();
         this.managePublisher();
@@ -589,10 +553,6 @@ export class StudentVideoComponent implements OnInit, AfterViewInit, OnDestroy ,
       console.log('State Subscription (remote) : ', user);
       this.getSubscribedUsers(type, stream, sub, slot, mid, user);
     });
-  /*  this.subSession.on('remote', ({type, stream, slot, mid, sub, user}) => {
-      console.log('State Subscription (remote) : ', user);
-      this.getSubscribedUsers(type, stream, sub, slot, mid, user);
-    });*/
     this.studentEmit.emit(this.studentsList);
   }
 
@@ -608,10 +568,6 @@ export class StudentVideoComponent implements OnInit, AfterViewInit, OnDestroy ,
     this.bhvSub.fullScreen$.subscribe((data: any) => {
       this.fullScreen = data;
       if (data) {
-        // this.publisherStreamHandler(this.moderatorStream);
-        // if (vid && vid instanceof HTMLVideoElement) {
-        //    [vid.width, vid.height, vid.muted, vid.autoplay, vid.srcObject] = [300, 300, false, true, this.moderatorStream];
-        // }
       }
     });
     this.bhvSub.screenShare$.subscribe((data: any) => {

@@ -1,9 +1,9 @@
-<div fxLayout="row" fxFill>
+<div fxLayout="row" fxFill style="overflow-x: hidden;">
   <div fxLayout="column" fxFlex="18">
-    <app-sidenav [updateSideNav]="scheduleEmit"  (switchTab)="swicthTab($event)"></app-sidenav>
+    <app-sidenav [updateSideNav]="scheduleEmit" [plan]="plan" (switchTab)="swicthTab($event)"></app-sidenav>
   </div>
   <div fxLayout="column" fxFlex="82" fxLayoutGap="5px" style="background: white">
-    <app-profile-topbar fxFlex="8" (scheduleEmit)="scheduleEmit = $event;"></app-profile-topbar>
+    <app-profile-topbar fxFlex="8" (scheduleEmit)="scheduleEmit = $event;" (planTypeData)="planData($event)"></app-profile-topbar>
     <div fxFlex="92">
       <router-outlet></router-outlet>
     </div>

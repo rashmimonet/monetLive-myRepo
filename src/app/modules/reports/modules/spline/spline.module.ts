@@ -31,7 +31,7 @@ const routes: Routes = [{
     MatChipsModule,
     RouterModule.forChild(routes),
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [DashboardService, DatePipe]
 })

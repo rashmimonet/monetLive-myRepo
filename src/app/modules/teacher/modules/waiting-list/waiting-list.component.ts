@@ -62,6 +62,9 @@ export class WaitingListComponent implements OnInit {
       this.ss.socket.emit('join-response', {join: [{uuid: user.id, sid: user.socketId, confirmed: user.action}]});
       this.bhvSub.obRemoveFromWaitingList({userName: user.name, userId: user.id, socketId: null});
     }
+    if (this.users.length < 1) {
+      this.dialogRef.close();
+    }
   }
 
   action(i: number): void {

@@ -102,9 +102,9 @@ termCondition: any = true;
       
       // notification api added by me
       // if(data){
-       this.as.getApiStatic(`notification?email=${data.email}`).subscribe((data: any) => {
-        // console.log('notification',data.data);
-    })
+    //    this.as.getApiStatic(`notification?email=${data.email}`).subscribe((data: any) => {
+    //     // console.log('notification',data.data);
+    // })
   // }
       // this.gpi.loginFunc(this.form.value, 'static');
     } else {

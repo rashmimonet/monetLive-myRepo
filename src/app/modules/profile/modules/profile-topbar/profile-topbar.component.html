@@ -5,29 +5,32 @@
     <button mat-raised-button btnStyle (click)="hostMeeting()" [disabled]="planType === 'expired'">Meet Now</button>
   </div>
   <div fxLayout="row" fxFlex="20" fxLayoutAlign="space-around center" fxLayoutGap="10px" Height>
-
+<!-- <div style="border: 2px solid aqua">{{notifications | json}}</div> -->
     <!-- Notification through socket connection -->
-    <!-- <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{notification}}
-      matBadgeColor="warn" matBadgeSize="small" [matMenuTriggerFor]="notificationMenu"> notifications </span>
+    <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{notification}}
+      matBadgeColor="warn" matBadgeSize="small" [matBadgeHidden]="hideMatBadge" [matMenuTriggerFor]="notificationMenu"> notifications </span>
     <mat-menu #notificationMenu="matMenu">
-    
       <div *ngIf="notification !== 0">
         <h3 class="msg">Notification
-          <span style="float: right !important;"><button mat-flat-button >Mark all as read</button>
+          <span style="float: right !important;"><button *ngIf="notification > 1" (click)="markAllAsRead($event)" style="border: none; background: transparent;">Mark all as
+            read</button>
           </span>
         </h3>
         <hr>
         <div *ngFor="let notifications of notifications;" class="wrapNotification">
           <mat-icon style="font-size: 9px; color: red;">fiber_manual_record</mat-icon>
-          {{notifications.message | titlecase}}
+          {{notifications.message}}
+          <span><button mat-icon-button (click)="markAsRead(notifications)">
+            <mat-icon style="font-size: 15px;">visibility</mat-icon>
+          </button></span>
         </div>
       </div>
-      <div *ngIf="notification === 0" style="text-align: center; margin-top: 10%;">
+      <div *ngIf="notification === 0" style="text-align: center; margin-top: 7%;">
         No Notifications
       </div>
-    </mat-menu> -->
+    </mat-menu>
 
-    <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{badge}}
+    <!-- <span class="material-icons hide-text profile-topbar" pointer style="color: #33387A" matBadge={{badge}}
       matBadgeColor="warn" matBadgeSize="small" [matMenuTriggerFor]="notificationMenu"> notifications </span>
     <mat-menu #notificationMenu="matMenu">
       <p style="text-align: center; margin-top: 10%;">{{msg}}</p>
@@ -46,7 +49,7 @@
             </button></span>
         </div>
       </div>
-    </mat-menu>
+    </mat-menu> -->
 
     <span title-navy14-400 title="{{userDetails?.name | titlecase}}" style="font-size: 16px !important; font-weight: 500; white-space: nowrap;
     width:40%;

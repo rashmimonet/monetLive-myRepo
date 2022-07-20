@@ -1,160 +1,10 @@
 $shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 
-[imgDiv] {
-  margin-left: 15%;
-  position: relative;
-  background: #e1e1e1;
-  width: 115px;
-  height: 115px;
-  border-radius: 50%;
-  object-fit: contain;
-}
 [planName] {
   font-size: 20px;
   background: lightgrey;
   padding: 5px 20px;
   border-radius: 20px;
-}
-[imgs] {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-position: center;
-}
-
-[RemoveBtn] {
-  position: absolute;
-  width: 115px;
-  height: 115px;
-  border-radius: 50%;
-  top: 0;
-  color: #000000;
-  align-items: center;
-  justify-content: center;
-  z-index: 99;
-  cursor: pointer;
-}
-
-.removebtnhoverR {
-  display: none !important;
-}
-
-.removebtnHover {
-  display: block;
-
-  [imgs] {
-    opacity: 0.3;
-  }
-}
-
-[addPhoto] {
-  cursor: pointer;
-  position: absolute;
-  right: 0%;
-  top: 65%;
-  color: #3f51b5;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #FFFFFF;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-}
-
-[detailsDiv] {
-  border-radius: 5px;
-  background: #F6F7FB;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 21px;
-  color: #33387A;
-  overflow-y: auto;
-
-  input {
-    width: 80%;
-    height: 10%;
-    border: 1px solid grey;
-    padding: 15px;
-    border-radius: 5px;
-    color: #000000;
-  }
-
-  input:not([type='email']) {
-    text-transform: capitalize;
-  }
-.help-block{
-  margin-left: -1050%;
-}
-::ng-deep .mat-form-field-infix{
-  width:168px !important;
-}
-  .mat-radio-group {
-    font-size: 14px !important;
-    color: #33387A;
-    text-transform: capitalize;
-  }
-
-  ::ng-deep .mat-radio-outer-circle {
-    border-color: #bec0c8 !important;
-
-  }
-  ::ng-deep .mat-form-field {
-    padding: 0 10px 0 10px;
-    width: 80%;
-  }
-  ::ng-deep .mat-select-value {
-    color: #33387A;
-
-  }
-}
-
-.inputEnabled {
-  ::ng-deep .mat-radio-button .mat-radio-label-content {
-    color: #000000 !important;
-  }
-  ::ng-deep .mat-select-value {
-    color: #000000;
-
-  }
-}
-
-
-.inputDisabled {
-  input {
-    background: #F6F7FB;
-    border: none;
-    color: #33387A;
-  }
-
-  ::ng-deep .mat-radio-label-content {
-    color: #33387A !important;
-
-  }
-}
-
-.cancelBtn {
-  border-radius: 20px;
-  width: 30%;
-  background: white;
-  color: black;
-}
-
-.editBtn {
-  border-radius: 20px;
-  width: 30%;
-  background: lightgray;
-  color: black;
-}
-
-.submitBtn {
-  border-radius: 20px;
-  width: 30%;
-  background: #3f51b5;
-  color: white;
 }
 
 [btnCard] {
@@ -191,8 +41,6 @@ $shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 }
 
 [cardsBody] {
-  //width: 85%;
-  //overflow: auto;
   flex-wrap: wrap;
   gap: 20px;
   padding-bottom: 10px;
@@ -230,11 +78,6 @@ input {
 }
 
 .container::-webkit-scrollbar { display: none;}
-
-/*::-webkit-scrollbar {
-  width: 10px;
-  background: red;
-}*/
 
 #cards::-webkit-scrollbar {
   width: 4px;

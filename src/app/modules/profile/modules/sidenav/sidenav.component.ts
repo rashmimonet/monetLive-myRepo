@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import { ApiService } from 'src/app/modules/shared/services/api.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -9,9 +10,14 @@ export class SidenavComponent implements OnInit, OnChanges {
   selectedTab: any = 0;
   displOptions: any = false;
   @Input() updateSideNav: any;
+  // planType: any;
+  // plan: any;
+  // userDetails: any = JSON.parse(localStorage.getItem('userDetails') || '{}');
+  email: any;
   @Input() set scheduleEmit(val: any) {
    console.log(val);
   }
+  @Input() plan: any;
   @Output() switchTab = new EventEmitter();
 
   tabs = [
@@ -73,9 +79,11 @@ export class SidenavComponent implements OnInit, OnChanges {
     },
   ];
 
-  constructor() { }
+  constructor(private as: ApiService,) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+      console.log('Input value', this.plan);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes?.updateSideNav && changes?.updateSideNav.currentValue?.status === true) {
@@ -84,18 +92,16 @@ export class SidenavComponent implements OnInit, OnChanges {
   }
 
   nav(tabType: any, tabVal: any, tabNumber: any, tabIndex: any, tabOption: any, tabOptionIndex: number): void {
-    // debugger
-    // console.log(tabType, tabVal, tabNumber, tabIndex, tabOption, tabOptionIndex);
+    // if () {
+      // debugger
     this.selectedTab = tabIndex;
     this.tabs[0].tabName.map((tab: any) => { 
       if (tab.value === tabVal) {
         tab.Status = !tab.Status;
-        // console.log('status', tab.Status);
-        
+        console.log('status', tab.Status);
         if (tabOption !== false) {
           tab.Options[0].status = !tab.Options[0].status;
-          // console.log('options', tab.Options[0].status);
-          
+          // console.log('options', tab.Options[0].status);  
         }
       }
       else {
