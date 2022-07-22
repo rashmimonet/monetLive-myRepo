@@ -138,7 +138,7 @@ export class AccountDetailsComponent implements OnInit {
     }
   }
   updateApi = (data: any) => {
-    this.api.putApi('updateUser', data).subscribe((next) => {
+    this.api.putApiStatic('updateUser', data).subscribe((next) => {
       // console.log('update', next);
 
       if (!next.error) {

@@ -79,7 +79,7 @@ export class AddEventComponent implements OnInit {
       } else {
         this.chipError = '';
         this.emailids.push(event.value.trim());
-        console.log(this.emailids)
+        // console.log(this.emailids)
         this.eventForm.controls['attendees'].setValue(this.emailids);
       }
     }

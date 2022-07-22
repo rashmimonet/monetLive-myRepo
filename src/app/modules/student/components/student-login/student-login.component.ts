@@ -15,6 +15,7 @@ import { MatDialog } from "@angular/material/dialog";
 declare function fetchAvailableInstance(link: string, ip: string): any;
 
 declare var mediaDev: any;
+declare var studentStream: any;
 
 @Component({
   selector: 'app-student-login',
@@ -169,6 +170,7 @@ export class StudentLoginComponent implements OnInit, AfterViewInit, OnDestroy {
             this.openDialogBox();
           });
           mediaDev.on('media', async (media: any) => {
+            studentStream = media;
             this.case = 2;
             this.changeDetectorRef.detectChanges();
             const vid = document.getElementById('studentStream') as HTMLVideoElement;

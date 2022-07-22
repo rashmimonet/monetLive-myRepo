@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {LocationStrategy} from "@angular/common";
+import { SocketService } from 'src/app/modules/shared/services/socket.service';
+import { ScriptLoadService } from 'src/app/modules/shared/services/script-load.service';
+declare let socket: any;
 
 @Component({
   selector: 'app-request-rejected',
@@ -8,7 +11,10 @@ import {LocationStrategy} from "@angular/common";
 })
 export class RequestRejectedComponent implements OnInit {
 
-  constructor(private location: LocationStrategy) {
+  constructor(private location: LocationStrategy,
+    private socketService: SocketService,
+    private sl: ScriptLoadService,) {
+    
   }
 
   ngOnInit(): void {
@@ -16,6 +22,8 @@ export class RequestRejectedComponent implements OnInit {
     this.location.onPopState(() => {
       history.pushState(null, null, window.location.href);
     });
+    socket.close();
+    this.socketService.disconnectSocket();
   }
 
 }

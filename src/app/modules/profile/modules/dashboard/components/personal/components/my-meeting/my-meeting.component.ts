@@ -44,7 +44,7 @@ export class MyMeetingComponent implements OnInit {
     this.email = this.userDetails.email;
     this.api.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
       this.planType = data.planType;
-      console.log('plan upcoming', this.planType);
+      // console.log('plan upcoming', this.planType);
       
     });
   }
@@ -77,7 +77,6 @@ export class MyMeetingComponent implements OnInit {
         this.isError = true;
         this.msg = next.message;
       }
-      
     });
   }
 

@@ -19,10 +19,11 @@
             </span>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-label p-l52 [ngStyle]="{color: option.status ? '#ffffff': '#AFB4B8'}"  title ="Your plan is {{this.plan}}" [hidden]="tab.value | matExpansionFilter: 'disable'" *ngFor="let option of tab.Options;let o_index = index;" [disabled]="plan === 'expired'" 
+        <mat-label p-l52 [ngStyle]="{color: option.status ? '#ffffff': '#AFB4B8'}"  title ="Your plan is {{this.plan}}" [hidden]="tab.value | matExpansionFilter: 'disable'" *ngFor="let option of tab.Options;let o_index = index;" 
         (click)="nav(type.value, tab.value, ind, i, true, o_index)" pointer>{{option.Name}}</mat-label>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
 </div>
 
+<!-- [disabled]="plan === 'expired'" -->

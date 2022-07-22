@@ -364,7 +364,7 @@ export class DashboardComponent implements OnInit {
       this.studentData = data;
       if ((this.studentData || '[]') && this.segmentData.length === 0) {
         this.createSegment((this.studentData || '[]'));
-        console.log('seg', this.segmentData);
+        // console.log('seg', this.segmentData);
       }
 
     })
@@ -522,7 +522,7 @@ export class DashboardComponent implements OnInit {
         return el;
       });
       this.sessionDataMinutes = this.dashService.SecArrToMinuteArr(data.overallEngagement);
-      console.log('session minute', this.sessionDataMinutes.length);
+      // console.log('session minute', this.sessionDataMinutes.length);
       
     }
     else {

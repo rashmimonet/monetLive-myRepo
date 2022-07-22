@@ -82,7 +82,7 @@ export class SidenavComponent implements OnInit, OnChanges {
   constructor(private as: ApiService,) { }
 
   ngOnInit(): void {
-      console.log('Input value', this.plan);
+      // console.log('Input value', this.plan);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -98,7 +98,7 @@ export class SidenavComponent implements OnInit, OnChanges {
     this.tabs[0].tabName.map((tab: any) => { 
       if (tab.value === tabVal) {
         tab.Status = !tab.Status;
-        console.log('status', tab.Status);
+        // console.log('status', tab.Status);
         if (tabOption !== false) {
           tab.Options[0].status = !tab.Options[0].status;
           // console.log('options', tab.Options[0].status);  

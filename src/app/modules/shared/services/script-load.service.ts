@@ -8,8 +8,8 @@ interface Scripts {
 export const ScriptList: Scripts[] = [
   // {name: 'agent', src: 'https://webrtc.monetrewards.com/web2s/proctor1.js'},
   // {name: 'user', src: `https://${environment.serverName}.monetrewards.com/many/MonetConference.js`},
-  //  {name: 'user', src: '../../../../assets/js/MonetConference.js'},
-  {name: 'user', src: 'https://www.monetlive.com/many/MonetConference.js'},
+{name: 'user', src: '../../../../assets/js/MonetConference.js'},
+  //{name: 'user', src: 'https://www.monetlive.com/many/MonetConference.js'},
   // {name: 'janus', src: `https://${environment.serverName}.monetrewards.com/many/janus.js`},
   // {name: 'janus', src: `http://localhost:8092/many/janus.js`},
   {name: 'janus', src: 'https://www.monetlive.com/many/janus.js'},

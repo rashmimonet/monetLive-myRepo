@@ -26,6 +26,7 @@ declare var SubUser: any;
 declare var StateSubscription: any;
 declare var mediaDev: any;
 declare var inSession: boolean;
+declare var studentStream: any;
 
 declare function fetchAvailableInstance(link: string, ip: string): any;
 
@@ -299,7 +300,6 @@ export class VideoPanelComponent implements OnInit, AfterViewInit, OnChanges, On
 
   managePublisher(): any {
     console.warn('ManagerPublisher');
-
     mediaDev.on('media', () => {
       //console.warn('MediaDEv.On - media :', mediaDev.mediaStream);
       this.pub = myPubUser = new PubUser(this.param.name, this.param.id, this.param.roomid, 'student', null, this.ss.socket, 'webcam', mediaDev.mediaStream, 'NaN', true);

@@ -1,6 +1,7 @@
 let socket,
   Online = true,
   dynamoIp,
+  studentStream,
   dynamoLink,
   myPubUser = null,
   inSession = true,
@@ -255,10 +256,9 @@ class PubUser {
       let info = msg['payload'];
       let webrtcCB = typeof callbacks['webrtc'] == 'function' ? callbacks['webrtc'] : noop;
       webrtcCB(info);
-      if (info.status === 'down') {
-        console.log('WebRTC is down. hanging up');
-        // hangup(info.stream);
-      }
+      // if (info.status === 'down') {
+      //   console.log('WebRTC is down. hanging up');
+      // hangup(info.stream);
     });
     socket.on('join', ({ msg }) => {
       const info = msg['payload'];
@@ -430,9 +430,9 @@ class PubUser {
       typeof localStorage.getItem('realTimeScore') === 'number'
         ? localStorage.getItem('realTimeScore')
         : null || typeof JSON.parse(localStorage.getItem('userPlanDetails'))?.realTimeScores === 'number'
-          ? JSON.parse(localStorage.getItem('userPlanDetails'))?.realTimeScores
-          : null || params.matrixScore || 5;
-    const context = this.AudioCTX = new AudioContext();
+        ? JSON.parse(localStorage.getItem('userPlanDetails'))?.realTimeScores
+        : null || params.matrixScore || 5;
+    const context = new AudioContext();
     const track = context.createMediaStreamSource(stream);
     const gainNode = context.createGain();
     const analyzer = context.createAnalyser();
@@ -442,7 +442,7 @@ class PubUser {
     const bufferLength = analyzer.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     let interval;
-    interval = this.speakingInterval = setInterval(() => {
+    interval = setInterval(() => {
       if (this.audio) {
         const speakingValue = this.getSpeakingThreshold(stream, analyzer, dataArray);
         if (speakingValue && speakingValue > 5) {
@@ -498,8 +498,7 @@ class PubUser {
       };
       send(msg);
     };
-    pc['audio'].addTrack(stream.getAudioTracks()[0]);
-    // pc['audio'].addStream(stream);
+    pc['audio'].addStream(stream);
     pc['audio'].ontrack = (event) => {
       if (!event.streams) return;
       const remoteCB = typeof callbacks['remote'] === 'function' ? callbacks['remote'] : noop;
@@ -749,7 +748,7 @@ class PubUser {
             from: this.user.uuid,
             roomid: this.user.roomid,
           }),
-        3000
+        5000
       );
     });
   }
@@ -879,14 +878,6 @@ class PubUser {
     switch (type) {
       case 'webcam':
         mediaDev.stop();
-        if(this.speakingInterval) {
-          clearInterval(this.speakingInterval);
-          this.speakingInterval = null;
-        }
-        if(this.AudioCTX) {
-          this.AudioCTX.close().then(() => console.log("Publisher audio context close success."));
-          this.AudioCTX = null;
-        }
         this.hangup();
         break;
       case 'screen':
@@ -948,7 +939,7 @@ class StateSubscription {
 
   start() {
     Janus.init({
-      debug: false,
+      debug: true,
       callback: () => {
         this.janus = new Janus({
           server: this.server,
@@ -987,12 +978,12 @@ class StateSubscription {
                 console.log('The client seems to be slow. uplink : ', uplink, ' -:- lost: ', lost, ' -:- mid: ', mid);
                 Janus.warn(
                   'Janus reports problems ' +
-                  (uplink ? 'sending' : 'receiving') +
-                  ' packets on mid ' +
-                  mid +
-                  ' (' +
-                  lost +
-                  ' lost packets)'
+                    (uplink ? 'sending' : 'receiving') +
+                    ' packets on mid ' +
+                    mid +
+                    ' (' +
+                    lost +
+                    ' lost packets)'
                 );
               },
               onmessage: (msg, jsep) => {
@@ -1104,13 +1095,13 @@ class StateSubscription {
                         // This is a "no such room" error: give a more meaningful description
                         Janus.log(
                           'Apparently room' +
-                          this.myroom +
-                          ' (the one this demo uses as a test room) ' +
-                          'does not exist...Do you have an updated <code>janus.plugin.videoroom.cfg' +
-                          'configuration file? If not, make sure you copy the details of room' +
-                          this.myroom +
-                          ' ' +
-                          'from that sample in your current configuration file, then restart Janus and try again.'
+                            this.myroom +
+                            ' (the one this demo uses as a test room) ' +
+                            'does not exist...Do you have an updated <code>janus.plugin.videoroom.cfg' +
+                            'configuration file? If not, make sure you copy the details of room' +
+                            this.myroom +
+                            ' ' +
+                            'from that sample in your current configuration file, then restart Janus and try again.'
                         );
                       } else {
                         Janus.error(msg['error']);
@@ -1136,9 +1127,9 @@ class StateSubscription {
                     $('#myvideo').hide();
                     $('#videolocal').append(
                       '<div class="no-video-container">' +
-                      '<i class="fa fa-video-camera fa-5 no-video-icon" style="height: 100%;"></i>' +
-                      '<span class="no-video-text" style="font-size: 16px;">Video rejected, no webcam</span>' +
-                      '</div>'
+                        '<i class="fa fa-video-camera fa-5 no-video-icon" style="height: 100%;"></i>' +
+                        '<span class="no-video-text" style="font-size: 16px;">Video rejected, no webcam</span>' +
+                        '</div>'
                     );
                   }
                 }
@@ -1201,9 +1192,9 @@ class StateSubscription {
           ) {
             Janus.debug(
               'Publisher is using ' +
-              stream.codec.toUpperCase +
-              ", but Safari doesn't support it: disabling video stream #" +
-              stream.mindex
+                stream.codec.toUpperCase +
+                ", but Safari doesn't support it: disabling video stream #" +
+                stream.mindex
             );
             continue;
           }
@@ -1225,10 +1216,10 @@ class StateSubscription {
                 this.feeds[slot] = stream.id;
                 this.feedStreams[stream.id].slot = slot;
                 this.feedStreams[stream.id].remoteVideos = 0;
-                $('#remote' + slot)
-                  .removeClass('hide')
-                  .html(stream.display)
-                  .show();
+                // $('#remote' + slot)
+                //   .removeClass('hide')
+                //   .html(stream.display)
+                //   .show();
                 break;
               }
             }
@@ -1285,9 +1276,9 @@ class StateSubscription {
             ) {
               Janus.debug(
                 'Publisher is using ' +
-                stream.codec.toUpperCase +
-                ", but Safari doesn't support it: disabling video stream #" +
-                stream.mindex
+                  stream.codec.toUpperCase +
+                  ", but Safari doesn't support it: disabling video stream #" +
+                  stream.mindex
               );
               continue;
             }
@@ -1310,10 +1301,10 @@ class StateSubscription {
                   this.feeds[slot] = stream.id;
                   this.feedStreams[stream.id].slot = slot;
                   this.feedStreams[stream.id].remoteVideos = 0;
-                  $('#remote' + slot)
-                    .removeClass('hide')
-                    .html(stream.display)
-                    .show();
+                  // $('#remote' + slot)
+                  //   .removeClass('hide')
+                  //   .html(stream.display)
+                  //   .show();
                   break;
                 }
               }
@@ -1348,12 +1339,12 @@ class StateSubscription {
       slowLink: (uplink, lost, mid) => {
         Janus.warn(
           'Janus reports problems ' +
-          (uplink ? 'sending' : 'receiving') +
-          ' packets on mid ' +
-          mid +
-          ' (' +
-          lost +
-          ' lost packets)'
+            (uplink ? 'sending' : 'receiving') +
+            ' packets on mid ' +
+            mid +
+            ' (' +
+            lost +
+            ' lost packets)'
         );
       },
       onmessage: (msg, jsep) => {
@@ -1463,10 +1454,14 @@ class StateSubscription {
   handleRemoteStreams = (track, mid, on) => {
     Janus.log('Remote track (mid=' + mid + ') ' + (on ? 'added' : 'removed') + ':', track);
     // Which publisher are we getting on this mid?
-    let sub = this.subStreams[mid];
-    let feed = this.feedStreams[sub.feed_id];
+    const sub = this.subStreams[mid];
+    const feed = this.feedStreams[sub.feed_id];
     // let uuid = this.pubID_uuid[sub.feed_id];
-    let uuid = this.feedStreams[sub.feed_id]['uuid'];
+    if (!this.feedStreams[sub.feed_id]) {
+      console.log(`There is no ${sub.feed_id} in.`, this.feedStreams);
+      return;
+    }
+    const uuid = this.feedStreams[sub.feed_id]['uuid'];
     const userContext = this.feedStreams[sub.feed_id]['user_context'];
     // Don't need to create an element for own published stream
     if (uuid === this.publisher_uuid) {
@@ -1493,21 +1488,6 @@ class StateSubscription {
             if (mst) mst.stop();
           }
         } catch (e) {}
-      }
-      $('#remotevideo' + slot + '-' + mid).remove();
-      if (track.kind === 'video' && feed) {
-        feed.remoteVideos--;
-        if (feed.remoteVideos === 0) {
-          // No video, at least for now: show a placeholder
-          if ($('#videoremote' + slot + ' .no-video-container').length === 0) {
-            $('#videoremote' + slot).append(
-              '<div class="no-video-container">' +
-              '<i class="fa fa-video-camera fa-5 no-video-icon"></i>' +
-              '<span class="no-video-text">No remote video available</span>' +
-              '</div>'
-            );
-          }
-        }
       }
       delete this.remoteTracks[mid];
       delete this.slots[mid];
@@ -1545,7 +1525,6 @@ class StateSubscription {
     } else {
       // New video track: create a stream out of it
       feed.remoteVideos++;
-      $('#videoremote' + slot + ' .no-video-container').remove();
       stream = new MediaStream();
       stream.addTrack(track.clone());
       this.remoteTracks[mid] = stream;
@@ -1678,6 +1657,11 @@ class MediaDev {
     //   facingMode: 'user',
     //   resizeMode: 'crop-and-scale',
     // };
+    // if(this.stream) {
+    //   let newStreamCB = typeof this.callbacks['media'] === 'function' ? this.callbacks['media'] : this.noop;
+    //   newStreamCB(stream);
+    //   return;
+    // }
     if (video && audio) {
       this.mediaStreamInit(null, video);
       this.enumerate();
@@ -1716,24 +1700,13 @@ class MediaDev {
   };
 
   mediaStreamInit(audio, video, tries = 0) {
-    let aud = audio || {
-      autoGainControl: false,
-      channel: 2,
-      echoCancellation: true,
-      latency: 0,
-      noiseSuppression: true,
-      sampleRate: 48000,
-      sampleSize: 16,
-      volume: 1.0,
-    };
+    let aud = audio || { echoCancellation: true, noiseSuppression: true, autoGainControl: true };
     let vid = video || { width: 160, height: 120, ratio: '4:3' };
     console.log(`User media called with constraints :`, aud, ' -:- ', vid);
     navigator.mediaDevices
       .getUserMedia({ audio: aud, video: vid })
       .then((stream) => {
         this.stream = stream;
-        /** Will modify bass and treble */
-        this.modAudio();
         let newStreamCB = typeof this.callbacks['media'] === 'function' ? this.callbacks['media'] : this.noop;
         newStreamCB(stream);
       })
@@ -1755,28 +1728,6 @@ class MediaDev {
       });
   }
 
-  modAudio = () => {
-    const audioTrack = this.stream.getAudioTracks()[0];
-    this.stream.removeTrack(audioTrack);
-    const newAudioMediaStream = new MediaStream();
-    newAudioMediaStream.addTrack(audioTrack);
-    const AudioCTX = this.AudioCTX = new AudioContext();
-    const source = AudioCTX.createMediaStreamSource(newAudioMediaStream);
-    const destination = AudioCTX.createMediaStreamDestination();
-    const bassFilter = AudioCTX.createBiquadFilter();
-    bassFilter.type = 'lowshelf';
-    bassFilter.frequency.value = 200;
-    bassFilter.gain.value = -30;
-    const trebleFilter = AudioCTX.createBiquadFilter();
-    trebleFilter.type = 'highshelf';
-    trebleFilter.frequency.value = 2000;
-    trebleFilter.gain.value = -10;
-    source.connect(bassFilter);
-    bassFilter.connect(trebleFilter);
-    trebleFilter.connect(destination);
-    this.stream.addTrack(destination.stream.getAudioTracks()[0]);
-  }
-
   stop = () => {
     console.log('Stopping mediaStream.');
     if (!this.stream) return console.error('Error stopping stream. No stream initialized.');
@@ -1785,10 +1736,6 @@ class MediaDev {
       console.log('stopping track: ', track);
       track.stop();
     });
-    // if(this.AudioCTX) {
-    //   this.AudioCTX.close().then(() => console.log("audio ctx close success."));
-    //   this.AudioCTX = null;
-    // }
     // this.stream = null;
   };
 
