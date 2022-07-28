@@ -4,6 +4,7 @@ import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { ThirdPartyService } from '../../../../../../../shared/services/third-party.service';
 import { UtilityService } from "../../../../../../../shared/services/utility.service";
+import { UserdetailServiceService } from 'src/app/modules/shared/services/userdetail-service.service';
 
 @Component({
   selector: 'app-my-meeting',
@@ -32,7 +33,7 @@ export class MyMeetingComponent implements OnInit {
   msg: string;
   email: any;
   planType: any;
-  constructor(private api: ApiService, private route: Router, private tps: ThirdPartyService, private utility: UtilityService) { }
+  constructor(private api: ApiService, private route: Router, private tps: ThirdPartyService, private utility: UtilityService, private detailServ: UserdetailServiceService) { }
 
 
   ngOnInit(): void {
@@ -42,11 +43,15 @@ export class MyMeetingComponent implements OnInit {
     this.loggedInService = this.tps.isLoggedIn().service;
     this.getAllInviteRoomsData();
     this.email = this.userDetails.email;
-    this.api.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
-      this.planType = data.planType;
-      // console.log('plan upcoming', this.planType);
+    this.detailServ.myDetailMethod$.subscribe((response: any)=>{
+      this.planType = response.planType;
+    })
+
+    // this.api.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
+    //   this.planType = data.planType;
+    //   // console.log('plan upcoming', this.planType);
       
-    });
+    // });
   }
 
 

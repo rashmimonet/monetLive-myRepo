@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviourSubjectsService } from 'src/app/services/behaviour-subjects.service';
 import { ThirdPartyService } from 'src/app/modules/shared/services/third-party.service';
+import { UserdetailServiceService } from 'src/app/modules/shared/services/userdetail-service.service';
 
 declare let gapi: any;
 declare let dynamoLink: any;
@@ -58,7 +59,7 @@ export class StartMeetComponent implements OnInit {
   roomResponse: any;
 
   constructor(public dialogRef: MatDialogRef<StartMeetComponent>,  private fb: FormBuilder, private utility: UtilityService, private api: ApiService, private router: Router, 
-    private http: HttpClient, private bhvSub: BehaviourSubjectsService, private zone: NgZone, private as: ApiService,  private tps: ThirdPartyService) {
+    private http: HttpClient, private bhvSub: BehaviourSubjectsService, private zone: NgZone, private as: ApiService,  private tps: ThirdPartyService,private detailServ: UserdetailServiceService) {
     this.eventForm  = this.fb.group({
       meetingName: ['', [Validators.required, Validators.pattern(NAME_REGEX)]],
       observerEmail: [{value: '', disabled: !JSON.parse(localStorage.getItem('userPlanDetails') || '{}').observerAccess}, Validators.pattern(this.emailRegExp)],
@@ -85,11 +86,14 @@ export class StartMeetComponent implements OnInit {
   
     this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
     this.email = this.userDetails.email;
-    this.api.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any)=>{
-      this.meetingDuration  = data.data[0].meetingDuration || 0;
-      // this.observerAccess  = data.data[0].observerAccess;
-      // console.log('observe access', this.observerAccess);
+    // this.api.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any)=>{
+    //   this.meetingDuration  = data.data[0].meetingDuration || 0;
+    //   // this.observerAccess  = data.data[0].observerAccess;
+    //   // console.log('observe access', this.observerAccess);
       
+    // })
+    this.detailServ.myDetailMethod$.subscribe((response: any)=>{
+      this.meetingDuration  = response.data[0].meetingDuration || 0;
     })
     this.token = JSON.parse(localStorage.getItem('userDetails') || '{}').token || 0;
     this.api.postApi1('auth/authentication', {token: this.token} ).subscribe((data: any)=>{

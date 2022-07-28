@@ -1,6 +1,7 @@
 import { I } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserdetailServiceService } from 'src/app/modules/shared/services/userdetail-service.service';
 import { ApiService } from '../../../../../../../shared/services/api.service';
 import { UtilityService } from "../../../../../../../shared/services/utility.service";
 
@@ -73,17 +74,20 @@ export class PlanComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router, private as: ApiService, private utility: UtilityService) { }
+  constructor(private router: Router, private as: ApiService, private utility: UtilityService, private detailServ: UserdetailServiceService) { }
 
   ngOnInit(): void {
     this.user = this.as.getLocalStorage('userDetails');
     this.email = this.user.email
-    // console.log('email', this.email);
-    this.as.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
-      this.planValidity = data.planType;
-      // console.log('plan', this.planValidity);
+    this.detailServ.myDetailMethod$.subscribe((response: any)=>{
+      this.planValidity = response.planType;
       this.getPlan();
-    });
+    })
+    // this.as.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
+    //   this.planValidity = data.planType;
+    //   // console.log('plan', this.planValidity);
+    //   this.getPlan();
+    // });
 
   }
 

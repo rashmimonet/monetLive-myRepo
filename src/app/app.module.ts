@@ -38,8 +38,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
       clientId: 'd5663bf8-e35c-4004-a386-52a27ff98eb4', // client ID
-      // redirectUri: 'http://localhost:4200'// redirect URI
-      redirectUri: 'https://www.monetlive.com/'// redirect URI
+      redirectUri: 'http://localhost:4200'// redirect URI
+      // redirectUri: 'https://www.monetlive.com/'// redirect URI
     }
   });
 }

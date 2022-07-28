@@ -20,6 +20,7 @@ import {ThirdPartyService} from '../../../../shared/services/third-party.service
 import {UtilityService} from "../../../../shared/services/utility.service";
 import {HttpClient} from "@angular/common/http";
 import {BehaviourSubjectsService} from "../../../../../services/behaviour-subjects.service";
+import { UserdetailServiceService } from 'src/app/modules/shared/services/userdetail-service.service';
 
 declare let gapi: any;
 
@@ -71,7 +72,9 @@ export class CalendarComponent implements OnInit, OnChanges {
   email: any;
   meetingDuration: any;
 
-  constructor(private dialog: MatDialog, private zone: NgZone, private api: ApiService, private route: ActivatedRoute, private tps: ThirdPartyService, private utility: UtilityService, private http: HttpClient, private bhvSub: BehaviourSubjectsService) {
+  constructor(private dialog: MatDialog, private zone: NgZone, private api: ApiService, private route: ActivatedRoute, 
+              private tps: ThirdPartyService, private utility: UtilityService, private http: HttpClient, 
+              private bhvSub: BehaviourSubjectsService, private detailServ: UserdetailServiceService) {
   }
 
   ngOnInit(): void {
@@ -85,9 +88,12 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
     this.email = this.userDetails.email;
 
-    this.api.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
-      this.meetingDuration = data.data[0].meetingDuration;
-    });
+    this.detailServ.myDetailMethod$.subscribe((response: any)=>{
+      this.meetingDuration = response.data[0].meetingDuration;
+    })
+    // this.api.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
+    //   this.meetingDuration = data.data[0].meetingDuration;
+    // });
 
     this.refreshEvents();
   }

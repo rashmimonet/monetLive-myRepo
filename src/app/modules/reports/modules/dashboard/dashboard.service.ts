@@ -37,7 +37,7 @@ export class DashboardService {
   }
 
   updateArr(loopVal: number, selection: number, dashInstance: any): any { // calcPercentage() -> calculation of percentages
-
+debugger
     if (loopVal === 0 || loopVal === 3) {
       const args = [dashInstance.pieChartData[selection].hi_percentage[loopVal].toFixed(2),
         dashInstance.pieChartData[selection].med_percentage[loopVal].toFixed(2),
@@ -46,11 +46,13 @@ export class DashboardService {
       if (loopVal === 0) {
         // dashInstance.percentArr.push(...args);
         dashInstance.percentArr = args;
+        console.log('service eng', dashInstance.percentArr);
         return args;
       }
       else if (loopVal === 3) {
         // dashInstance.moodpercentArr.push(...args);
         dashInstance.moodpercentArr = args;
+        console.log('service mood', dashInstance.moodpercentArr);
         return args;
       }
     }
@@ -62,11 +64,14 @@ export class DashboardService {
       if (loopVal === 1) {
         //  dashInstance.segUsersArr.push(...args);
         dashInstance.segUsersArr = args;
+        console.log('service eng count', dashInstance.segUsersArr);
+        
         return args;
       }
       else if (loopVal === 2) {
         //  dashInstance.moodsegUsersArr.push(...args);
         dashInstance.moodsegUsersArr = args;
+        console.log('service mood count', dashInstance.moodsegUsersArr);
         return args;
       }
     }

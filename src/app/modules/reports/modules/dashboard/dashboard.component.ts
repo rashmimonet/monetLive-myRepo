@@ -248,6 +248,7 @@ import { SocketService } from "../../../shared/services/socket.service";
 import { ReportServiceService } from '../../report-service.service';
 import { HttpClient } from '@angular/common/http';
 import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
+import { UserdetailServiceService } from 'src/app/modules/shared/services/userdetail-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -348,7 +349,8 @@ export class DashboardComponent implements OnInit {
     private zone: NgZone,
     private utility: UtilityService,
     private repo: ReportServiceService,
-    private http: HttpClient
+    private http: HttpClient,
+    private detailServ: UserdetailServiceService
   ) {
     this.route.queryParams.subscribe(next => {
       if (next) {
@@ -391,7 +393,11 @@ export class DashboardComponent implements OnInit {
 
     this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
     this.email = this.userDetails.email;
-
+    this.detailServ.myDetailMethod$.subscribe((response: any)=>{
+      // this.linkEnabled = response.data[0].postMeetingAnalytics;
+      console.log('dash ser', response);
+      
+    })
     this.api.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
       this.linkEnabled = data.data[0].postMeetingAnalytics;
     })

@@ -13,6 +13,7 @@ import { io } from 'socket.io-client';
 import { I } from '@angular/cdk/keycodes';
 import { SocketService } from 'src/app/modules/shared/services/socket.service';
 import { WebsocketService } from 'src/app/services/websocket.service';
+import { UserdetailServiceService } from 'src/app/modules/shared/services/userdetail-service.service';
 
 
 
@@ -90,7 +91,8 @@ export class ProfileTopbarComponent implements OnInit {
     private zone: NgZone,
     private utility: UtilityService,
     private ss: SocketService,
-    private webss: WebsocketService) {
+    private webss: WebsocketService,
+    private detailServ: UserdetailServiceService) {
     this.initialSocket();
   }
   initialSocket(): any {
@@ -130,6 +132,7 @@ export class ProfileTopbarComponent implements OnInit {
     // my changes
     this.email = this.userDetails.email;
     this.as.getApiStatic(`userplanDetails?email=${this.email}`).subscribe((data: any) => {
+      this.detailServ.myMethod(data);
       this.planType = data.planType;
       this.planTypeEmitter(this.planType);
       if (this.planType !== 'expired') {
